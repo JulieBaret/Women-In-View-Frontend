@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import fetchApi from '../fecthApi';
+import fetchApi from '../fetchApi';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {

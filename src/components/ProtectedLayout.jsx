@@ -3,7 +3,6 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import fetchApi from '../fetchApi';
 import { useAuth } from '../contexts/AuthContext';
-import fetchApi from '../fetchApi';
 
 export default function DefaultLayout() {
 	const { user, setUser } = useAuth();
