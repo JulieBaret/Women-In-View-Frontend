@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const fetchApi = Axios.create({
-	baseURL: "http://localhost:8000/api",
+	baseURL: "http://localhost:80/api",
 	withCredentials: true,
 	//cookies will be sent along with the requests, allowing authenticated requests
 	headers: {

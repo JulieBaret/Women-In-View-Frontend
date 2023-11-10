@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
 	// csrf token generation for guest methods
 	const csrfToken = async () => {
-		await fetchApi.get('http://localhost:8000/sanctum/csrf-cookie');
+		await fetchApi.get('http://localhost:80/sanctum/csrf-cookie');
 		return true;
 	};
 
