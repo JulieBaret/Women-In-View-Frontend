@@ -12,9 +12,6 @@ export default function Profile() {
 					Name: {user.name}
 				</h5>
 				<p className="font-normal text-gray-700">Email: {user.email}</p>
-				<p className="font-normal text-gray-700">
-					Created At: {user.created_at}
-				</p>
 			</div>
 		</>
 	);
