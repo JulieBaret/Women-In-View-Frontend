@@ -16,7 +16,7 @@ export default function Register() {
 			name: name.value,
 			email: email.value,
 			password: password.value,
-			password_confirmation: cpassword.value,
+			// password_confirmation: cpassword.value,
 		};
 		try {
 			const resp = await fetchApi.post('/register', body);
@@ -123,7 +123,7 @@ export default function Register() {
 									<p className="text-sm text-red-600">{passwordError}</p>
 								)}
 							</div>
-							<div>
+							{/* <div>
 								<label
 									htmlFor="cpassword"
 									className="block mb-2 text-sm font-medium text-dark">
@@ -137,7 +137,7 @@ export default function Register() {
 									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
 									required
 								/>
-							</div>
+							</div> */}
 
 							<button
 								type="submit"
