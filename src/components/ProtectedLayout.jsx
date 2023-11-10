@@ -12,9 +12,11 @@ export default function DefaultLayout() {
 		(async () => {
 			try {
 				const resp = await fetchApi.get('/user');
-				if (resp.status === 200) {
-					setUser(resp.data.data);
-				}
+				// TO DO: resolve this
+				// if (resp.status === 200) {
+				// 	console.log("resp de protected", resp);
+				// 	setUser(resp.data.user);
+				// }
 			} catch (error) {
 				if (error.response.status === 401) {
 					localStorage.removeItem('user');
@@ -102,7 +104,6 @@ export default function DefaultLayout() {
 							<li>
 								<a
 									onClick={handleLogout}
-									href="#"
 									className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
 									Logout
 								</a>
