@@ -1,30 +1,12 @@
 import React, { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import fetchApi from '../fetchApi';
+import Axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function DefaultLayout() {
-	const { user, setUser } = useAuth();
+	const { user, token } = useAuth();
 
-	// check if user is logged in or not from server
-	useEffect(() => {
-		(async () => {
-			try {
-				const resp = await fetchApi.get('/user');
-				// TO DO: resolve this
-				// if (resp.status === 200) {
-				// 	console.log("resp de protected", resp);
-				// 	setUser(resp.data.user);
-				// }
-			} catch (error) {
-				if (error.response.status === 401) {
-					localStorage.removeItem('user');
-					window.location.href = '/';
-				}
-			}
-		})();
-	}, []);
 
 	// if user is not logged in, redirect to login page
 	if (!user) {
@@ -34,9 +16,16 @@ export default function DefaultLayout() {
 	// logout user
 	const handleLogout = async () => {
 		try {
-			const resp = await fetchApi.post('/logout');
+			const resp = await Axios.create({
+				baseURL: "http://localhost:80/api/",
+				withCredentials: true,
+				headers: {
+					"Authorization": `Bearer ${token}`
+				},
+			}).post('/logout');
 			if (resp.status === 200) {
 				localStorage.removeItem('user');
+				localStorage.removeItem('token');
 				window.location.href = '/';
 			}
 		} catch (error) {
@@ -102,11 +91,11 @@ export default function DefaultLayout() {
 							</li>
 
 							<li>
-								<a
+								<button
 									onClick={handleLogout}
 									className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
 									Logout
-								</a>
+								</button>
 							</li>
 						</ul>
 					</div>
