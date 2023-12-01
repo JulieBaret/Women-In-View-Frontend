@@ -4,7 +4,7 @@ import fetchApi from '../fetchApi';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Register() {
-	const { setUser } = useAuth();
+	const { setUser, setToken } = useAuth();
 	const [nameError, setNameError] = React.useState('');
 	const [emailError, setEmailError] = React.useState('');
 	const [passwordError, setPasswordError] = React.useState('');
@@ -22,6 +22,7 @@ export default function Register() {
 			const resp = await fetchApi.post('/register', body);
 			if (resp.status === 200) {
 				setUser(resp.data.user);
+				setToken(resp.data.token);
 				return <Navigate to="/profile" />;
 			}
 		} catch (error) {

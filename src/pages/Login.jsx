@@ -4,7 +4,7 @@ import fetchApi from '../fetchApi';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {
-	const { setUser, csrfToken } = useAuth();
+	const { setUser, setToken, csrfToken } = useAuth();
 	const [error, setError] = React.useState(null);
 
 	// login user
@@ -20,6 +20,7 @@ export default function Login() {
 			const resp = await fetchApi.post('/login', body);
 			if (resp.status === 200) {
 				setUser(resp.data.user);
+				setToken(resp.data.token);
 				return <Navigate to="/profile" />;
 			}
 		} catch (error) {
