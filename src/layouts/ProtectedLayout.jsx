@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
+import { useState } from 'react';
+import Loading from '../components/Loading';
 
 export default function DefaultLayout() {
 	const { user, token } = useAuth();
-
+	const [isLoading, setIsLoading] = useState(false);
 
 	// if user is not logged in, redirect to login page
 	if (!user) {
@@ -15,6 +17,7 @@ export default function DefaultLayout() {
 
 	// logout user
 	const handleLogout = async () => {
+		setIsLoading(true);
 		try {
 			const resp = await Axios.create({
 				baseURL: "http://localhost:80/api/",
@@ -37,6 +40,7 @@ export default function DefaultLayout() {
 			<nav className="bg-gradient-to-r from-primary to-secondary py-2">
 				<div className="container flex flex-wrap items-center justify-between mx-auto">
 						<img
+							// TODO : add logo
 							src=""
 							className="h-6 mr-3"
 							alt=""
@@ -71,11 +75,14 @@ export default function DefaultLayout() {
 								</NavLink>
 							</li>
 							<li>
-								<button
-									onClick={handleLogout}
-									className="block py-2 pl-3 pr-4 hover:underline underline-offset-8">
-									Logout
-								</button>
+								<div className="flex w-[110px]">
+									<button
+										onClick={handleLogout}
+										className="block py-2 pl-3 pr-4 hover:underline underline-offset-8">
+										Logout
+									</button>
+									{isLoading && <Loading />}
+								</div>
 							</li>
 						</ul>
 					</div>
