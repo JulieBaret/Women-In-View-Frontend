@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Button from '../components/Button';
 import Heading from '../components/Heading';
+import HiddenInput from '../components/HiddenInput';
 import EyeIcon from '../components/icons/EyeIcon';
+import Input from '../components/Input';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Profile() {
@@ -51,10 +53,16 @@ export default function Profile() {
 
 	const updatePassword = async (e) => {
 		e.preventDefault();
-		if(isPasswordMatching){
+		if (isPasswordMatching) {
 			console.log(password);
 			// TODO : send API request
 		}
+	}
+
+	const deleteUser = async (e) => {
+		e.preventDefault();
+		console.log("delete user");
+		// TODO : send API request and relocation to /home
 	}
 
 	return (
@@ -62,22 +70,16 @@ export default function Profile() {
 			<Heading as="h1" variant="large">Profile</Heading>
 			<div className='flex flex-col gap-6'>
 				<Heading as="h2" variant="medium">Edit Profile</Heading>
-				<form className='flex flex-col' onSubmit={updateUser}>
-					<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-						Username
-					</label>
-					<input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" value={userDetails.name} onChange={(e) => {
+				<form className='flex flex-col gap-2' onSubmit={updateUser}>
+					<Input id="username" type="text" hasLabel={true} label="Username" value={userDetails.name} onChange={(e) => {
 						setUserDetails({ ...userDetails, name: e.target.value })
 					}} />
-					<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-						Email
-					</label>
-					<input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="mail" value={userDetails.email} onChange={(e) => {
+					<Input id="email" type="mail" hasLabel={true} label="Email" value={userDetails.email} onChange={(e) => {
 						setUserDetails({ ...userDetails, email: e.target.value })
 					}} />
 					<div className="flex flex-row self-end gap-2 mt-6">
-						<Button type="button" variant="cancel" value="Cancel" onClick={handleReset}/>
-						<Button value="Save" variant="secondary"/>
+						<Button type="button" variant="cancel" value="Cancel" onClick={handleReset} />
+						<Button value="Save" variant="secondary" />
 					</div>
 				</form>
 			</div>
@@ -85,39 +87,22 @@ export default function Profile() {
 			<div className='flex flex-col gap-6'>
 				<Heading as="h2" variant="medium">Change password</Heading>
 				<form className='flex flex-col gap-4' onSubmit={updatePassword}>
-					<div>
-						<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-							New password
-						</label>
-						<div className="flex items-center justify-content gap-2">
-							<input onChange={(e) => setPassword(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type={`${isNewPasswordVisible ? 'text' : 'password'}`} value={password} placeholder='********' />
-							<input type="checkbox" onChange={(e) => setIsNewPasswordVisible(e.target.checked)} className="hidden" id="newPasswordVisibility" />
-							<label for="newPasswordVisibility"><EyeIcon isVisible={isNewPasswordVisible} width="30px" strokeColor="gray" /></label>
-						</div>
-					</div>
-					<div>
-						<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-							Confirm password
-						</label>
-						<div className="flex items-center justify-content gap-2">
-							<input onChange={(e) => setConfirmedPassword(e.target.value)} className="relative appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type={`${isConfirmedPasswordVisible ? 'text' : 'password'}`} value={confirmedPassword} placeholder='********' />
-							<input type="checkbox" onChange={(e) => setIsConfirmedPasswordVisible(e.target.checked)} className="hidden" id="confirmedPasswordVisibility" />
-							<label for="confirmedPasswordVisibility"><EyeIcon isVisible={isConfirmedPasswordVisible} width="30px" strokeColor="gray" />
-							</label>
-						</div>
-					</div>
+					<HiddenInput id="password" type={`${isNewPasswordVisible ? 'text' : 'password'}`} hasLabel={true} label="New password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" isVisible={isNewPasswordVisible} onChangeVisibility={(e) => setIsNewPasswordVisible(e.target.checked)}
+					/>
+					<HiddenInput id="confirmedPassword" type={`${isConfirmedPasswordVisible ? 'text' : 'password'}`} hasLabel={true} label="Confirm password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} placeholder="********" isVisible={isConfirmedPasswordVisible} onChangeVisibility={(e) => setIsConfirmedPasswordVisible(e.target.checked)}
+					/>
 					<div>
 						{!isPasswordMatching && <p className='text-red-700 bg-red-100 w-fit px-2 py-1 rounded'>Unmatched password</p>}
 					</div>
 					<div className="flex flex-row self-end gap-2 mt-6">
-						<Button variant="secondary" value="Confirm" disabled={!isPasswordMatching || !password || !confirmedPassword}/>
+						<Button variant="secondary" value="Confirm" disabled={!isPasswordMatching || !password || !confirmedPassword} />
 					</div>
 				</form>
 			</div>
 			<hr className="bg-gray-50 h-1 w-full my-4" />
 			<div className='flex flex-col gap-6'>
 				<Heading as="h2" variant="medium">Danger Zone</Heading>
-				<form className='flex flex-col'>
+				<form onSubmit={deleteUser}>
 					<Button variant="danger" value="Delete account"/>
 				</form>
 			</div>

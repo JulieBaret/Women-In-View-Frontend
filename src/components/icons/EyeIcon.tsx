@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-    isVisible: boolean,
+    isVisible?: boolean,
     width: string,
     strokeColor: string
 }
