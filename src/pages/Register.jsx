@@ -74,14 +74,14 @@ export default function Register() {
 								<label
 									htmlFor="name"
 									className="block mb-2 text-sm font-medium text-dark">
-									Full Name
+									Username
 								</label>
 								<input
 									type="text"
 									name="name"
 									id="name"
 									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									placeholder="Jane Doe"
+									placeholder="KickA$$"
 									required
 								/>
 								{nameError && (
@@ -99,7 +99,7 @@ export default function Register() {
 									name="email"
 									id="email"
 									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									placeholder="name@company.com"
+									placeholder="name@mail.com"
 									required
 								/>
 								{emailError && (
