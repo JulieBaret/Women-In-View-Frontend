@@ -3,8 +3,8 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
-import ProtectedLayout from './components/ProtectedLayout';
-import GuestLayout from './components/GuestLayout';
+import ProtectedLayout from './layouts/ProtectedLayout';
+import GuestLayout from './layouts/GuestLayout';
 import Home from './pages/Home';
 
 const router = createBrowserRouter([

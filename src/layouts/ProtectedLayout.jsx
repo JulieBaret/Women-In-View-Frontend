@@ -36,7 +36,6 @@ export default function DefaultLayout() {
 		<>
 			<nav className="bg-gradient-to-r from-primary to-secondary py-2">
 				<div className="container flex flex-wrap items-center justify-between mx-auto">
-					<a href="" className="flex items-center">
 						<img
 							src=""
 							className="h-6 mr-3"
@@ -47,7 +46,6 @@ export default function DefaultLayout() {
 							className="self-center text-xl font-semibold whitespace-nowrap text-white">
 							Women in View
 						</NavLink>
-					</a>
 					<div>
 						<ul className="flex flex-row p-4 gap-4 text-gray-400">
 						<li>
