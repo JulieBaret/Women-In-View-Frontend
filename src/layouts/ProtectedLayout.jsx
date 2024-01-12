@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { useState } from 'react';
 import Loading from '../components/Loading';
+import ActiveNavLink from '../components/ActiveNavLink';
 
 export default function DefaultLayout() {
 	const { user, token } = useAuth();
@@ -39,40 +40,24 @@ export default function DefaultLayout() {
 		<>
 			<nav className="bg-gradient-to-r from-primary to-secondary py-2">
 				<div className="container flex flex-wrap items-center justify-between mx-auto">
-						<img
-							// TODO : add logo
-							src=""
-							className="h-6 mr-3"
-							alt=""
-						/>
-						<NavLink
-							to="/home"
-							className="self-center text-xl font-semibold whitespace-nowrap text-white">
-							Women in View
-						</NavLink>
+					<img
+						// TODO : add logo
+						src=""
+						className="h-6 mr-3"
+						alt=""
+					/>
+					<NavLink
+						to="/home"
+						className="self-center text-xl font-semibold whitespace-nowrap text-white">
+						Women in View
+					</NavLink>
 					<div>
 						<ul className="flex flex-row p-4 gap-4 text-gray-400">
-						<li>
-								<NavLink
-									to="/about"
-									className={({ isActive }) =>
-										isActive
-											? 'block py-2 pl-3 pr-4 text-white underline underline-offset-8'
-											: 'block py-2 pl-3 pr-4 hover:underline underline-offset-8'
-									}>
-									About
-								</NavLink>
+							<li>
+								<ActiveNavLink label="About" location="/about" />
 							</li>
 							<li>
-								<NavLink
-									to="/profile"
-									className={({ isActive }) =>
-										isActive
-											? 'block py-2 pl-3 pr-4 text-white underline underline-offset-8'
-											: 'block py-2 pl-3 pr-4 hover:underline underline-offset-8'
-									}>
-									Profile
-								</NavLink>
+								<ActiveNavLink label="Profile" location="/profile" />
 							</li>
 							<li>
 								<div className="flex w-[110px]">
