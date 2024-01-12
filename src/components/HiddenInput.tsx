@@ -23,7 +23,7 @@ const HiddenInput = ({ id, type, hasLabel, label, value, onChange, placeholder, 
             <div className="flex items-center justify-content gap-2">
                 <input onChange={onChange} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type={type} value={value} placeholder={placeholder} />
                 <input type="checkbox" onChange={onChangeVisibility} className="hidden" id={id} />
-                <label htmlFor={id}><EyeIcon isVisible={isVisible} width="30px" strokeColor="gray" /></label>
+                <label htmlFor={id}><EyeIcon isVisible={isVisible} strokeColor="gray" /></label>
             </div>
         </div>
     );
