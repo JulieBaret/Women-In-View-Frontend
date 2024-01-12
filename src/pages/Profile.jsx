@@ -1,6 +1,8 @@
 import { Axios } from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import Button from '../components/Button';
+import Heading from '../components/Heading';
 import EyeIcon from '../components/icons/EyeIcon';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -57,9 +59,9 @@ export default function Profile() {
 
 	return (
 		<div className='w-5/6 flex flex-col gap-10 p-20 self-center'>
-			<h1 className='text-4xl font-extrabold'>Profile</h1>
+			<Heading as="h1" variant="large">Profile</Heading>
 			<div className='flex flex-col gap-6'>
-				<h2 className="text-3xl font-bold text-gray-500">Edit profile</h2>
+				<Heading as="h2" variant="medium">Edit Profile</Heading>
 				<form className='flex flex-col' onSubmit={updateUser}>
 					<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
 						Username
@@ -74,14 +76,14 @@ export default function Profile() {
 						setUserDetails({ ...userDetails, email: e.target.value })
 					}} />
 					<div className="flex flex-row self-end gap-2 mt-6">
-						<button onClick={handleReset} className="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2">Cancel</button>
-						<input type="submit" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2" value="Save" />
+						<Button type="button" variant="cancel" value="Cancel" onClick={handleReset}/>
+						<Button value="Save" variant="secondary"/>
 					</div>
 				</form>
 			</div>
 			<hr className="bg-gray-50 h-1 w-full my-4" />
 			<div className='flex flex-col gap-6'>
-				<h2 className="text-3xl font-bold text-gray-500">Change password</h2>
+				<Heading as="h2" variant="medium">Change password</Heading>
 				<form className='flex flex-col gap-4' onSubmit={updatePassword}>
 					<div>
 						<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -108,15 +110,15 @@ export default function Profile() {
 						{!isPasswordMatching && <p className='text-red-700 bg-red-100 w-fit px-2 py-1 rounded'>Unmatched password</p>}
 					</div>
 					<div className="flex flex-row self-end gap-2 mt-6">
-						<input type="submit" className="focus:outline-none text-white bg-purple-700 disabled:opacity-50 disabled:hover:bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2" value="Confirm" disabled={!isPasswordMatching || !password || !confirmedPassword}/>
+						<Button variant="secondary" value="Confirm" disabled={!isPasswordMatching || !password || !confirmedPassword}/>
 					</div>
 				</form>
 			</div>
 			<hr className="bg-gray-50 h-1 w-full my-4" />
 			<div className='flex flex-col gap-6'>
-				<h2 className="text-3xl font-bold text-gray-500">Danger zone</h2>
+				<Heading as="h2" variant="medium">Danger Zone</Heading>
 				<form className='flex flex-col'>
-					<input type="submit" className=" w-1/2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2" value="Delete account" />
+					<Button variant="danger" value="Delete account"/>
 				</form>
 			</div>
 		</div>
