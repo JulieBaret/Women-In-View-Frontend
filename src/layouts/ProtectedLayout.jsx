@@ -73,7 +73,7 @@ export default function DefaultLayout() {
 					</div>
 				</div>
 			</nav>
-			<main className="container flex justify-center flex-col items-center mt-10">
+			<main className="container flex justify-center flex-col items-center mt-6">
 				<Outlet />
 			</main>
 		</>

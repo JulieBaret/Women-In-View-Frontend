@@ -10,7 +10,7 @@ type Props= {
 
 const Button = ({type = "submit", value, variant, disabled, onClick}: Props) => {
     const variantToClasses = {
-        primary: "",
+        primary: "bg-primary hover:bg-secondary",
         secondary: "bg-purple-700 hover:bg-purple-800 focus:ring-purple-300",
         cancel: "bg-gray-700 hover:bg-gray-800 focus:ring-gray-300",
         danger: "bg-red-700 hover:bg-red-800 focus:ring-red-300"
