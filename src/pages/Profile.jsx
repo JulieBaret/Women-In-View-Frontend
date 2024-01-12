@@ -2,6 +2,7 @@ import { Axios } from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Button from '../components/Button';
+import ErrorBanner from '../components/ErrorBanner';
 import Heading from '../components/Heading';
 import HiddenInput from '../components/HiddenInput';
 import EyeIcon from '../components/icons/EyeIcon';
@@ -92,7 +93,7 @@ export default function Profile() {
 					<HiddenInput id="confirmedPassword" type={`${isConfirmedPasswordVisible ? 'text' : 'password'}`} hasLabel={true} label="Confirm password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} placeholder="********" isVisible={isConfirmedPasswordVisible} onChangeVisibility={(e) => setIsConfirmedPasswordVisible(e.target.checked)}
 					/>
 					<div>
-						{!isPasswordMatching && <p className='text-red-700 bg-red-100 w-fit px-2 py-1 rounded'>Unmatched password</p>}
+						<ErrorBanner isError={!isPasswordMatching} error="Unmatched password" />
 					</div>
 					<div className="flex flex-row self-end gap-2 mt-6">
 						<Button variant="secondary" value="Confirm" disabled={!isPasswordMatching || !password || !confirmedPassword} />
