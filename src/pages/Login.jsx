@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import fetchApi from '../fetchApi';
 import { useAuth } from '../contexts/AuthContext';
+import Input from '../components/Input';
+import Button from '../components/Button';
 
 export default function Login() {
 	const { setUser, setToken, csrfToken } = useAuth();
@@ -31,7 +33,7 @@ export default function Login() {
 	};
 
 	return (
-		<section className="bg-gradient-to-r from-primary to-secondary">
+		<section className="bg-gradient-to-r from-primary to-secondary h-full">
 			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 				<a
 					href="#"
@@ -69,46 +71,18 @@ export default function Login() {
 						)}
 
 						<form
-							className="space-y-4 md:space-y-6"
-							action="#"
-							method="post"
+							className="space-y-4 md:space-y-6 gap-2 flex flex-col"
 							onSubmit={handleSubmit}>
-							<div>
-								<label
-									htmlFor="email"
-									className="block mb-2 text-sm font-medium text-gray-900bg-gradient-to-r from-cyan-500 to-blue-500">
-									Your email
-								</label>
-								<input
-									type="email"
-									name="email"
-									id="email"
-									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									placeholder="name@company.com"
-									required
-								/>
+							<Input id="email" label="Your email" type="email" placeholder="name@company.com" required />
+							<div className='flex flex-col gap-1'>
+								<Input id="password" label="Your password" type="password" placeholder="••••••••" required />
+								<Link
+									to="/forgot-password"
+									className="text-sm text-gray-500 hover:underline">
+									Forgot password?
+								</Link>
 							</div>
-							<div>
-								<label
-									htmlFor="password"
-									className="block mb-2 text-sm font-medium text-dark">
-									Password
-								</label>
-								<input
-									type="password"
-									name="password"
-									id="password"
-									placeholder="••••••••"
-									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									required
-								/>
-							</div>
-
-							<button
-								type="submit"
-								className="w-full text-white bg-primary hover:bg-secondary duration-100 focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-								Sign in
-							</button>
+							<Button variant="primary" value="Sign in" />
 							<p className="text-sm font-light text-gray-500">
 								Don't have an account yet?{' '}
 								<Link

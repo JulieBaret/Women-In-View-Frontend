@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import fetchApi from '../fetchApi';
 import { useAuth } from '../contexts/AuthContext';
+import Input from '../components/Input';
+import HiddenInput from '../components/HiddenInput';
+import Button from '../components/Button';
+import ErrorBanner from '../components/ErrorBanner';
 
 export default function Register() {
 	const { setUser, setToken } = useAuth();
-	const [nameError, setNameError] = React.useState('');
-	const [emailError, setEmailError] = React.useState('');
-	const [passwordError, setPasswordError] = React.useState('');
+	const [error, setError] = useState("");
+	const [isPasswordVisible, setIsPasswordVisible] = useState('');
+
 	// register user
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -26,29 +30,12 @@ export default function Register() {
 				return <Navigate to="/profile" />;
 			}
 		} catch (error) {
-			if (error.response.status === 422) {
-				console.log(error.response.data.errors);
-				if (error.response.data.errors.name) {
-					setNameError(error.response.data.errors.name[0]);
-				} else {
-					setNameError('');
-				}
-				if (error.response.data.errors.email) {
-					setEmailError(error.response.data.errors.email[0]);
-				} else {
-					setEmailError('');
-				}
-				if (error.response.data.errors.password) {
-					setPasswordError(error.response.data.errors.password[0]);
-				} else {
-					setPasswordError('');
-				}
-			}
+			setError("Please fill all the fields");
 		}
 	};
 
 	return (
-		<section className="bg-gradient-to-r from-primary to-secondary">
+		<section className="bg-gradient-to-r from-primary to-secondary h-full">
 			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 				<a
 					href="#"
@@ -66,85 +53,14 @@ export default function Register() {
 							Create and account
 						</h1>
 						<form
-							className="space-y-4 md:space-y-6"
-							action="#"
-							method="post"
-							onSubmit={handleSubmit}>
-							<div>
-								<label
-									htmlFor="name"
-									className="block mb-2 text-sm font-medium text-dark">
-									Username
-								</label>
-								<input
-									type="text"
-									name="name"
-									id="name"
-									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									placeholder="KickA$$"
-									required
-								/>
-								{nameError && (
-									<p className="text-sm text-red-600">{nameError}</p>
-								)}
-							</div>
-							<div>
-								<label
-									htmlFor="email"
-									className="block mb-2 text-sm font-medium text-dark">
-									Your email
-								</label>
-								<input
-									type="email"
-									name="email"
-									id="email"
-									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									placeholder="name@mail.com"
-									required
-								/>
-								{emailError && (
-									<p className="text-sm text-red-600">{emailError}</p>
-								)}
-							</div>
-							<div>
-								<label
-									htmlFor="password"
-									className="block mb-2 text-sm font-medium text-dark">
-									Password
-								</label>
-								<input
-									type="password"
-									name="password"
-									id="password"
-									placeholder="••••••••"
-									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									required
-								/>
-								{passwordError && (
-									<p className="text-sm text-red-600">{passwordError}</p>
-								)}
-							</div>
-							{/* <div>
-								<label
-									htmlFor="cpassword"
-									className="block mb-2 text-sm font-medium text-dark">
-									Confirm password
-								</label>
-								<input
-									type="password"
-									name="cpassword"
-									id="cpassword"
-									placeholder="••••••••"
-									className="bg-light border border-light text-dark sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-									required
-								/>
-							</div> */}
-
-							<button
-								type="submit"
-								className="w-full text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-								Create an account
-							</button>
+							className="space-y-4 md:space-y-6 flex flex-col"
+							onSubmit={handleSubmit}
+							>
+							<Input id="name" label="username" placeholder="KickA$$" required/>
+							<Input id="email" label="Email" type="email" placeholder="name@mail.com" required/>
+							<HiddenInput id="password" label="Password" placeholder="********" type={`${isPasswordVisible ? 'text' : 'password'}`} isVisible={isPasswordVisible} onChangeVisibility={(e) => setIsPasswordVisible(e.target.checked)}/>
+							<Button variant="primary" value="Create an account"/>
+							<ErrorBanner isError={error} error={error} />
 							<p className="text-sm font-light text-dark">
 								Already have an account?{' '}
 								<Link
