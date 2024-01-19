@@ -4,7 +4,6 @@ import EyeIcon from './icons/EyeIcon';
 type Props = {
     id: string,
     type: string,
-    hasLabel: boolean,
     label?: string,
     value: string,
     onChange?: () => void,
@@ -13,10 +12,10 @@ type Props = {
     onChangeVisibility?: () => void
 }
 
-const HiddenInput = ({ id, type, hasLabel, label, value, onChange, placeholder, isVisible, onChangeVisibility }: Props) => {
+const HiddenInput = ({ id, type, label, value, onChange, placeholder, isVisible, onChangeVisibility }: Props) => {
     return (
         <div className="flex flex-col gap-2">
-            {hasLabel &&
+            {label &&
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
                     {label}
                 </label>}
