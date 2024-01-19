@@ -72,10 +72,10 @@ export default function Profile() {
 			<div className='flex flex-col gap-6'>
 				<Heading as="h2" variant="medium">Edit Profile</Heading>
 				<form className='flex flex-col gap-2' onSubmit={updateUser}>
-					<Input id="username" type="text" hasLabel={true} label="Username" value={userDetails.name} onChange={(e) => {
+					<Input id="username" type="text" label="Username" value={userDetails.name} onChange={(e) => {
 						setUserDetails({ ...userDetails, name: e.target.value })
 					}} />
-					<Input id="email" type="mail" hasLabel={true} label="Email" value={userDetails.email} onChange={(e) => {
+					<Input id="email" type="mail" label="Email" value={userDetails.email} onChange={(e) => {
 						setUserDetails({ ...userDetails, email: e.target.value })
 					}} />
 					<div className="flex flex-row self-end gap-2 mt-6">
@@ -88,9 +88,9 @@ export default function Profile() {
 			<div className='flex flex-col gap-6'>
 				<Heading as="h2" variant="medium">Change password</Heading>
 				<form className='flex flex-col gap-4' onSubmit={updatePassword}>
-					<HiddenInput id="password" type={`${isNewPasswordVisible ? 'text' : 'password'}`} hasLabel={true} label="New password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" isVisible={isNewPasswordVisible} onChangeVisibility={(e) => setIsNewPasswordVisible(e.target.checked)}
+					<HiddenInput id="password" type={`${isNewPasswordVisible ? 'text' : 'password'}`} label="New password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" isVisible={isNewPasswordVisible} onChangeVisibility={(e) => setIsNewPasswordVisible(e.target.checked)}
 					/>
-					<HiddenInput id="confirmedPassword" type={`${isConfirmedPasswordVisible ? 'text' : 'password'}`} hasLabel={true} label="Confirm password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} placeholder="********" isVisible={isConfirmedPasswordVisible} onChangeVisibility={(e) => setIsConfirmedPasswordVisible(e.target.checked)}
+					<HiddenInput id="confirmedPassword" type={`${isConfirmedPasswordVisible ? 'text' : 'password'}`} label="Confirm password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} placeholder="********" isVisible={isConfirmedPasswordVisible} onChangeVisibility={(e) => setIsConfirmedPasswordVisible(e.target.checked)}
 					/>
 					<div>
 						<ErrorBanner isError={!isPasswordMatching} error="Unmatched password" />
