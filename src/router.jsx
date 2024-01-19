@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import ProtectedLayout from './layouts/ProtectedLayout';
 import GuestLayout from './layouts/GuestLayout';
 import Home from './pages/Home';
+import ForgotPassword from './pages/ForgotPassword';
 
 const router = createBrowserRouter([
 	{
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
 			{
 				path: '/register',
 				element: <Register />,
+			},
+			{
+				path: '/forgot-password',
+				element: <ForgotPassword />,
 			},
 		],
 	},
