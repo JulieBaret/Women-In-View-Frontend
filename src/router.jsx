@@ -7,6 +7,7 @@ import ProtectedLayout from './layouts/ProtectedLayout';
 import GuestLayout from './layouts/GuestLayout';
 import Home from './pages/Home';
 import ForgotPassword from './pages/ForgotPassword';
+import UserReview from './pages/UserReview';
 
 const router = createBrowserRouter([
 	{
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
 			{
 				path: '/profile',
 				element: <Profile />,
+			},
+			{
+				path: '/reviews',
+				element: <UserReview />,
 			},
 		],
 	},
