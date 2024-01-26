@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import Loading from '../components/Loading';
 import SearchBar from '../components/SearchBar';
 import SearchResults from '../components/SearchResults';
+import ErrorBanner from '../components/ErrorBanner';
 
 const Home = () => {
     const [value, setValue] = useState("");
@@ -26,6 +28,7 @@ const Home = () => {
             setErrorFromOmdb(null);
         } catch (error) {
             setErrorFromOmdb(`${error} Could not Fetch Data `);
+            setIsPending(false);
         }
 
         // Fetch from Bechdel
@@ -39,19 +42,27 @@ const Home = () => {
             setErrorFromBechdel(null);
         } catch (error) {
             setErrorFromBechdel(`${error} Could not Fetch Data `);
+            setIsPending(false);
         }
-        setIsPending(false);
     }
+
+    useEffect(() => {
+        if(errorFromOmdb){
+            console.log(errorFromOmdb)
+        }
+        if(errorFromBechdel) {
+            console.log(errorFromBechdel)
+        }
+    }, [errorFromOmdb, errorFromBechdel]);
+
 
     return (
         <div className='w-full flex flex-col gap-6'>
             <div className="w-full md:w-4/6 self-center">
                 <SearchBar onSubmit={handleSearch} onChange={(e) => setValue(e.target.value)} value={value} label="Search" placeholder="Search for movies..." />
             </div>
-            
-            {isPending && <div className="w-full h-full flex justify-center items-center"><Loading label="Fetching data..."/></div>}
-            
-            {dataFromOmdb && <SearchResults dataFromOmdb={dataFromOmdb} dataFromBechdel={dataFromBechdel} errorFromOmdb={errorFromOmdb} errorFromBechdel={errorFromBechdel}/>}
+            {errorFromBechdel || errorFromOmdb && <ErrorBanner isError={errorFromBechdel || errorFromOmdb} error="It's been a problem while fetching data" /> }
+            {dataFromOmdb && <SearchResults dataFromOmdb={dataFromOmdb} dataFromBechdel={dataFromBechdel} isPending={isPending} setIsPending={setIsPending}/>}
         </div>
     );
 };

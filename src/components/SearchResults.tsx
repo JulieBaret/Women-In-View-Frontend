@@ -1,34 +1,37 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Loading from './Loading';
 import MovieCard from './MovieCard';
 
 type Props = {
     dataFromOmdb: dataFromOmdb,
     dataFromBechdel: dataFromBechdel,
-    errorFromOmdb: string,
-    errorFromBechdel: string
+    isPending: boolean,
+    setIsPending: (value: boolean) => void;
 }
 
-export type dataFromBechdel = Array<{
-    ddate : string,
-    dubious : string,
-    id : number,
-    imdbid : string,
-    rating : number,
-    submitterid : number,
-    title : string,
-    visible : string,
-    year : number
-}>
+type dataFromBechdel = Array<MovieFromBechdel>
 
-export type dataFromOmdb = {
+type MovieFromBechdel = {
+    ddate: string,
+    dubious: string,
+    id: number,
+    imdbid: string,
+    rating: number,
+    submitterid: number,
+    title: string,
+    visible: string,
+    year: number
+}
+
+type dataFromOmdb = {
     Search: Array<MovieFromOmdb>,
     totalResult: any,
     Response: any
 }
 
-export type MovieFromOmdb = {
+type MovieFromOmdb = {
     Title: string,
     Year: string,
     imdbID: string,
@@ -48,53 +51,52 @@ export type Movie = {
     ratingOrigin: string | null,
 }
 
-const SearchResults = ({dataFromOmdb, dataFromBechdel, errorFromOmdb, errorFromBechdel}: Props) => {
-    const [matchingMovieList, setMatchingMovieList] = useState([]);
-    
-    if(errorFromOmdb) console.log(errorFromOmdb)
-    if(errorFromBechdel) console.log(errorFromBechdel)
-    if(!dataFromOmdb || !dataFromOmdb.Search || !dataFromOmdb.Search.length) return null;
+const SearchResults = ({ dataFromOmdb, dataFromBechdel, isPending, setIsPending }: Props) => {
+    const [movieList, setMovieList] = useState<MovieList>([]);
 
-    const movieList: MovieList = dataFromOmdb.Search.map((movie) => {
-        return {
-            imdbId: movie.imdbID,
-            title: movie.Title,
-            picture: movie.Poster,
-            year: movie.Year,
-            type: movie.Type,
-            rating: Math.floor(Math.random() * 5) - 1,
-            ratingOrigin: null,
+    // Formatting data and matching both APIs
+    useEffect(() => {
+        if (dataFromOmdb && dataFromOmdb.Search && dataFromOmdb.Search.length) {
+            const tempMovieList: MovieList = dataFromOmdb.Search.map((movie) => {
+                return {
+                    imdbId: movie.imdbID,
+                    title: movie.Title,
+                    picture: movie.Poster,
+                    year: movie.Year,
+                    type: movie.Type,
+                    rating: -1,
+                    ratingOrigin: null,
+                }
+            }).map(movie => {
+                const matchingMovie = dataFromBechdel.find(
+                    movieWithRating => `tt${movieWithRating.imdbid}` === movie.imdbId
+                );
+                if (matchingMovie) {
+                    return {
+                        ...movie,
+                        rating: matchingMovie.rating,
+                    };
+                } else {
+                    return movie;
+                }
+            });
+            setMovieList(tempMovieList);
+            setIsPending(false);
         }
-    });
-
-    // useEffect(() => {
-    //     const tempMovieList = [...movieList];
-
-    //     tempMovieList.forEach(movieFromOmdb => {
-    //         const matching = dataFromBechdel.find(movieFromBechdel => movieFromBechdel.imdbid === movieFromOmdb.imdbId);
-    //         if(matching) {
-    //             movieFromOmdb.rating = matching.rating;
-    //         }
-    //     });
-    //     setMatchingMovieList(tempMovieList);
-    // }, []);
-
-    // console.log(movieList);
-
-    // if () return (
-    //     <div className="flex justify-center items-center w-full">
-    //         <Heading variant="medium">Oups... No results found</Heading>
-    //     </div>
-    // )
+    }, [dataFromOmdb, dataFromBechdel]);
 
     return (
-        <ul className="flex gap-4 flex-wrap justify-center">
-                {movieList.map((movie, index) => 
-                <li key={index}>
-                <MovieCard movie={movie}/>
-                </li>
-                )}
-        </ul>
+        <>
+            {isPending ? <div className="w-full h-full flex justify-center items-center"><Loading label="Fetching data..." /></div> :
+                <ul className="flex gap-4 flex-wrap justify-center">
+                    {movieList.map((movie, index) =>
+                        <li key={index}>
+                            <MovieCard movie={movie} />
+                        </li>
+                    )}
+                </ul>
+            }
+        </>
     )
 };
 
