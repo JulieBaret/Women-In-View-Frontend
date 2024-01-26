@@ -57,7 +57,7 @@ const SearchResults = ({ dataFromOmdb, dataFromBechdel, isPending, setIsPending 
     // Formatting data and matching both APIs
     useEffect(() => {
         if (dataFromOmdb && dataFromOmdb.Search && dataFromOmdb.Search.length) {
-            const tempMovieList: MovieList = dataFromOmdb.Search.map((movie) => {
+            const tempMovieList: MovieList = dataFromOmdb.Search.filter((movie) => movie.Poster.length > 3 && movie.Title && movie.Year).map((movie) => {
                 return {
                     imdbId: movie.imdbID,
                     title: movie.Title,
@@ -81,7 +81,10 @@ const SearchResults = ({ dataFromOmdb, dataFromBechdel, isPending, setIsPending 
                 }
             });
             setMovieList(tempMovieList);
-            setIsPending(false);
+            const timeoutId = setTimeout(() => {
+                setIsPending(false);
+            }, 1000);
+            return () => clearTimeout(timeoutId);
         }
     }, [dataFromOmdb, dataFromBechdel]);
 

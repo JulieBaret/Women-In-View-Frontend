@@ -12,11 +12,18 @@ const Home = () => {
     const [isPending, setIsPending] = useState(false);
     const [errorFromOmdb, setErrorFromOmdb] = useState("");
     const [errorFromBechdel, setErrorFromBechdel] = useState("");
+    const [lengthError, setLengthError] = useState(false);
 
     // TODO : replace white spaces by '-' or trim value before fetching API
 
     const handleSearch = async (e) => {
         e.preventDefault();
+        if(value.length < 3) {
+            setLengthError(true);
+            return;
+        } else {
+            setLengthError(false);
+        }
         setIsPending(true);
 
         // Fetch from Omdb
@@ -59,8 +66,9 @@ const Home = () => {
     return (
         <div className='w-full flex flex-col gap-6'>
             <div className="w-full md:w-4/6 self-center">
-                <SearchBar onSubmit={handleSearch} onChange={(e) => setValue(e.target.value)} value={value} label="Search" placeholder="Search for movies..." />
+                <SearchBar onSubmit={handleSearch} onChange={(e) => setValue(e.target.value)} value={value} label="Search" placeholder="Search for a movie title..." />
             </div>
+            {lengthError && <ErrorBanner isError={lengthError} error="You must type at least 3 characters"/>}
             {errorFromBechdel || errorFromOmdb && <ErrorBanner isError={errorFromBechdel || errorFromOmdb} error="It's been a problem while fetching data" /> }
             {dataFromOmdb && <SearchResults dataFromOmdb={dataFromOmdb} dataFromBechdel={dataFromBechdel} isPending={isPending} setIsPending={setIsPending}/>}
         </div>
