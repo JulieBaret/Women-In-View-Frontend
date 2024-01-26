@@ -27,7 +27,7 @@ const Home = () => {
 
     return (
         <div className='w-full flex flex-col gap-6'>
-            <div className="w-4/6 px-20 py-10 self-center">
+            <div className="w-full md:w-4/6 self-center">
                 <SearchBar onSubmit={handleSearch} onChange={(e) => setSearchValue(e.target.value)} value={searchValue} label="Search" placeholder="Search for movies..." />
             </div>
             <SearchResults isPending={isPending} error={error} data={data}/>

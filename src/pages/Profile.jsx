@@ -67,7 +67,7 @@ export default function Profile() {
 	}
 
 	return (
-		<div className='w-5/6 flex flex-col gap-10 p-20 self-center'>
+		<div className='flex flex-col gap-10 self-center w-full'>
 			<Heading as="h1" variant="large">Profile</Heading>
 			<div className='flex flex-col gap-6'>
 				<Heading as="h2" variant="medium">Edit Profile</Heading>
