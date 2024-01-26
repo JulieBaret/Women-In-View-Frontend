@@ -6,6 +6,7 @@ import Input from '../components/Input';
 import HiddenInput from '../components/HiddenInput';
 import Button from '../components/Button';
 import ErrorBanner from '../components/ErrorBanner';
+import Heading from '../components/Heading';
 
 export default function Register() {
 	const { setUser, setToken } = useAuth();
@@ -35,23 +36,14 @@ export default function Register() {
 	};
 
 	return (
-		<section className="bg-gradient-to-r from-primary to-secondary h-full">
+		<section>
 			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-				<a
-					href="#"
-					className="flex items-center mb-6 text-2xl font-semibold text-white">
-					{/* <img
-						className="w-8 h-8 mr-2"
-						src=""
-						alt="logo"
-					/> */}
-					Women in View
-				</a>
 				<div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
 					<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-						<h1 className="text-xl font-bold leading-tight tracking-tight text-dark md:text-2xl">
-							Create and account
-						</h1>
+						<div className='flex justify-center items-center'>
+							<img className='h-16' src='/icon.png' />
+						</div>
+						<Heading as='h1' variant='medium'>Create an account</Heading>	
 						<form
 							className="space-y-4 md:space-y-6 flex flex-col"
 							onSubmit={handleSubmit}
@@ -60,7 +52,7 @@ export default function Register() {
 							<Input id="email" label="Email" type="email" placeholder="name@mail.com" required/>
 							<HiddenInput id="password" label="Password" placeholder="********" type={`${isPasswordVisible ? 'text' : 'password'}`} isVisible={isPasswordVisible} onChangeVisibility={(e) => setIsPasswordVisible(e.target.checked)}/>
 							<Button variant="primary" value="Create an account"/>
-							<ErrorBanner isError={error} error={error} />
+							{error && <ErrorBanner isError={true} error={error}/>}
 							<p className="text-sm font-light text-dark">
 								Already have an account?{' '}
 								<Link

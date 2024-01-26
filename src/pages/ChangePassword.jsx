@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import fetchApi from '../fetchApi';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import ErrorBanner from '../components/ErrorBanner';
 import SuccessBanner from '../components/SuccessBanner';
-import Heading from '../components/Heading';
 
-const ForgotPassword = () => {
+const ChangePassword = () => {
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
 	const handleSubmit = async (e) => {
@@ -37,7 +36,7 @@ const ForgotPassword = () => {
 						<div className='flex justify-center items-center'>
 							<img className='h-16' src='/icon.png' />
 						</div>
-						<Heading as='h1' variant='medium'>Forgot your password?</Heading>
+						<Heading as='h1' variant='medium'>Change your password</Heading>
 						<form
 							className="space-y-4 md:space-y-6 gap-2 flex flex-col"
 							onSubmit={handleSubmit}>
@@ -58,7 +57,7 @@ const ForgotPassword = () => {
 				</div>
 			</div>
 		</section>
-	);
+	)
 };
 
-export default ForgotPassword;
+export default ChangePassword;
