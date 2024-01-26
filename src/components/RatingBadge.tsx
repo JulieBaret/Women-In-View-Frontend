@@ -1,6 +1,7 @@
 import React from 'react';
-import SadIcon from './icons/SadIcon';
-import TrophyIcon from './icons/TrophyIcon';
+import BrokenHeartIcon from './icons/BrokenHeartIcon';
+import EditIcon from './icons/EditIcon';
+import PelliculeIcon from './icons/PelliculeIcon';
 
 type Props = {
     rating: number | null;
@@ -8,20 +9,32 @@ type Props = {
 
 const RatingBadge = ({ rating }: Props) => {
 
-    const style = `absolute z-5 top-3 right-2 ${rating === 3 && 'bg-green-400 rotate-12 border-light border-4'} ${(rating === 0 || rating === 1 || rating === 2) && 'bg-red-400 -rotate-12 border-light border-4'} z-10 text-light font-arial font-semibold inline-block px-4 py-3 rounded-full h-20 w-20 shadow-lg flex flex-col justify-center items-center`
+    const style = `absolute z-5 left-0 top-0 ${rating === 3 && 'bg-primary'} ${(rating === 0 || rating === 1 || rating === 2) && 'bg-secondary'} ${rating === -1 && 'bg-grey'} z-10 text-light font-arial font-semibold px-4 py-2 rounded-r-lg shadow-lg flex flex-row justify-center items-center gap-2`
 
     return (
         <div className={style}>
             {rating === 3 &&
             <>
-                <TrophyIcon />
-                <span className='text-s'>Pass</span>
-                </>}
+                <span className='text-xs'>Passed the Bechdel Test! </span>
+                <div className="w-5">
+                <PelliculeIcon />
+                </div>    
+            </>}
             {(rating === 0 || rating === 1 || rating === 2) &&
             <>
-                <SadIcon />
-                <span className='text-s'>Fail</span>
+                <span className='text-xs'>Failed the Bechdel Test! </span>
+                <div className="w-5">
+                <BrokenHeartIcon />
+                </div>    
             </>}
+            {rating === -1 &&
+            <>
+                <span className='text-xs'>Wait for your review</span>
+                <div className="w-5">
+                <EditIcon />
+                </div>    
+            </>
+            }
         </div>
     );
 };
