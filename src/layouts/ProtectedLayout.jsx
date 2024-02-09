@@ -93,7 +93,7 @@ export default function DefaultLayout() {
 								arrowIcon={false}
 								inline
 								label={
-									<div className='flex gap-2 items-center'>
+									<div className='flex gap-2 items-center' onClick={() => setIsMenuOpen((false))}>
 										<span className='font-bold text-white hidden w-full lg:block lg:w-auto'>Hi, {user.name}!</span>
 										<Avatar alt="User settings" img="/profile.png" rounded />
 									</div>
