@@ -7,39 +7,38 @@ import ErrorBanner from '../components/ErrorBanner';
 
 const Home = () => {
     const [value, setValue] = useState("");
-    const [dataFromOmdb, setDataFromOmdb] = useState({});
+    const [dataFromTmdb, setDataFromTmdb] = useState({});
     const [isPending, setIsPending] = useState(false);
-    const [errorFromOmdb, setErrorFromOmdb] = useState("");
+    const [errorFromTmdb, setErrorFromTmdb] = useState("");
     const [lengthError, setLengthError] = useState(false);
 
     const handleSearch = async (e) => {
         e.preventDefault();
-        if(value.length < 3) {
+        if (value.length < 3) {
             setLengthError(true);
             return;
-        } else {
-            setLengthError(false);
         }
         setIsPending(true);
 
-        // Fetch from Omdb
-        try {
-            const responseFromOmdb = await fetch(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API_KEY}&type=movie&s=${value}`);
-            if (!responseFromOmdb.ok) throw new Error(response.statusText);
-            const jsonFromOmdb = await responseFromOmdb.json();
-            setDataFromOmdb(jsonFromOmdb);
-            setErrorFromOmdb(null);
-        } catch (error) {
-            setErrorFromOmdb(`${error} Could not Fetch Data `);
-            setIsPending(false);
-        }
-    }
-
-    useEffect(() => {
-        if(errorFromOmdb){
-            console.log(errorFromOmdb)
-        }
-    }, [errorFromOmdb]);
+        // Fetch from Tmdb
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`
+            }
+        };
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${value}&include_adult=false&language=en-US&page=1`, options)
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data)
+            setDataFromTmdb(data)
+        })
+        .catch((err) => {
+            console.error(err);
+            setErrorFromTmdb(error);
+        });
+    };
 
 
     return (
@@ -47,9 +46,9 @@ const Home = () => {
             <div className="w-full md:w-4/6 self-center">
                 <SearchBar onSubmit={handleSearch} onChange={(e) => setValue(e.target.value)} value={value} label="Search" placeholder="Search for a movie title..." />
             </div>
-            {lengthError && <ErrorBanner isError={lengthError} error="You must type at least 3 characters"/>}
-            {errorFromOmdb && <ErrorBanner isError={errorFromOmdb} error="It's been a problem while fetching data" /> }
-            {!lengthError && !errorFromOmdb && dataFromOmdb && <SearchResults dataFromOmdb={dataFromOmdb} isPending={isPending} setIsPending={setIsPending}/>}
+            {lengthError && <ErrorBanner isError={lengthError} error="You must type at least 3 characters" />}
+            {errorFromTmdb && <ErrorBanner isError={errorFromTmdb} error="It's been a problem while fetching data" />}
+            {!lengthError && !errorFromTmdb && dataFromTmdb && <SearchResults dataFromTmdb={dataFromTmdb} isPending={isPending} setIsPending={setIsPending} />}
         </div>
     );
 };

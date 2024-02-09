@@ -6,60 +6,74 @@ import MovieCard from './MovieCard';
 import Heading from './Heading';
 
 type Props = {
-    dataFromOmdb: dataFromOmdb,
+    dataFromTmdb: dataFromTmdb,
     isPending: boolean,
     setIsPending: (value: boolean) => void;
 }
 
-type dataFromOmdb = {
-    Search: Array<MovieFromOmdb>,
-    totalResult: any,
-    Response: any
+type dataFromTmdb = {
+    results: Array<MovieFromTmdb> | [],
+    page: number,
+    total_pages: number,
+    total_results: number
 }
 
-type MovieFromOmdb = {
-    Title: string,
-    Year: string,
-    imdbID: string,
-    Type: string,
-    Poster: string
+type MovieFromTmdb = {
+    adult: boolean,
+    backdrop_path: string,
+    genre_ids: Array<number>,
+    id: number,
+    original_language: string,
+    original_title: string,
+    overview: string,
+    popularity: number,
+    poster_path: string,
+    release_date: Date,
+    title: string,
+    video: boolean,
+    vote_average: number,
+    vote_count: number
 }
 
 export type MovieList = Array<Movie>
 
 export type Movie = {
-    imdbId: string,
+    tmdbId: number,
     title: string,
-    picture: string,
-    year: string,
-    type: string,
-    rating: number,
-    ratingOrigin: string | null,
+    poster: string,
+    backdrop: string,
+    date: number,
+    overview: string,
+    rating: number
 }
 
-const SearchResults = ({ dataFromOmdb, isPending, setIsPending }: Props) => {
+const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
     const [movieList, setMovieList] = useState<MovieList>([]);
     const [hasNoResults, setHasNoResults] = useState(false);
 
-    // Formatting data and matching both APIs
+    // Formatting data
     useEffect(() => {
-        setHasNoResults(dataFromOmdb && dataFromOmdb.Response === 'False');
-        if (dataFromOmdb && dataFromOmdb.Search && dataFromOmdb.Search.length) {
-            const tempMovieList: MovieList = dataFromOmdb.Search.filter((movie) => movie.Poster.length > 3 && movie.Title && movie.Year).map((movie) => {
-                return {
-                    imdbId: movie.imdbID,
-                    title: movie.Title,
-                    picture: movie.Poster,
-                    year: movie.Year,
-                    type: movie.Type,
-                    rating: -1,
-                    ratingOrigin: null,
-                }
-            });
-            setMovieList(tempMovieList);
-            setIsPending(false);
+        if(dataFromTmdb && dataFromTmdb.results){
+            if(dataFromTmdb.results.length){
+                const tempMovieList: MovieList = dataFromTmdb.results.filter((movie) => movie.title && movie.poster_path && movie.release_date).map((movie) => {
+                    return {
+                        tmdbId: movie.id,
+                        title: movie.title,
+                        poster: `https://image.tmdb.org/t/p/original/${movie.poster_path}`,
+                        backdrop: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`,
+                        date: new Date(movie.release_date).getFullYear(),
+                        overview: movie.overview,
+                        rating: -1
+                    }
+                })
+                setMovieList(tempMovieList);
+                console.log(movieList);
+                setIsPending(false);
+            } else {
+                setHasNoResults(true);
+            }
         }
-    }, [dataFromOmdb]);
+    }, [dataFromTmdb]);
 
     return (
         <>
