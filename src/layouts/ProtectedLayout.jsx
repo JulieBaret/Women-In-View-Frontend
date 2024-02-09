@@ -129,7 +129,7 @@ export default function DefaultLayout() {
 					</div>
 				</div>
 				{isMenuOpen && <div className="h-auto md:hidden">
-					<ul className="flex flex-col text-center text-gray-300 gap-2">
+					<ul className="flex flex-col text-center text-gray-300 gap-2" onClick={handleOpenMenu}>
 						<li>
 							<ActiveNavLink label="Movies" location="/home" />
 						</li>
