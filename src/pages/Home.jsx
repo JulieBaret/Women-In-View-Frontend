@@ -8,13 +8,9 @@ import ErrorBanner from '../components/ErrorBanner';
 const Home = () => {
     const [value, setValue] = useState("");
     const [dataFromOmdb, setDataFromOmdb] = useState({});
-    const [dataFromBechdel, setDataFromBechdel] = useState([]);
     const [isPending, setIsPending] = useState(false);
     const [errorFromOmdb, setErrorFromOmdb] = useState("");
-    const [errorFromBechdel, setErrorFromBechdel] = useState("");
     const [lengthError, setLengthError] = useState(false);
-
-    // TODO : replace white spaces by '-' or trim value before fetching API
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -37,30 +33,13 @@ const Home = () => {
             setErrorFromOmdb(`${error} Could not Fetch Data `);
             setIsPending(false);
         }
-
-        // Fetch from Bechdel
-        const apiUrl = `http://bechdeltest.com/api/v1/getMoviesByTitle?title=${value}`;
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        try {
-            const responseFromBechdel = await fetch(`${proxyUrl}${apiUrl}`);
-            if (!responseFromBechdel.ok) throw new Error(response.statusText);
-            const jsonFromBechdel = await responseFromBechdel.json();
-            setDataFromBechdel(jsonFromBechdel);
-            setErrorFromBechdel(null);
-        } catch (error) {
-            setErrorFromBechdel(`${error} Could not Fetch Data `);
-            setIsPending(false);
-        }
     }
 
     useEffect(() => {
         if(errorFromOmdb){
             console.log(errorFromOmdb)
         }
-        if(errorFromBechdel) {
-            console.log(errorFromBechdel)
-        }
-    }, [errorFromOmdb, errorFromBechdel]);
+    }, [errorFromOmdb]);
 
 
     return (
@@ -69,8 +48,8 @@ const Home = () => {
                 <SearchBar onSubmit={handleSearch} onChange={(e) => setValue(e.target.value)} value={value} label="Search" placeholder="Search for a movie title..." />
             </div>
             {lengthError && <ErrorBanner isError={lengthError} error="You must type at least 3 characters"/>}
-            {errorFromBechdel || errorFromOmdb && <ErrorBanner isError={errorFromBechdel || errorFromOmdb} error="It's been a problem while fetching data" /> }
-            {dataFromOmdb && <SearchResults dataFromOmdb={dataFromOmdb} dataFromBechdel={dataFromBechdel} isPending={isPending} setIsPending={setIsPending}/>}
+            {errorFromOmdb && <ErrorBanner isError={errorFromOmdb} error="It's been a problem while fetching data" /> }
+            {!lengthError && !errorFromOmdb && dataFromOmdb && <SearchResults dataFromOmdb={dataFromOmdb} isPending={isPending} setIsPending={setIsPending}/>}
         </div>
     );
 };

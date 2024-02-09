@@ -3,26 +3,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Loading from './Loading';
 import MovieCard from './MovieCard';
+import Heading from './Heading';
 
 type Props = {
     dataFromOmdb: dataFromOmdb,
-    dataFromBechdel: dataFromBechdel,
     isPending: boolean,
     setIsPending: (value: boolean) => void;
-}
-
-type dataFromBechdel = Array<MovieFromBechdel>
-
-type MovieFromBechdel = {
-    ddate: string,
-    dubious: string,
-    id: number,
-    imdbid: string,
-    rating: number,
-    submitterid: number,
-    title: string,
-    visible: string,
-    year: number
 }
 
 type dataFromOmdb = {
@@ -51,11 +37,13 @@ export type Movie = {
     ratingOrigin: string | null,
 }
 
-const SearchResults = ({ dataFromOmdb, dataFromBechdel, isPending, setIsPending }: Props) => {
+const SearchResults = ({ dataFromOmdb, isPending, setIsPending }: Props) => {
     const [movieList, setMovieList] = useState<MovieList>([]);
+    const [hasNoResults, setHasNoResults] = useState(false);
 
     // Formatting data and matching both APIs
     useEffect(() => {
+        setHasNoResults(dataFromOmdb && dataFromOmdb.Response === 'False');
         if (dataFromOmdb && dataFromOmdb.Search && dataFromOmdb.Search.length) {
             const tempMovieList: MovieList = dataFromOmdb.Search.filter((movie) => movie.Poster.length > 3 && movie.Title && movie.Year).map((movie) => {
                 return {
@@ -67,30 +55,21 @@ const SearchResults = ({ dataFromOmdb, dataFromBechdel, isPending, setIsPending 
                     rating: -1,
                     ratingOrigin: null,
                 }
-            }).map(movie => {
-                const matchingMovie = dataFromBechdel.find(
-                    movieWithRating => `tt${movieWithRating.imdbid}` === movie.imdbId
-                );
-                if (matchingMovie) {
-                    return {
-                        ...movie,
-                        rating: matchingMovie.rating,
-                    };
-                } else {
-                    return movie;
-                }
             });
             setMovieList(tempMovieList);
-            const timeoutId = setTimeout(() => {
-                setIsPending(false);
-            }, 1000);
-            return () => clearTimeout(timeoutId);
+            setIsPending(false);
         }
-    }, [dataFromOmdb, dataFromBechdel]);
+    }, [dataFromOmdb]);
 
     return (
         <>
-            {isPending ? <div className="w-full h-full flex justify-center items-center"><Loading label="Fetching data..." /></div> :
+        {hasNoResults ? 
+        <span className="text-center"><Heading variant="medium">Oups, no result found...</Heading></span>
+            : isPending ? 
+                <div className="w-full h-full flex justify-center items-center">
+                    <Loading label="Fetching data..." />
+                </div> 
+                :
                 <ul className="flex gap-4 flex-wrap justify-center">
                     {movieList.map((movie, index) =>
                         <li key={index}>
