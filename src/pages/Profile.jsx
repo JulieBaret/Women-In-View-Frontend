@@ -67,6 +67,7 @@ export default function Profile() {
 	}
 
 	return (
+		<main className="flex justify-center flex-col items-center">
 		<div className='flex flex-col gap-10 self-center w-full'>
 			<Heading as="h1" variant="large">Profile</Heading>
 			<div className='flex flex-col gap-6'>
@@ -104,9 +105,10 @@ export default function Profile() {
 			<div className='flex flex-col gap-6'>
 				<Heading as="h2" variant="medium">Danger Zone</Heading>
 				<form onSubmit={deleteUser}>
-					<Button variant="danger" value="Delete account"/>
+						<Button variant="danger" value="Delete account" />
 				</form>
 			</div>
 		</div>
+		</main>
 	);
 }

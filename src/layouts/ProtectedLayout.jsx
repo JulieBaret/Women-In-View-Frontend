@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
@@ -7,11 +7,14 @@ import { useState } from 'react';
 import ActiveNavLink from '../components/ActiveNavLink';
 import { Avatar, Dropdown } from 'flowbite-react';
 import FullScreenLoading from '../components/FullScreenLoading';
+import SearchBar from '../components/SearchBar';
 
-export default function DefaultLayout() {
+export default function ProtectedLayout() {
 	const { user, token } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [searchValue, setSearchValue] = useState("");
+	const navigate = useNavigate();
 
 	const handleOpenMenu = () => {
 		setIsMenuOpen((prev) => !prev);
@@ -42,6 +45,18 @@ export default function DefaultLayout() {
 			console.log(error);
 		}
 	};
+
+	const handleSearch = async (e) => {
+        e.preventDefault();
+        if (searchValue.length < 3) {
+			// TODO: handle error
+            console.log("the search is not long enough")
+            return;
+        }
+		navigate(`/search/${searchValue}`);
+		setSearchValue("");
+	}
+
 	return (
 		<>
 			{isLoading && <FullScreenLoading label="We hope to see you soon!" />}
@@ -49,12 +64,14 @@ export default function DefaultLayout() {
 				<div className="flex flex-wrap items-center justify-between">
 					<div className='flex gap-2'>
 						<img src="/icon.png" className="h-9" alt="Women in view logo" />
-
 						<NavLink
 							to="/home"
 							className="self-center text-xl font-semibold whitespace-nowrap text-white">
 							<span className='text-3xl font-bold text-light'>Women in View</span>
 						</NavLink>
+					</div>
+					<div>
+						<SearchBar onSubmit={handleSearch} onChange={(e) => setSearchValue(e.target.value)} value={searchValue} label="Search" placeholder="Search for a movie title..." />
 					</div>
 					<div className="flex md:gap-10">
 						<button type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg md:hidden hover:text-light focus:outline-none order-last" onClick={handleOpenMenu}>
@@ -95,7 +112,8 @@ export default function DefaultLayout() {
 								label={
 									<div className='flex gap-2 items-center' onClick={() => setIsMenuOpen((false))}>
 										<span className='font-bold text-white hidden w-full lg:block lg:w-auto'>Hi, {user.name}!</span>
-										<Avatar alt="User settings" img="/profile.png" rounded />
+										<img src="/profile.png" className='h-10 hover:opacity-80 transition ease-in-out' />
+										{/* <Avatar className='rounded-full' alt="User settings" img="/profile.png" rounded /> */}
 									</div>
 								}
 								color="light"
@@ -152,9 +170,9 @@ export default function DefaultLayout() {
 					</ul>
 				</div>}
 			</nav>
-			<main className="flex justify-center flex-col items-center mt-6">
+			<div>
 				<Outlet />
-			</main>
+			</div>
 		</>
 	);
 }

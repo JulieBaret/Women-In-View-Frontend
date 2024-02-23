@@ -2,9 +2,9 @@ import React from 'react';
 
 const UserReview = () => {
     return (
-        <div>
+        <main className="flex justify-center flex-col items-center">
             All user reviews
-        </div>
+        </main>
     );
 };
 

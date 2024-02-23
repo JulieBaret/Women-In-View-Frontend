@@ -4,6 +4,7 @@ import Loading from '../components/Loading';
 import SearchBar from '../components/SearchBar';
 import SearchResults from '../components/SearchResults';
 import ErrorBanner from '../components/ErrorBanner';
+import Heading from '../components/Heading';
 
 const Home = () => {
     const [value, setValue] = useState("");
@@ -29,26 +30,31 @@ const Home = () => {
             }
         };
         fetch(`https://api.themoviedb.org/3/search/movie?query=${value}&include_adult=false&language=en-US&page=1`, options)
-        .then(response => response.json())
-        .then((data) => {
-            console.log(data)
-            setDataFromTmdb(data)
-        })
-        .catch((err) => {
-            console.error(err);
-            setErrorFromTmdb(error);
-        });
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data)
+                setDataFromTmdb(data)
+            })
+            .catch((err) => {
+                console.error(err);
+                setErrorFromTmdb(error);
+            });
     };
 
 
     return (
-        <div className='w-full flex flex-col gap-6'>
-            <div className="w-full md:w-4/6 self-center">
-                <SearchBar onSubmit={handleSearch} onChange={(e) => setValue(e.target.value)} value={value} label="Search" placeholder="Search for a movie title..." />
-            </div>
-            {lengthError && <ErrorBanner isError={lengthError} error="You must type at least 3 characters" />}
-            {errorFromTmdb && <ErrorBanner isError={errorFromTmdb} error="It's been a problem while fetching data" />}
-            {!lengthError && !errorFromTmdb && dataFromTmdb && <SearchResults dataFromTmdb={dataFromTmdb} isPending={isPending} setIsPending={setIsPending} />}
+        <div>
+            <img className='w-full object-cover h-48' alt='Bechdel comic extract' src='./banner.png'/>
+            <main className="flex justify-center flex-col items-center">
+                <div className='w-full flex flex-col gap-6'>
+                    <div className="w-full md:w-4/6 self-center">
+                        <SearchBar onSubmit={handleSearch} onChange={(e) => setValue(e.target.value)} value={value} label="Search" placeholder="Search for a movie title..." />
+                    </div>
+                    {lengthError && <ErrorBanner isError={lengthError} error="You must type at least 3 characters" />}
+                    {errorFromTmdb && <ErrorBanner isError={errorFromTmdb} error="It's been a problem while fetching data" />}
+                    {!lengthError && !errorFromTmdb && dataFromTmdb && <SearchResults dataFromTmdb={dataFromTmdb} isPending={isPending} setIsPending={setIsPending} />}
+                </div>
+            </main>
         </div>
     );
 };
