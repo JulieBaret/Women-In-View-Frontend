@@ -55,7 +55,7 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
     useEffect(() => {
         if(dataFromTmdb && dataFromTmdb.results){
             if(dataFromTmdb.results.length){
-                const tempMovieList: MovieList = dataFromTmdb.results.filter((movie) => movie.title && movie.poster_path && movie.release_date).map((movie) => {
+                const tempMovieList: MovieList = dataFromTmdb.results.filter((movie) => movie.title && movie.poster_path && movie.backdrop_path && movie.release_date && movie.overview).map((movie) => {
                     return {
                         tmdbId: movie.id,
                         title: movie.title,
@@ -67,7 +67,6 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
                     }
                 })
                 setMovieList(tempMovieList);
-                console.log(movieList);
                 setIsPending(false);
             } else {
                 setHasNoResults(true);
@@ -78,13 +77,13 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
     return (
         <>
         {hasNoResults ? 
-        <span className="text-center"><Heading variant="medium">Oups, no result found...</Heading></span>
+        <span><Heading variant="medium">Oups, nothing was found...</Heading></span>
             : isPending ? 
                 <div className="w-full h-full flex justify-center items-center">
                     <Loading label="Fetching data..." />
                 </div> 
                 :
-                <ul className="flex gap-4 flex-wrap justify-center">
+                <ul className="flex flex-wrap gap-4 justify-between">
                     {movieList.map((movie, index) =>
                         <li key={index}>
                             <MovieCard movie={movie} />
