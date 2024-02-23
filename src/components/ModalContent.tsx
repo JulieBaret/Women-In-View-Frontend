@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Lottie
 import Lottie from 'react-lottie';
 import SuccessLottie from '../lottie/success.json';
+import FailLottie from '../lottie/fail.json';
 
 // Type
 import { Movie } from './SearchResults';
@@ -13,7 +14,7 @@ import Heading from './Heading';
 
 // Flowbite
 import { Modal } from 'flowbite-react';
-import Stepper from './Stepper';
+import { useAuth } from '../contexts/AuthContext';
 
 
 type Props = {
@@ -28,13 +29,18 @@ type FormQuestion = {
     isEligible: boolean;
 }
 
+type User = {
+    email: string,
+    id: number,
+    name: string
+}
+
 const BECHDEL_QUESTIONS = ["Does this movie have at least two women in it?", "Do those women talk to each other?", "Does those talks refer to something else than a man?"];
 
 const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuestion) => {
-    // TODO: handle isEligible
     return (
         <span className="flex items-center justify-between">
-            <p>{label}</p>
+            <p className={`${!isEligible && 'text-gray-300'}`}>{label}</p>
             <label className='themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md bg-white p-1'>
                 <input
                     type='checkbox'
@@ -43,8 +49,8 @@ const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuesti
                     onChange={() => setIsChecked(!isChecked)}
                     disabled={!isEligible}
                 />
-                <span className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm ${isChecked ? 'text-primary font-bold bg-[#f4f7ff]' : 'text-body-color'}`}>YES</span>
-                <span className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm ${!isChecked ? 'text-primary font-bold bg-[#f4f7ff]' : 'text-body-color'}`}>NO</span>
+                <span className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm ${!isEligible && 'text-transparent'} ${isChecked && isEligible ? 'text-primary font-bold bg-[#f4f7ff]' : 'text-body-color'} `}>YES</span>
+                <span className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm ${!isEligible && 'text-transparent'} ${!isChecked && isEligible ? 'text-primary font-bold bg-[#f4f7ff]' : 'text-body-color'}`}>NO</span>
             </label>
         </span>
     )
@@ -61,12 +67,31 @@ const FirstStep = ({ movie }) => {
     )
 }
 
-const SecondStep = () => {
+const SecondStep = ({ rating, setRating }) => {
     const [resp, setResp] = useState({
         0: false,
         1: false,
         2: false
     });
+
+    useEffect(() => {
+        console.log(resp);
+        updateRating();
+        console.log(rating);
+    }, [resp]);
+
+    // Update rating with resp
+    const updateRating = () => {
+        if (resp[0] && resp[1] && resp[2]) {
+            setRating(3);
+        } else if (resp[0] && resp[1]) {
+            setRating(2);
+        } else if (resp[0]) {
+            setRating(1);
+        } else {
+            setRating(0);
+        }
+    };
 
     return (
         <div className="flex flex-col gap-4">
@@ -78,18 +103,22 @@ const SecondStep = () => {
                             ...resp,
                             [index]: !resp[index]
                         })
-                    }} label={question} isEligible={index === 0 || (index > 0 && resp[index - 1] === true)} />
+                    }} label={question}
+                        isEligible={index === 0 || (index === 1 && resp[0]) || (index === 2 && resp[0] && resp[1])}
+                    />
                 )}
             </div>
         </div>
     )
 }
 
-const LastStep = ({ movieTitle, moviePoster }) => {
+const LastStep = ({ movieTitle, moviePoster, rating }) => {
+    const hasPassed = rating === 3;
+
     const defaultOptions = {
         loop: false,
         autoplay: true,
-        animationData: SuccessLottie,
+        animationData: hasPassed ? SuccessLottie : FailLottie,
     }
 
     return (
@@ -97,7 +126,7 @@ const LastStep = ({ movieTitle, moviePoster }) => {
             <img alt={movieTitle} src={`https://image.tmdb.org/t/p/original/${moviePoster}`} className="h-80 w-auto rounded-md" />
             <div className="flex flex-col justify-center">
                 <p>According to your answers...</p>
-                <Heading variant="medium">this movie pass the Bechdel Test!</Heading>
+                <Heading variant="medium">this movie {hasPassed ? 'pass' : 'fail'} the Bechdel Test{hasPassed && '!'}</Heading>
             </div>
             <div className="absolute top-64 left-40">
                 <Lottie options={defaultOptions} height={100} width={100} />
@@ -109,25 +138,54 @@ const LastStep = ({ movieTitle, moviePoster }) => {
 const ModalContent = ({ movie, onClose }: Props) => {
     const [step, setStep] = useState(0);
     const [rating, setRating] = useState(null);
+    const { token, user } = useAuth();
+
+    if (!user || !token) {
+        return null
+    }
 
     const modalState = (movie) => {
         switch (step) {
             case 0:
                 return <FirstStep movie={movie} />;
             case 1:
-                return <SecondStep />;
+                return <SecondStep rating={rating} setRating={setRating} />;
             case 2:
-                return <LastStep movieTitle={movie.title} moviePoster={movie.poster} />;
+                return <LastStep movieTitle={movie.title} moviePoster={movie.poster} rating={rating} />;
             default:
                 return <FirstStep movie={movie} />;
         }
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (step < 2) {
             setStep(step + 1)
         } else {
-            onClose()
+            // Fetch options
+            const options = {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    "tmdb_id": movie.tmdbId,
+                    "original_title": movie.title,
+                    "poster_path": movie.poster,
+                    "backdrop_path": movie.backdrop,
+                    "overview": movie.overview,
+                    "release_date": movie.date,
+                    "user_id": user['id'],
+                    "rating": rating
+                })
+            };
+
+            // Fetch from Api
+            await fetch("http://localhost:80/api/movies", options)
+                .then(response => response.json()).then((data) => console.log(data))
+                .catch((err) => {
+                    console.error(err);
+                });
         }
     }
 
@@ -140,7 +198,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
     return (
         <Modal.Body>
             <div className="space-y-6 flex flex-col">
-                <div className="flex justify-between h-20">
+                <div className="flex justify-between items-start h-20">
                     <Heading variant="large">{movie.title}</Heading>
                     <button onClick={onClose}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-10 h-10">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
