@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Loading from './Loading';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
+import SkeletonMovieCard from './SkeletonMovieCard';
 
 type Props = {
     dataFromTmdb: dataFromTmdb,
@@ -79,9 +80,11 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
         {hasNoResults ? 
         <span><Heading variant="medium">Oups, nothing was found...</Heading></span>
             : isPending ? 
-                <div className="w-full h-full flex justify-center items-center">
-                    <Loading label="Fetching data..." />
-                </div> 
+                <ul className="flex flex-wrap gap-4 justify-between">
+                    {Array.from({length: 12}).map((skeleton, index) =>
+                    <li key={index}><SkeletonMovieCard /></li>
+                    )}
+                </ul>
                 :
                 <ul className="flex flex-wrap gap-4 justify-between">
                     {movieList.map((movie, index) =>
