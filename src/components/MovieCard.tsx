@@ -33,7 +33,7 @@ const MovieCard = ({ movie }: Props) => {
                     <RatingBadge rating={movie.rating} />
                     <img
                         className="rounded-t-lg object-cover h-[384px]"
-                        src={movie.poster}
+                        src={`https://image.tmdb.org/t/p/original/${movie.poster}`}
                         alt={movie.title} />
                     <div
                         className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 flex">
@@ -42,7 +42,7 @@ const MovieCard = ({ movie }: Props) => {
                 </div>
                 <div className="px-4 py-4 flex flex-col gap-2 h-28 justify-between">
                     <span className="font-bold text-l">{truncate(movie.title, 28)}</span>
-                    <span className="self-end bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{movie.date}</span>
+                    <span className="self-end bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{String(movie.date).split("-")[0]}</span>
                 </div>
             </div>
 

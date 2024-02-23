@@ -53,7 +53,7 @@ const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuesti
 const FirstStep = ({ movie }) => {
     return (
         <div className="flex flex-col gap-4">
-            <img src={movie.backdrop} className='rounded-md' alt={movie.title} />
+            <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop}`} className='rounded-md' alt={movie.title} />
             <p className="text-base leading-relaxed text-gray-500">
                 {movie.overview}
             </p>
@@ -94,7 +94,7 @@ const LastStep = ({ movieTitle, moviePoster }) => {
 
     return (
         <div className="flex gap-8 relative">
-            <img alt={movieTitle} src={moviePoster} className="h-80 w-auto rounded-md" />
+            <img alt={movieTitle} src={`https://image.tmdb.org/t/p/original/${moviePoster}`} className="h-80 w-auto rounded-md" />
             <div className="flex flex-col justify-center">
                 <p>According to your answers...</p>
                 <Heading variant="medium">this movie pass the Bechdel Test!</Heading>
