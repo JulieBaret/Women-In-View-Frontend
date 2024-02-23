@@ -2,7 +2,8 @@
 
 interface ImportMetaEnv {
     readonly VITE_APP_TITLE: string
-    // more env variables...
+    readonly VITE_TMDB_API_KEY: string
+    readonly VITE_TMDB_TOKEN: string
 }
 
 interface ImportMeta {
