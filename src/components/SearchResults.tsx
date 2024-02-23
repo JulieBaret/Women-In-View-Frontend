@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Loading from './Loading';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
 import SkeletonMovieCard from './SkeletonMovieCard';
@@ -43,7 +42,7 @@ export type Movie = {
     title: string,
     poster: string,
     backdrop: string,
-    date: number,
+    date: Date,
     overview: string,
     rating: number
 }
@@ -60,9 +59,9 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
                     return {
                         tmdbId: movie.id,
                         title: movie.title,
-                        poster: `https://image.tmdb.org/t/p/original/${movie.poster_path}`,
-                        backdrop: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`,
-                        date: new Date(movie.release_date).getFullYear(),
+                        poster: movie.poster_path,
+                        backdrop: movie.backdrop_path,
+                        date: movie.release_date,
                         overview: movie.overview,
                         rating: -1
                     }
