@@ -8,12 +8,10 @@ const Results = () => {
     const params = useParams();
     const { query } = params;
     const [dataFromTmdb, setDataFromTmdb] = useState(null);
-    const [isPending, setIsPending] = useState(false);
+    const [isPending, setIsPending] = useState(true);
     const [errorFromTmdb, setErrorFromTmdb] = useState("");
     
     useEffect(() => {
-        setIsPending(true);
-
         // Fetch options
         const options = {
             method: 'GET',
