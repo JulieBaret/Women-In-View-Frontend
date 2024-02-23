@@ -9,6 +9,7 @@ import Button from './Button';
 import { Modal } from 'flowbite-react';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import Heading from './Heading';
+import ModalContent from './ModalContent';
 
 const customTheme: CustomFlowbiteTheme['modal'] = {
     "content": {
@@ -26,7 +27,7 @@ const MovieCard = ({ movie }: Props) => {
 
     return (
         <>
-            <div onClick={() => setOpenModal(true)} className="rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] w-64 h-112">
+            <div onClick={() => setOpenModal(true)} className="rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] w-64 h-112 cursor-pointer hover:scale-[1.03] transition duration-300 ease-in-out">
                 <div
                     className="relative overflow-hidden bg-cover bg-no-repeat">
                     <RatingBadge rating={movie.rating} />
@@ -36,10 +37,10 @@ const MovieCard = ({ movie }: Props) => {
                         alt={movie.title} />
                     <div
                         className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 flex">
-                        {movie.overview && <span className='text-light self-end p-4 bg-black bg-opacity-70'>{truncate(movie.overview, 160)}</span>}
+                        <span className='text-light self-end p-4 bg-black bg-opacity-70'>{truncate(movie.overview, 160)}</span>
                     </div>
                 </div>
-                <div className="px-4 py-4 flex flex-col gap-2">
+                <div className="px-4 py-4 flex flex-col gap-2 h-28 justify-between">
                     <span className="font-bold text-l">{truncate(movie.title, 28)}</span>
                     <span className="self-end bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{movie.date}</span>
                 </div>
@@ -47,21 +48,7 @@ const MovieCard = ({ movie }: Props) => {
 
             {/* Modal */}
             <Modal show={openModal} onClose={() => setOpenModal(false)} theme={customTheme}>
-                <Modal.Body>
-                    <div className="space-y-6 flex flex-col gap-2">
-                        <div className='flex justify-between h-12'>
-                            <Heading variant="large">{movie.title}</Heading>
-                            <Button type="button" variant="secondary" value="X" onClick={() => setOpenModal(false)}/>
-                        </div>
-                        <img src={movie.backdrop} alt={movie.title} />
-                        <p className="text-base leading-relaxed text-gray-500">
-                            {movie.overview}
-                        </p>
-                    <div className="self-end">
-                    <Button type="button" variant="primary" value="Start review" onClick={() => setOpenModal(false)} />
-                    </div>
-                    </div>
-                </Modal.Body>
+                <ModalContent movie={movie} onClose={() => setOpenModal(false)}/>
             </Modal>
         </>
     );
