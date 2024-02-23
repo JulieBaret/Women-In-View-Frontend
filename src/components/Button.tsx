@@ -10,13 +10,13 @@ type Props= {
 
 const Button = ({type = "submit", value, variant, disabled, onClick}: Props) => {
     const variantToClasses = {
-        primary: "bg-primary hover:bg-secondary",
-        secondary: "bg-purple-700 hover:bg-purple-800 focus:ring-purple-300",
-        cancel: "bg-gray-700 hover:bg-gray-800 focus:ring-gray-300",
-        danger: "bg-red-700 hover:bg-red-800 focus:ring-red-300"
+        primary: "bg-primary hover:bg-primary-hovered",
+        secondary: "bg-secondary hover:bg-secondary-hovered",
+        cancel: "bg-gray-700 hover:bg-gray-800",
+        danger: "bg-red-700 hover:bg-red-800"
     }
     return (
-        <input type={type} className={`disabled:opacity-50 focus:outline-none cursor-pointer text-white transition ease-in-out ${variantToClasses[variant]} focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mb-2`}
+        <input type={type} className={`disabled:opacity-50 focus:outline-none focus:ring-none cursor-pointer text-white transition ease-in-out ${variantToClasses[variant]} focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mb-2`}
         value={value} disabled={disabled} onClick={onClick}/>
     );
 };
