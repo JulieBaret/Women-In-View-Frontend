@@ -68,8 +68,10 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
                 })
                 setMovieList(tempMovieList);
                 setIsPending(false);
+                setHasNoResults(false);
             } else {
                 setHasNoResults(true);
+                
             }
         }
     }, [dataFromTmdb]);
