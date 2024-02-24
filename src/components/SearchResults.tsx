@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import MovieCard from './MovieCard';
 import Heading from './Heading';
 import SkeletonMovieCard from './SkeletonMovieCard';
 import Movies from './Movies';
@@ -76,7 +75,7 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
     }, [dataFromTmdb]);
 
     return (
-        <>
+        <div className='flex flex-col items-center'>
             {hasNoResults ?
                 <span><Heading variant="medium">Oups, nothing was found...</Heading></span>
                 : isPending ?
@@ -88,7 +87,7 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
                     :
                     <Movies movieList={movieList} />
             }
-        </>
+        </div>
     )
 };
 
