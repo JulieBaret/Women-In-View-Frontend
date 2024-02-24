@@ -38,7 +38,7 @@ const Results = () => {
     return (
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Results for «{query}»</Heading>
-            <div className="mt-8 p-2">
+            <div className="mt-8">
                 {errorFromTmdb && <ErrorBanner isError={Boolean(errorFromTmdb)} error="It's been a problem while fetching data" />}
                 {!errorFromTmdb && dataFromTmdb && <SearchResults dataFromTmdb={dataFromTmdb} isPending={isPending} setIsPending={setIsPending} />}
             </div>
