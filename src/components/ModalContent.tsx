@@ -198,7 +198,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
     return (
         <Modal.Body>
             <div className="space-y-6 flex flex-col">
-                <div className="flex justify-between items-start h-20">
+                <div className="flex justify-between items-start h-16">
                     <Heading variant="large">{movie.title}</Heading>
                     <button onClick={onClose}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-10 h-10">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
