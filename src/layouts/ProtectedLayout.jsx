@@ -1,15 +1,24 @@
-import React from 'react';
+// React
+import React, { useState } from 'react';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import Axios from 'axios';
-import { useAuth } from '../contexts/AuthContext';
-import { useState } from 'react';
-import ActiveNavLink from '../components/ActiveNavLink';
-import { Dropdown } from 'flowbite-react';
-import { HiCog, HiLogout, HiViewGrid } from 'react-icons/hi';
 
+// Axios
+import Axios from 'axios';
+
+// Components
+import { useAuth } from '../contexts/AuthContext';
+import ActiveNavLink from '../components/ActiveNavLink';
 import FullScreenLoading from '../components/FullScreenLoading';
 import SearchBar from '../components/SearchBar';
+
+// Icons
+import { HiCog, HiLogout, HiViewGrid } from 'react-icons/hi';
+
+// External components
+import { Dropdown } from 'flowbite-react';
+
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function ProtectedLayout() {
 	const { user, token } = useAuth();
@@ -45,14 +54,14 @@ export default function ProtectedLayout() {
 			}
 		} catch (error) {
 			console.log(error);
+			toast('Error while fetching data')
 		}
 	};
 
 	const handleSearch = async (e) => {
         e.preventDefault();
-        if (searchValue.length < 3) {
-			// TODO: handle error
-            console.log("the search is not long enough")
+        if (searchValue.length < 3 | searchValue.length > 20) {
+			toast('Search should be between 3 and 20 characters')
             return;
         }
 		navigate(`/search/${searchValue}`);
@@ -63,6 +72,7 @@ export default function ProtectedLayout() {
 		<>
 			{isLoading && <FullScreenLoading label="We hope to see you soon!" />}
 			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4">
+			<Toaster />
 				<div className="flex flex-wrap items-center justify-between">
 					<div className='flex gap-2'>
 						<img src="/icon.png" className="h-9" alt="Women in view logo" />
