@@ -79,13 +79,13 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
         {hasNoResults ? 
         <span><Heading variant="medium">Oups, nothing was found...</Heading></span>
             : isPending ? 
-                <ul className="flex flex-wrap gap-4 justify-between">
+                <ul className="flex flex-wrap gap-4 justify-around">
                     {Array.from({length: 12}).map((skeleton, index) =>
                     <li key={index}><SkeletonMovieCard /></li>
                     )}
                 </ul>
                 :
-                <ul className="flex flex-wrap gap-4 justify-between">
+                <ul className="flex flex-wrap gap-4 justify-around">
                     {movieList.map((movie, index) =>
                         <li key={index}>
                             <MovieCard movie={movie} />
