@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import MovieCard from './MovieCard';
 import Heading from './Heading';
 import SkeletonMovieCard from './SkeletonMovieCard';
+import Movies from './Movies';
 
 type Props = {
     dataFromTmdb: dataFromTmdb,
@@ -53,8 +54,8 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
 
     // Formatting data
     useEffect(() => {
-        if(dataFromTmdb && dataFromTmdb.results){
-            if(dataFromTmdb.results.length){
+        if (dataFromTmdb && dataFromTmdb.results) {
+            if (dataFromTmdb.results.length) {
                 const tempMovieList: MovieList = dataFromTmdb.results.filter((movie) => movie.title && movie.poster_path && movie.backdrop_path && movie.release_date && movie.overview).map((movie) => {
                     return {
                         tmdbId: movie.id,
@@ -76,22 +77,16 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
 
     return (
         <>
-        {hasNoResults ? 
-        <span><Heading variant="medium">Oups, nothing was found...</Heading></span>
-            : isPending ? 
-                <ul className="flex flex-wrap gap-4 justify-around">
-                    {Array.from({length: 12}).map((skeleton, index) =>
-                    <li key={index}><SkeletonMovieCard /></li>
-                    )}
-                </ul>
-                :
-                <ul className="flex flex-wrap gap-4 justify-around">
-                    {movieList.map((movie, index) =>
-                        <li key={index}>
-                            <MovieCard movie={movie} />
-                        </li>
-                    )}
-                </ul>
+            {hasNoResults ?
+                <span><Heading variant="medium">Oups, nothing was found...</Heading></span>
+                : isPending ?
+                    <ul className="flex flex-wrap gap-4 justify-around">
+                        {Array.from({ length: 12 }).map((skeleton, index) =>
+                            <li key={index}><SkeletonMovieCard /></li>
+                        )}
+                    </ul>
+                    :
+                    <Movies movieList={movieList} />
             }
         </>
     )
