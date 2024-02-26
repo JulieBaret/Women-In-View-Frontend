@@ -17,8 +17,10 @@ import { HiCog, HiLogout, HiViewGrid } from 'react-icons/hi';
 
 // External components
 import { Dropdown } from 'flowbite-react';
-
 import toast, { Toaster } from 'react-hot-toast';
+
+// Hooks
+import { useFetch } from '../hooks/useFetch';
 
 export default function ProtectedLayout() {
 	const { user, token } = useAuth();
@@ -40,30 +42,38 @@ export default function ProtectedLayout() {
 	const handleLogout = async () => {
 		setIsLoading(true);
 		try {
-			const resp = await Axios.create({
-				baseURL: "http://localhost:80/api/",
+			const response = await fetch(import.meta.env.VITE_API_URL + 'logout', {
+				method: 'POST',
 				withCredentials: true,
 				headers: {
-					"Authorization": `Bearer ${token}`
-				},
-			}).post('/logout');
-			if (resp.status === 200) {
+					Accept: 'application/json',
+					Authorization: 'Bearer ' + token
+				}
+			});
+
+			if (!response.ok) {
+				throw new Error(`Error! status: ${response.status}`);
+			}
+
+			if (response.status === 200) {
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
 				window.location.href = '/';
 			}
-		} catch (error) {
-			console.log(error);
-			toast('Error while fetching data')
+		} catch (err) {
+			toast('Error while signing out: ' + error);
+			console.log(error)
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	const handleSearch = async (e) => {
-        e.preventDefault();
-        if (searchValue.length < 3 | searchValue.length > 20) {
+		e.preventDefault();
+		if (searchValue.length < 3 | searchValue.length > 20) {
 			toast('Search should be between 3 and 20 characters')
-            return;
-        }
+			return;
+		}
 		navigate(`/search/${searchValue}`);
 		setSearchValue("");
 	}
@@ -72,12 +82,12 @@ export default function ProtectedLayout() {
 		<>
 			{isLoading && <FullScreenLoading label="We hope to see you soon!" />}
 			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4 z-30">
-			<Toaster />
+				<Toaster />
 				<div className="flex flex-wrap items-center justify-between">
 					<NavLink className='flex gap-2' to="/home">
 						<img src="/icon.png" className="h-9" alt="Women in view logo" />
 						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block'>Women in View</span>
-						</NavLink>
+					</NavLink>
 					<div className="flex lg:gap-10">
 						<button type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg lg:hidden hover:text-light focus:outline-none order-last" onClick={handleOpenMenu}>
 							{isMenuOpen ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -138,7 +148,7 @@ export default function ProtectedLayout() {
 						<li>
 							<ActiveNavLink label="Home" location="/home" />
 						</li>
-						
+
 						<li>
 							<ActiveNavLink label="Last reviews" location="/" />
 						</li>
