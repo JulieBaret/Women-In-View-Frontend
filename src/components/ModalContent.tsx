@@ -165,6 +165,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
                 const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
                     method: 'POST',
                     headers: {
+                        "Content-Type": "application/json",
                         Accept: 'application/json',
                         Authorization: 'Bearer ' + token
                     },
