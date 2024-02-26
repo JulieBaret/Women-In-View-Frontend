@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import ForgotPassword from './pages/ForgotPassword';
 import UserReview from './pages/UserReview';
 import Results from './pages/Results';
+import LastReviews from './pages/LastReviews';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
 			</Route>
 			<Route path="/" element={<ProtectedLayout />}>
 				<Route path="home" element={<Home />} />
+				<Route path="last-reviews" element={<LastReviews />} />
 				<Route path="about" element={<About />} />
 				<Route path="profile" element={<Profile />} />
 				<Route path="reviews" element={<UserReview />} />

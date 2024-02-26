@@ -100,7 +100,7 @@ export default function ProtectedLayout() {
 									<ActiveNavLink label="Home" location="/home" />
 								</li>
 								<li>
-									<ActiveNavLink label="Last reviews" location="/" />
+									<ActiveNavLink label="Last reviews" location="/last-reviews" />
 								</li>
 								{/* <li>
 								<div className="flex w-[110px]">
@@ -147,7 +147,7 @@ export default function ProtectedLayout() {
 						</li>
 
 						<li>
-							<ActiveNavLink label="Last reviews" location="/" />
+							<ActiveNavLink label="Last reviews" location="/last-reviews" />
 						</li>
 						{/* <li>
 							<ActiveNavLink label="The Bechdel Test" location="/about" />

@@ -59,7 +59,7 @@ const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuesti
 const FirstStep = ({ movie }) => {
     return (
         <div className="flex flex-col gap-4">
-            <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop}`} className='rounded-md' alt={movie.title} />
+            <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} className='rounded-md' alt={movie.original_title} />
             <p className="text-base leading-relaxed text-gray-500">
                 {movie.overview}
             </p>
@@ -151,7 +151,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
             case 1:
                 return <SecondStep rating={rating} setRating={setRating} />;
             case 2:
-                return <LastStep movieTitle={movie.title} moviePoster={movie.poster} rating={rating} />;
+                return <LastStep movieTitle={movie.original_title} moviePoster={movie.poster_path} rating={rating} />;
             default:
                 return <FirstStep movie={movie} />;
         }
@@ -161,6 +161,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
         if (step < 2) {
             setStep(step + 1)
         } else {
+            console.log(rating);
             try {
                 const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
                     method: 'POST',
@@ -170,12 +171,12 @@ const ModalContent = ({ movie, onClose }: Props) => {
                         Authorization: 'Bearer ' + token
                     },
                     body: JSON.stringify({
-                        "tmdb_id": movie.tmdbId,
-                        "original_title": movie.title,
-                        "poster_path": movie.poster,
-                        "backdrop_path": movie.backdrop,
+                        "tmdb_id": movie.tmdb_id,
+                        "original_title": movie.original_title,
+                        "poster_path": movie.poster_path,
+                        "backdrop_path": movie.backdrop_path,
                         "overview": movie.overview,
-                        "release_date": movie.date,
+                        "release_date": movie.release_date,
                         "user_id": user['id'],
                         "rating": rating
                     })
@@ -186,6 +187,8 @@ const ModalContent = ({ movie, onClose }: Props) => {
                 }
             } catch (error) {
                 console.log(error);
+            } finally {
+                onClose()
             }
         }
     }
@@ -200,7 +203,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
         <Modal.Body>
             <div className="space-y-6 flex flex-col">
                 <div className="flex justify-between items-start h-16">
-                    <Heading variant="large">{movie.title}</Heading>
+                    <Heading variant="large">{movie.original_title}</Heading>
                     <button onClick={onClose}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-10 h-10">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>

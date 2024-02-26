@@ -7,7 +7,8 @@ import Movies from './Movies';
 
 type Props = {
     dataFromTmdb: dataFromTmdb,
-    isLoading: boolean,
+    isPending: boolean,
+    setIsPending: (value: boolean) => void;
 }
 
 type dataFromTmdb = {
@@ -37,17 +38,18 @@ type MovieFromTmdb = {
 export type MovieList = Array<Movie>
 
 export type Movie = {
-    tmdbId: number,
-    title: string,
-    poster: string,
-    backdrop: string,
-    date: Date,
+    id: number,
+    tmdb_id: number,
+    original_title: string,
+    poster_path: string,
+    backdrop_path: string,
+    release_date: Date,
     overview: string,
-    rating: number
+    rating: number,
+    user_id: number
 }
 
-const SearchResults = ({ dataFromTmdb, isLoading}: Props) => {
-    const [isPending, setIsPending] = useState(isLoading);
+const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
     const [movieList, setMovieList] = useState<MovieList>([]);
     const [hasNoResults, setHasNoResults] = useState(false);
 
@@ -57,13 +59,15 @@ const SearchResults = ({ dataFromTmdb, isLoading}: Props) => {
             if (dataFromTmdb.results.length) {
                 const tempMovieList: MovieList = dataFromTmdb.results.filter((movie) => movie.title && movie.poster_path && movie.backdrop_path && movie.release_date && movie.overview).map((movie) => {
                     return {
-                        tmdbId: movie.id,
-                        title: movie.title,
-                        poster: movie.poster_path,
-                        backdrop: movie.backdrop_path,
-                        date: movie.release_date,
+                        id: -1,
+                        tmdb_id: movie.id,
+                        original_title: movie.title,
+                        poster_path: movie.poster_path,
+                        backdrop_path: movie.backdrop_path,
+                        release_date: movie.release_date,
                         overview: movie.overview,
-                        rating: -1
+                        rating: -1,
+                        user_id: -1
                     }
                 })
                 setMovieList(tempMovieList);
