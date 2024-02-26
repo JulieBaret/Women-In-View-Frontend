@@ -71,17 +71,13 @@ export default function ProtectedLayout() {
 	return (
 		<>
 			{isLoading && <FullScreenLoading label="We hope to see you soon!" />}
-			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4">
+			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4 z-30">
 			<Toaster />
 				<div className="flex flex-wrap items-center justify-between">
-					<div className='flex gap-2'>
+					<NavLink className='flex gap-2' to="/home">
 						<img src="/icon.png" className="h-9" alt="Women in view logo" />
-						<NavLink
-							to="/home"
-							className="self-center text-xl font-semibold whitespace-nowrap text-white">
-							<span className='text-3xl font-bold text-light hidden sm:block'>Women in View</span>
+						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block'>Women in View</span>
 						</NavLink>
-					</div>
 					<div className="flex lg:gap-10">
 						<button type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg lg:hidden hover:text-light focus:outline-none order-last" onClick={handleOpenMenu}>
 							{isMenuOpen ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
