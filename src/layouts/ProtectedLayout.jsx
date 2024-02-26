@@ -3,9 +3,6 @@ import React, { useState } from 'react';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-// Axios
-import Axios from 'axios';
-
 // Components
 import { useAuth } from '../contexts/AuthContext';
 import ActiveNavLink from '../components/ActiveNavLink';
