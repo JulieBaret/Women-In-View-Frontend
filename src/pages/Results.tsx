@@ -10,17 +10,17 @@ const Results = () => {
     const [dataFromTmdb, setDataFromTmdb] = useState(null);
     const [isPending, setIsPending] = useState(true);
     const [errorFromTmdb, setErrorFromTmdb] = useState("");
-    
+
     useEffect(() => {
         // Fetch options
         const options = {
             method: 'GET',
             headers: {
                 accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`
+                Authorization: 'Bearer ' + import.meta.env.VITE_TMDB_TOKEN
             }
         };
-
+    
         // Fetch from Tmdb
         fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`, options)
             .then(response => response.json())
@@ -35,11 +35,13 @@ const Results = () => {
 
     }, [query])
 
+    if (errorFromTmdb) {
+        return <ErrorBanner isError={Boolean(errorFromTmdb)} error="It's been a problem while fetching data" />;
+    }
     return (
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Results for «{query}»</Heading>
             <div className="mt-8">
-                {errorFromTmdb && <ErrorBanner isError={Boolean(errorFromTmdb)} error="It's been a problem while fetching data" />}
                 {!errorFromTmdb && dataFromTmdb && <SearchResults dataFromTmdb={dataFromTmdb} isPending={isPending} setIsPending={setIsPending} />}
             </div>
         </main>
