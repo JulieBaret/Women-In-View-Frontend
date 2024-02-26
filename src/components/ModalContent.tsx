@@ -161,31 +161,31 @@ const ModalContent = ({ movie, onClose }: Props) => {
         if (step < 2) {
             setStep(step + 1)
         } else {
-            // Fetch options
-            const options = {
-                method: 'POST',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    "tmdb_id": movie.tmdbId,
-                    "original_title": movie.title,
-                    "poster_path": movie.poster,
-                    "backdrop_path": movie.backdrop,
-                    "overview": movie.overview,
-                    "release_date": movie.date,
-                    "user_id": user['id'],
-                    "rating": rating
-                })
-            };
-
-            // Fetch from Api
-            await fetch("http://localhost:80/api/movies", options)
-                .then(response => response.json()).then((data) => console.log(data))
-                .catch((err) => {
-                    console.error(err);
+            try {
+                const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: 'Bearer ' + token
+                    },
+                    body: JSON.stringify({
+                        "tmdb_id": movie.tmdbId,
+                        "original_title": movie.title,
+                        "poster_path": movie.poster,
+                        "backdrop_path": movie.backdrop,
+                        "overview": movie.overview,
+                        "release_date": movie.date,
+                        "user_id": user['id'],
+                        "rating": rating
+                    })
                 });
+
+                if (!response.ok) {
+                    throw new Error(`Error! status: ${response.status}`);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
