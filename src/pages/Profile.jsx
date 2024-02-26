@@ -1,13 +1,13 @@
-import { Axios } from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Button from '../components/Button';
 import ErrorBanner from '../components/ErrorBanner';
 import Heading from '../components/Heading';
 import HiddenInput from '../components/HiddenInput';
-import EyeIcon from '../components/icons/EyeIcon';
 import Input from '../components/Input';
 import { useAuth } from '../contexts/AuthContext';
+
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Profile() {
 	const { user, token } = useAuth();
@@ -37,37 +37,49 @@ export default function Profile() {
 		e.preventDefault();
 		console.log(userDetails);
 		try {
-			const resp = await Axios.create({
-				baseURL: "http://localhost:80/api/",
+			const response = await fetch(import.meta.env.VITE_API_URL + 'users/' + user.id, {
+				method: 'PUT',
 				withCredentials: true,
 				headers: {
-					"Authorization": `Bearer ${token}`
+					"Content-Type": "application/json",
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + token
 				},
-			}).put(`/users/${user.id}`);
-			if (resp.status === 200) {
+				body: JSON.stringify({
+					...userDetails
+				})
+			});
+
+			if (!response.ok) {
+				throw new Error(`Error! status: ${response.status}`);
+			}
+
+			if (response.status === 200) {
 				setUser(resp.data.user);
 			}
-		} catch (error) {
-			console.log(error);
-		};
+		} catch (err) {
+			toast('Error while signing out: ' + error);
+			console.log(error)
+		}
 	}
 
 	const updatePassword = async (e) => {
 		e.preventDefault();
 		if (isPasswordMatching) {
 			console.log(password);
-			// TODO : send API request
+			// TODO: send API request
 		}
 	}
 
 	const deleteUser = async (e) => {
 		e.preventDefault();
 		console.log("delete user");
-		// TODO : send API request and relocation to /home
+		// TODO: send API request and relocation to /home
 	}
 
 	return (
 		<main className="flex justify-center flex-col items-center">
+		<Toaster />
 		<div className='flex flex-col gap-10 self-center w-full'>
 			<Heading as="h1" variant="large">Profile</Heading>
 			<div className='flex flex-col gap-6'>
