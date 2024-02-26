@@ -7,8 +7,7 @@ import Movies from './Movies';
 
 type Props = {
     dataFromTmdb: dataFromTmdb,
-    isPending: boolean,
-    setIsPending: (value: boolean) => void;
+    isLoading: boolean,
 }
 
 type dataFromTmdb = {
@@ -47,7 +46,8 @@ export type Movie = {
     rating: number
 }
 
-const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
+const SearchResults = ({ dataFromTmdb, isLoading}: Props) => {
+    const [isPending, setIsPending] = useState(isLoading);
     const [movieList, setMovieList] = useState<MovieList>([]);
     const [hasNoResults, setHasNoResults] = useState(false);
 
@@ -71,24 +71,26 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
                 setHasNoResults(false);
             } else {
                 setHasNoResults(true);
-                
+
             }
         }
     }, [dataFromTmdb]);
 
+    if (hasNoResults) {
+        return <Heading variant="medium">Oups, nothing was found...</Heading>;
+    }
+
+    if (isPending) {
+        return <ul className="flex flex-wrap gap-4 justify-around">
+            {Array.from({ length: 12 }).map((skeleton, index) =>
+                <li key={index}><SkeletonMovieCard /></li>
+            )}
+        </ul>;
+    }
+
     return (
         <div className='flex flex-col items-center'>
-            {hasNoResults ?
-                <span><Heading variant="medium">Oups, nothing was found...</Heading></span>
-                : isPending ?
-                    <ul className="flex flex-wrap gap-4 justify-around">
-                        {Array.from({ length: 12 }).map((skeleton, index) =>
-                            <li key={index}><SkeletonMovieCard /></li>
-                        )}
-                    </ul>
-                    :
-                    <Movies movieList={movieList} />
-            }
+            <Movies movieList={movieList} />
         </div>
     )
 };
