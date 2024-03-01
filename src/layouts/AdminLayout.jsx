@@ -15,20 +15,20 @@ const AdminLayout = () => {
     }
 
     return (
-        <div className='flex flex-col md:flex-row'>
-            <div className="flex flex-col overflow-none md:w-fit w-screen text-grey border-none z-10 md:h-screen ">
+        <div className='flex flex-col sm:flex-row'>
+            <div className="flex flex-col overflow-none w-fit text-grey border-none z-10">
                 <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
-                    <ul className="flex flex-row md:flex md:flex-col py-4 gap-1">
+                    <ul className="flex sm:flex-col flex-row py-4 gap-1">
                         <li>
                             <NavLink to="users" className={({ isActive }) =>
-                                `${isActive && "bg-secondary text-light"} flex items-center px-4 gap-4 h-11 focus:outline-none hover:bg-secondary text-gray-600 hover:text-light md:rounded-r-lg border-l-4 border-transparent`}>
+                                `${isActive && "bg-secondary text-light"} flex items-center px-4 gap-4 h-11 focus:outline-none hover:bg-secondary text-gray-600 hover:text-light rounded-r-lg border-l-4 border-transparent`}>
                                 <HiUser />
                                 <span className="truncate">Users</span>
                             </NavLink>
                         </li>
                         <li>
                         <NavLink to="reviews" className={({ isActive }) =>
-                                `${isActive && "bg-secondary text-light"} flex items-center px-4 gap-4 h-11 focus:outline-none hover:bg-secondary text-gray-600 hover:text-light md:rounded-r-lg border-l-4 border-transparent`}>
+                                `${isActive && "bg-secondary text-light"} flex items-center px-4 gap-4 h-11 focus:outline-none hover:bg-secondary text-gray-600 hover:text-light rounded-r-lg border-l-4 border-transparent`}>
                                 <HiViewBoards />
                                 <span className="truncate">Reviews</span>
                             </NavLink>
