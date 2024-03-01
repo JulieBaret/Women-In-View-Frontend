@@ -153,7 +153,7 @@ export default function ProtectedLayout() {
 									<span className="block truncate text-sm font-medium">{user.email}</span>
 								</Dropdown.Header>
 								<Dropdown.Item icon={HiViewGrid}><NavLink to="/reviews">My reviews</NavLink></Dropdown.Item>
-								<Dropdown.Item icon={HiCog}><NavLink to="/profile">Profile settings</NavLink></Dropdown.Item>
+								<Dropdown.Item icon={HiCog}><NavLink to={`/profile/${user.id}`}>Profile settings</NavLink></Dropdown.Item>
 								<Dropdown.Divider />
 								<Dropdown.Item icon={HiLogout} onClick={handleLogout}>Sign out</Dropdown.Item>
 							</Dropdown>

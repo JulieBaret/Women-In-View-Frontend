@@ -23,7 +23,9 @@ const router = createBrowserRouter(
 				<Route path="home" element={<Home />} />
 				<Route path="last-reviews" element={<LastReviews />} />
 				<Route path="about" element={<About />} />
-				<Route path="profile" element={<Profile />} />
+				<Route path="profile">
+					<Route path=":id" element={<Profile />} />
+				</Route>
 				<Route path="reviews" element={<UserReview />} />
 					<Route path="search">
 						<Route path=":query" element={<Results />} />
