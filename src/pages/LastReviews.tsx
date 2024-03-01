@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ErrorBanner from '../components/ErrorBanner';
 import Heading from '../components/Heading';
 import Movies from '../components/Movies';
-import SearchResults, { Movie } from '../components/SearchResults';
+import SkeletonMovieCard from '../components/SkeletonMovieCard';
 import { useAuth } from '../contexts/AuthContext';
 
 const LastReviews = () => {
@@ -41,10 +41,6 @@ const LastReviews = () => {
     if (error) {
         return <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />;
     }
-
-    if (isPending) {
-        return <p>Loading</p>;
-    }
     
     if (movieList) {
         console.log(movieList);
@@ -54,13 +50,14 @@ const LastReviews = () => {
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Last reviews:</Heading>
             <div className="mt-8">
-                {movieList && <Movies movieList={movieList}/>}
+            {isPending && 
+            <ul className="flex flex-wrap gap-4 justify-around">
+            {Array.from({ length: 12 }).map((skeleton, index) =>
+                <li key={index}><SkeletonMovieCard /></li>
+            )}
+            </ul>}
+                {!isPending && movieList && <Movies movieList={movieList}/>}
             </div>
-            {/* <ul>
-                {movieList && movieList.map((movie, index)=>(
-                    <li key={index}>{movie.original_title}</li>
-                ))}
-            </ul> */}
         </main>
     );
 };
