@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ErrorBanner from '../components/ErrorBanner';
 import Heading from '../components/Heading';
 import Movies from '../components/Movies';
+import { Movie } from '../components/SearchResults';
 import SkeletonMovieCard from '../components/SkeletonMovieCard';
 import { useAuth } from '../contexts/AuthContext';
 
