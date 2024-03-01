@@ -88,7 +88,7 @@ export default function Profile() {
 				name: newUsername
 			})
 		};
-        fetch(fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
+        fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
             .then(response => response.json())
             .then((data) => {
 				setUser(data.data);
@@ -97,7 +97,6 @@ export default function Profile() {
                 console.error(err);
 				toast('Error while updating user: ' + err)
             })
-		)
 	}
 
 	// Update user email
