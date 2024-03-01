@@ -40,7 +40,7 @@ const Results = () => {
     }
     return (
         <main className="flex justify-center flex-col">
-            <Heading variant='large'>Results for «{query}»</Heading>
+            <Heading variant='large'>Results for «{query}»:</Heading>
             <div className="mt-8">
                 {!errorFromTmdb && dataFromTmdb && <SearchResults dataFromTmdb={dataFromTmdb} isPending={isPending} setIsPending={setIsPending} />}
             </div>

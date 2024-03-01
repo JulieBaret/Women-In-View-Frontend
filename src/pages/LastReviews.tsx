@@ -50,9 +50,9 @@ const LastReviews = () => {
     return (
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Last reviews:</Heading>
-            <div className="mt-8">
+            <div className="flex flex-col items-center mt-8">
             {isPending && 
-            <ul className="flex flex-wrap gap-4 justify-around">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {Array.from({ length: 12 }).map((skeleton, index) =>
                 <li key={index}><SkeletonMovieCard /></li>
             )}
