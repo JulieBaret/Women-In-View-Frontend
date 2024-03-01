@@ -8,10 +8,15 @@ import { HiPencilAlt, HiTrash } from 'react-icons/hi';
 import { MovieList } from '../components/SearchResults';
 import Loading from '../components/Loading';
 
+// Flowbite
+import { Modal } from 'flowbite-react';
+import Button from '../components/Button';
+
 const Reviews = () => {
     const { token } = useAuth();
     const [reviews, setReviews] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
+    const [openModal, setOpenModal] = useState(false);
 
     // Fetching user data from DB
     useEffect(() => {
@@ -51,8 +56,23 @@ const Reviews = () => {
                         </div>
                         <div className='flex gap-2'>
                             <HiPencilAlt size="24px" className='text-grey hover:text-primary'  />
-                            <HiTrash size="24px" className='text-grey hover:text-primary' />
+                            <HiTrash size="24px" className='text-grey hover:text-primary'  onClick={() => setOpenModal(true)}/>
                         </div>
+                        {/* Modal */}
+                        <Modal show={openModal} onClose={() => setOpenModal(false)} >
+                            <Modal.Header>Are you sure you to delete the following movie review?</Modal.Header>
+                            <Modal.Body>
+                                <div className="text-light">
+                                    <h3 >{review.original_title}</h3>
+                                    <p>rating: {review.rating}</p>
+                                    <p>user id: {review.user_id}</p>
+                                </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button type="button" value="Cancel" variant="secondary" onClick={() => setOpenModal(false)} />
+                                    <Button type="button" value="Delete" variant="primary" onClick={() => setOpenModal(false)} />
+                                </Modal.Footer>
+                        </Modal>
                     </li>
                 ))}
             </ul>
