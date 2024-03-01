@@ -10,7 +10,7 @@ import FullScreenLoading from '../components/FullScreenLoading';
 import SearchBar from '../components/SearchBar';
 
 // Icons
-import { HiCog, HiLogout, HiViewGrid } from 'react-icons/hi';
+import { HiCog, HiLogout, HiFilm, HiTemplate } from 'react-icons/hi';
 
 // External components
 import { Dropdown } from 'flowbite-react';
@@ -152,8 +152,9 @@ export default function ProtectedLayout() {
 									<span className="block text-sm">{user.name}</span>
 									<span className="block truncate text-sm font-medium">{user.email}</span>
 								</Dropdown.Header>
-								<Dropdown.Item icon={HiViewGrid}><NavLink to="/reviews">My reviews</NavLink></Dropdown.Item>
+								<Dropdown.Item icon={HiFilm}><NavLink to="/reviews">My reviews</NavLink></Dropdown.Item>
 								<Dropdown.Item icon={HiCog}><NavLink to={`/profile/${user.id}`}>Profile settings</NavLink></Dropdown.Item>
+								{user && <Dropdown.Item icon={HiTemplate}><NavLink to={`/admin/users`}>Admin page</NavLink></Dropdown.Item>}
 								<Dropdown.Divider />
 								<Dropdown.Item icon={HiLogout} onClick={handleLogout}>Sign out</Dropdown.Item>
 							</Dropdown>
