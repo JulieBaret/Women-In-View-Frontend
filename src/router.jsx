@@ -10,6 +10,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import UserReview from './pages/UserReview';
 import Results from './pages/Results';
 import LastReviews from './pages/LastReviews';
+import AdminLayout from './layouts/AdminLayout';
+import Users from './pages/Users';
+import Reviews from './pages/Reviews';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -27,9 +30,13 @@ const router = createBrowserRouter(
 					<Route path=":id" element={<Profile />} />
 				</Route>
 				<Route path="reviews" element={<UserReview />} />
-					<Route path="search">
-						<Route path=":query" element={<Results />} />
-					</Route>
+				<Route path="search">
+					<Route path=":query" element={<Results />} />
+				</Route>
+				<Route path="admin" element={<AdminLayout />}>
+					<Route path="users" element={<Users />} />
+					<Route path="reviews" element={<Reviews />} />
+				</Route>
 			</Route>
 		</Route>
 	)
