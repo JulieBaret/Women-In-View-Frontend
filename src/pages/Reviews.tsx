@@ -6,10 +6,12 @@ import { useAuth } from '../contexts/AuthContext';
 // icons
 import { HiPencilAlt, HiTrash } from 'react-icons/hi';
 import { MovieList } from '../components/SearchResults';
+import Loading from '../components/Loading';
 
 const Reviews = () => {
     const { token } = useAuth();
     const [reviews, setReviews] = useState<MovieList>([]);
+    const [isPending, setIsPending] = useState(true);
 
     // Fetching user data from DB
     useEffect(() => {
@@ -29,11 +31,16 @@ const Reviews = () => {
             .catch((err) => {
                 console.error(err);
             })
+            .finally(() => {
+                setIsPending(false);
+            })
     }, []);
 
     return (
         <div className="p-10">
             <Heading variant="medium">Reviews:</Heading>
+            {isPending && <div className="flex p-20 h-full items-center justify-center text-grey">
+                <Loading />Fetching data...</div>}
             <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
                 {reviews.map((review, index) => (
                     <li className="flex items-center py-4 rounded-lg hover:bg-gray-100 px-6 cursor-pointer" key={index}>

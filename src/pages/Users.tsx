@@ -5,6 +5,8 @@ import { useAuth } from '../contexts/AuthContext';
 
 // icons
 import { HiPencilAlt, HiTrash } from 'react-icons/hi';
+import { LoaderIcon } from 'react-hot-toast';
+import Loading from '../components/Loading';
 
 type User = {
     id: number,
@@ -15,6 +17,7 @@ type User = {
 const Users = () => {
     const { token } = useAuth();
     const [users, setUsers] = useState<User[]>([]);
+    const [isPending, setIsPending] = useState(true);
 
     // Fetching user data from DB
     useEffect(() => {
@@ -34,11 +37,16 @@ const Users = () => {
             .catch((err) => {
                 console.error(err);
             })
+            .finally(() => {
+                setIsPending(false);
+            })
     }, []);
 
     return (
         <div className="p-10">
             <Heading variant="medium">Users:</Heading>
+            {isPending && <div className="flex p-20 h-full items-center justify-center text-grey">
+                <Loading />Fetching data...</div>}
             <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
                 {users.map((user, index) => (
                     <li className="flex items-center py-4 rounded-lg hover:bg-gray-100 px-6 cursor-pointer" key={index}>
