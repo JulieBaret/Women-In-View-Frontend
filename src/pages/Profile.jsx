@@ -91,11 +91,7 @@ export default function Profile() {
         fetch(fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
             .then(response => response.json())
             .then((data) => {
-				setUser({
-					id: data.data.id,
-					name: data.data.name,
-					email: data.data.email
-				});
+				setUser(data.data);
             })
             .catch((err) => {
                 console.error(err);
@@ -121,11 +117,7 @@ export default function Profile() {
         fetch(fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
             .then(response => response.json())
             .then((data) => {
-				setUser({
-					id: data.data.id,
-					name: data.data.name,
-					email: data.data.email
-				});
+				setUser(data.data);
             })
             .catch((err) => {
                 console.error(err);
