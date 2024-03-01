@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
@@ -16,23 +16,39 @@ import { HiCog, HiLogout, HiViewGrid } from 'react-icons/hi';
 import { Dropdown } from 'flowbite-react';
 import toast, { Toaster } from 'react-hot-toast';
 
-// Hooks
-import { useFetch } from '../hooks/useFetch';
-
 export default function ProtectedLayout() {
-	const { user, token } = useAuth();
+	const { user, setUser, token } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const navigate = useNavigate();
-
-	const handleOpenMenu = () => {
-		setIsMenuOpen((prev) => !prev);
-	}
+	
+	// check if user is logged in or not from server
+	useEffect(() => {
+		const options = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: 'Bearer ' + token
+			}
+		};
+		fetch(import.meta.env.VITE_API_URL + 'users/' + user.id, options)
+			.then(response => response.json())
+			.then((data) => {
+				setUser(data.data);
+			})
+			.catch((error) => {
+				console.log(error);
+				localStorage.removeItem('user');
+				localStorage.removeItem('token');
+				window.location.href = '/';
+			})
+	}, []);
 
 	// if user is not logged in, redirect to login page
 	if (!user) {
-		return <Navigate to="/" />;
+		window.location.href = '/';
 	}
 
 	// logout user
@@ -73,6 +89,10 @@ export default function ProtectedLayout() {
 		}
 		navigate(`/search/${searchValue}`);
 		setSearchValue("");
+	}
+
+	const handleOpenMenu = () => {
+		setIsMenuOpen((prev) => !prev);
 	}
 
 	return (
