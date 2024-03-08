@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ReactElement } from 'react';
-
+import { useAuth } from '../contexts/AuthContext';
 
 // Icons
-import { HiPencilAlt, HiTrash } from 'react-icons/hi';
+import { HiTrash } from 'react-icons/hi';
 
 // Components
 import Button from './Button';
@@ -13,7 +13,6 @@ import { CustomFlowbiteTheme, Modal } from 'flowbite-react';
 
 // External components
 import toast, { Toaster } from 'react-hot-toast';
-import { useAuth } from '../contexts/AuthContext';
 
 const customTheme: CustomFlowbiteTheme['modal'] = {
     "content": {
@@ -39,11 +38,9 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                 <div className="flex-1">
                     {children}
                 </div>
-                <div className='flex gap-2'>
                     <HiTrash size="24px" className='text-grey hover:text-primary' onClick={() => {
                         setOpenModal(true)
                     }} />
-                </div>
             </li>
             {/* Modal */}
             <Modal show={openModal} onClose={() => setOpenModal(false)} theme={customTheme}>
@@ -73,7 +70,7 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                                 toast("Something went wrong...")
                             })
                             .finally(() => {
-                                toast("Review deleted with success!")
+                                toast(`${itemsType === "users" ? "User" : "Movie review"} deleted with success!`)
                                 doReload()
                             })
                     }} />
