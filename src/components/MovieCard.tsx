@@ -8,7 +8,6 @@ import Button from './Button';
 // Flowbite
 import { Modal } from 'flowbite-react';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
-import Heading from './Heading';
 import ModalContent from './ModalContent';
 
 const customTheme: CustomFlowbiteTheme['modal'] = {
@@ -31,6 +30,7 @@ const MovieCard = ({ movie }: Props) => {
                     className="relative overflow-hidden bg-cover bg-no-repeat">
                     <RatingBadge rating={Number(movie.rating)} />
                     <img
+                        loading="lazy"
                         className="rounded-t-lg object-cover h-[384px]"
                         src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                         alt={movie.original_title} />
