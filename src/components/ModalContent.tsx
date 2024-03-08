@@ -16,6 +16,9 @@ import Heading from './Heading';
 import { Modal } from 'flowbite-react';
 import { useAuth } from '../contexts/AuthContext';
 
+// External components
+import toast, { Toaster } from 'react-hot-toast';
+
 
 type Props = {
     movie: Movie;
@@ -98,7 +101,7 @@ const SecondStep = ({ rating, setRating }) => {
             <Heading variant="medium">Let's start the Bechdel Test!</Heading>
             <div className="py-6">
                 {BECHDEL_QUESTIONS.map((question, index) =>
-                    <FormQuestion isChecked={resp[index]} setIsChecked={() => {
+                    <FormQuestion key={index} isChecked={resp[index]} setIsChecked={() => {
                         setResp({
                             ...resp,
                             [index]: !resp[index]
@@ -186,8 +189,10 @@ const ModalContent = ({ movie, onClose }: Props) => {
                     throw new Error(`Error! status: ${response.status}`);
                 }
             } catch (error) {
+                toast("Something went wrong...")
                 console.log(error);
             } finally {
+                toast("Your movie review has been correctly added!")
                 onClose()
             }
         }
@@ -201,11 +206,12 @@ const ModalContent = ({ movie, onClose }: Props) => {
 
     return (
         <Modal.Body>
+            <Toaster />
             <div className="space-y-6 flex flex-col">
                 <div className="flex justify-between items-start h-16">
                     <Heading variant="large">{movie.original_title}</Heading>
-                    <button onClick={onClose}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-10 h-10">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    <button onClick={onClose}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-10 h-10">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                     </button>
                 </div>
