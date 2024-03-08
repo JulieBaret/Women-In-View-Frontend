@@ -13,6 +13,16 @@ import HiddenInput from '../components/HiddenInput';
 import Input from '../components/Input';
 import toast, { Toaster } from 'react-hot-toast';
 
+// Flowbite
+import {  Modal } from 'flowbite-react';
+
+const customTheme = {
+    "content": {
+        "base": "relative h-full w-full p-4 md:h-auto",
+        "inner": "relative rounded-lg bg-white shadow flex flex-col max-h-[90vh]",
+    },
+};
+
 export default function Profile() {
 	const params = useParams();
 	const { id } = params;
@@ -24,34 +34,35 @@ export default function Profile() {
 	const [isPasswordMatching, setIsPasswordMatching] = useState(true);
 	const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
 	const [isConfirmedPasswordVisible, setIsConfirmedPasswordVisible] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
 
 
 	// Fetching user data from DB
 	useEffect(() => {
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
+		const options = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
 				Accept: 'application/json',
-                Authorization: 'Bearer ' + token
-            }
-        };
-        fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data.data);
+				Authorization: 'Bearer ' + token
+			}
+		};
+		fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
+			.then(response => response.json())
+			.then((data) => {
+				console.log(data.data);
 				setUser(data.data);
-            })
-            .catch((err) => {
-                console.error(err);
+			})
+			.catch((err) => {
+				console.error(err);
 				toast('Error while updating user: ' + err)
-            })
+			})
 	}, []);
 
 	useEffect(() => {
 		setNewUsername(user.name);
 	}, [user.name]);
-	
+
 	useEffect(() => {
 		setNewEmail(user.email);
 	}, [user.email]);
@@ -78,65 +89,90 @@ export default function Profile() {
 	const updateUsername = async (e) => {
 		e.preventDefault();
 		const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
 				Accept: 'application/json',
-                Authorization: 'Bearer ' + token
-            },
+				Authorization: 'Bearer ' + token
+			},
 			body: JSON.stringify({
 				name: newUsername
 			})
 		};
-        fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
-            .then(response => response.json())
-            .then((data) => {
+		fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
+			.then(response => response.json())
+			.then((data) => {
 				setUser(data.data);
-            })
-            .catch((err) => {
-                console.error(err);
+			})
+			.catch((err) => {
+				console.error(err);
 				toast('Error while updating user: ' + err)
-            })
+			}).finally(
+				toast('Username updated with success!')
+			)
 	}
 
 	// Update user email
 	const updateEmail = async (e) => {
 		e.preventDefault();
 		const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
 				Accept: 'application/json',
-                Authorization: 'Bearer ' + token
-            },
+				Authorization: 'Bearer ' + token
+			},
 			body: JSON.stringify({
 				email: newEmail
 			})
 		};
-        fetch(fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
-            .then(response => response.json())
-            .then((data) => {
+		fetch(fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
+			.then(response => response.json())
+			.then((data) => {
 				setUser(data.data);
-            })
-            .catch((err) => {
-                console.error(err);
+			})
+			.catch((err) => {
+				console.error(err);
 				toast('Error while updating user: ' + err)
-            })
+			}).finally(
+				toast('Email address updated with success!')
+			)
 		)
 	}
 
+	// update password
 	const updatePassword = async (e) => {
 		e.preventDefault();
 		if (isPasswordMatching) {
-			console.log(password);
-			// TODO: send API request
+			const options = {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+					Authorization: 'Bearer ' + token
+				},
+				body: JSON.stringify({
+					password: confirmedPassword
+				})
+			};
+			fetch(fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
+				.then(response => response.json())
+				.then((data) => {
+					setUser(data.data);
+				})
+				.catch((err) => {
+					console.error(err);
+					toast('Error while updating user: ' + err)
+				}).finally(
+					toast('Password updated with success!')
+				)
+			)
 		}
 	}
 
 	const deleteUser = async (e) => {
 		e.preventDefault();
-		console.log("delete user");
-		// TODO: send API request and relocation to /home
+		setOpenModal(true);
 	}
 
 	return (
@@ -148,23 +184,23 @@ export default function Profile() {
 					<Heading as="h2" variant="medium">Edit Profile</Heading>
 					<form className='flex flex-col' onSubmit={updateUsername}>
 						<Input id="username" type="text" label="Username" value={newUsername} onChange={(e) => {
-							setNewUsername(e.target.value );
+							setNewUsername(e.target.value);
 						}} />
 						<div className="flex flex-row self-end gap-2 mt-2">
 							<Button type="button" variant="cancel" value="Cancel" onClick={handleResetUsername} />
 							<Button value="Save" variant="secondary" />
 						</div>
-						</form>
-						<form className='flex flex-col' onSubmit={updateEmail}>
+					</form>
+					<form className='flex flex-col' onSubmit={updateEmail}>
 						<Input id="email" type="mail" label="Email" value={newEmail} onChange={(e) => {
-							setNewEmail(e.target.value );
+							setNewEmail(e.target.value);
 						}} />
 						<div className="flex flex-row self-end gap-2 mt-2">
 							<Button type="button" variant="cancel" value="Cancel" onClick={handleResetEmail} />
 							<Button value="Save" variant="secondary" />
 						</div>
-						</form>
-					
+					</form>
+
 				</div>
 				<hr className="bg-gray-50 h-1 w-full my-4" />
 				<div className='flex flex-col gap-6'>
@@ -188,6 +224,35 @@ export default function Profile() {
 					<form onSubmit={deleteUser}>
 						<Button variant="danger" value="Delete account" />
 					</form>
+					{/* Modal */}
+					<Modal show={openModal} onClose={() => setOpenModal(false)} theme={customTheme}>
+						<Modal.Body><p className='text-dark font-bold'>Are you sure you want to delete your account?</p></Modal.Body>
+						<Modal.Footer>
+							<Button type="button" value="Cancel" variant="secondary" onClick={() => setOpenModal(false)} />
+							<Button type="button" value="Delete" variant="primary" onClick={() => {
+								const options = {
+									method: 'DELETE',
+									headers: {
+										'Content-Type': 'application/json',
+										Accept: 'application/json',
+										Authorization: 'Bearer ' + token
+									}
+								};
+								fetch(import.meta.env.VITE_API_URL + "users/" + user.id, options)
+									.then(response => response.json())
+									.catch((err) => {
+										console.error(err);
+										toast("Something went wrong...")
+									})
+									.finally(() => {
+										toast("User deleted with success!")
+										localStorage.removeItem('user');
+										localStorage.removeItem('token');
+										window.location.href = '/';
+									})
+							}} />
+						</Modal.Footer>
+					</Modal>
 				</div>
 			</div>
 		</main>
