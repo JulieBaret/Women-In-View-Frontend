@@ -9,7 +9,7 @@ type Props = {
 
 const RatingBadge = ({ rating }: Props) => {
 
-    const style = `absolute z-5 left-0 top-0 ${rating === 3 && 'bg-primary'} ${(rating === 0 || rating === 1 || rating === 2) && 'bg-secondary'} ${rating === -1 && 'bg-grey'} z-10 text-light font-arial font-semibold px-4 py-2 rounded-r-lg shadow-lg flex flex-row justify-center items-center gap-2`
+    const style = `absolute left-0 top-0 ${rating === 3 && 'bg-primary'} ${(rating === 0 || rating === 1 || rating === 2) && 'bg-secondary'} ${rating === -1 && 'bg-grey'} text-light font-arial font-semibold px-4 py-2 rounded-r-lg shadow-lg flex flex-row justify-center items-center gap-2`
 
     return (
         <div className={style}>
