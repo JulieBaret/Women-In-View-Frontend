@@ -29,7 +29,9 @@ const router = createBrowserRouter(
 				<Route path="profile">
 					<Route path=":id" element={<Profile />} />
 				</Route>
-				<Route path="reviews" element={<UserReview />} />
+				<Route path="reviews">
+					<Route path=":userId" element={<UserReview />} />
+				</Route>
 				<Route path="search">
 					<Route path=":query" element={<Results />} />
 				</Route>
