@@ -22,6 +22,7 @@ const UserReview = () => {
     const [reviews, setReviews] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
     const [reload, doReload] = useState(false);
+    const [hasNoResults, setHasNoResults] = useState(false);
 
     if (!token || !userId) {
         return null
@@ -55,7 +56,7 @@ const UserReview = () => {
             <Heading variant="medium">Reviews:</Heading>
             {isPending && <div className="flex p-20 h-full items-center justify-center text-grey">
                 <Loading />Fetching data...</div>}
-            <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
+            {reviews.length ? <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
                 {reviews.map((review) => (
                     <InfoCard key={review.id} itemId={review.id} itemsType="movies" doReload={() => doReload((prev) => !prev)}>
                         <div className='flex gap-4 items-center'>
@@ -68,7 +69,7 @@ const UserReview = () => {
                         </div>
                     </InfoCard>
                 ))}
-            </ul>
+            </ul> : <p className='py-4 font-bold'>You haven't any movie review yet! You can start testing some films.</p>}
         </div>
     );
 };
