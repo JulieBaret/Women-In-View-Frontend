@@ -8,9 +8,7 @@ import { HiUser, HiViewBoards } from 'react-icons/hi';
 const AdminLayout = () => {
     const { user } = useAuth();
 
-    // check if user is logged in or not from server
-    // WILL BE: if (user.role_id !== 2) {
-    if (!user.id) {
+    if (user.role_id !== 1) {
         window.location.href = '/';
     }
 
