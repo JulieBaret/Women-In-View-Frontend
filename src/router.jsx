@@ -1,8 +1,6 @@
-import { createBrowserRouter, createRoutesFromElements, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
+import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import About from './pages/About';
 import Profile from './pages/Profile';
-import Register from './pages/Register';
 import ProtectedLayout from './layouts/ProtectedLayout';
 import GuestLayout from './layouts/GuestLayout';
 import Home from './pages/Home';
@@ -13,13 +11,15 @@ import LastReviews from './pages/LastReviews';
 import AdminLayout from './layouts/AdminLayout';
 import Users from './pages/Users';
 import Reviews from './pages/Reviews';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route>
 			<Route path="/" element={<GuestLayout />}>
-				<Route path="/" element={<Login />} />
-				<Route path="register" element={<Register />} />
+				<Route path="/" element={<SignIn />} />
+				<Route path="register" element={<SignUp />} />
 				<Route path="forgot-password" element={<ForgotPassword />} />
 			</Route>
 			<Route path="/" element={<ProtectedLayout />}>

@@ -13,8 +13,8 @@ body {
 }
 
 section {
-  height: 100vh;
   background-image: url('/public/bg.png');
+  min-height: 100vh;
 }
 
 main {
