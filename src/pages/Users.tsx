@@ -4,7 +4,6 @@ import Heading from '../components/Heading';
 import { useAuth } from '../contexts/AuthContext';
 
 // icons
-import { HiPencilAlt, HiTrash } from 'react-icons/hi';
 import Loading from '../components/Loading';
 
 // Components
