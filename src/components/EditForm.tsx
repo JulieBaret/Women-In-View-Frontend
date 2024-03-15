@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Button from './Button';
 
 type Props = {
-    field: string,
+    field: "email" | "name" | "password",
     id: number,
     token: string,
     setUser: (object) => void,
@@ -18,17 +18,17 @@ const formSchema = {
     password: Yup.string().min(8, 'Min. 8 characters').required('Required')
 }
 
-const fieldToType = {
-    email: "email",
-    name: "text",
-    password: "password"
-}
-
 const EditForm = ({ field, id, token, setUser, user }: Props) => {
-    const [error, setError] = useState("");
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const userInfo = {
         ...user,
         password: ''
+    }
+
+    const fieldToType = {
+        email: "email",
+        name: "text",
+        password: isPasswordVisible ? "text" : "password"
     }
 
     const editFormSchema = Yup.object().shape({
@@ -53,31 +53,32 @@ const EditForm = ({ field, id, token, setUser, user }: Props) => {
                         ...values
                     })
                 };
-                // same shape as initial values
-                console.log(values);
                 fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
-			        .then(response => response.json())
-			        .then((data) => {
-				        setUser(data.data);
+                    .then(response => response.json())
+                    .then((data) => {
+                        setUser(data.data);
                         toast("Your " + field + " as been correctly updated");
-			        })
-			        .catch((err) => {
-				        console.error(err);
-				        toast('Error while updating user: ' + err)
-			})
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                        toast('Error while updating user: ' + err)
+                    })
             }}
         >
-            {({ errors, touched, isValid }) => (
+            {({ errors, touched, isValid, resetForm, values, initialValues }) => (
                 <Form>
                     <Toaster />
-                    <label className='uppercase text-gray-700 text-xs font-bold mb-2'>Your {field}</label>
-                    <Field type={fieldToType[field]} name={field} className="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:ring-primary focus:border-primary" />
-                    {/* If this field has been touched, and it contains an error, display it
-           */}
-                    {touched[field] && errors[field] && <div className='text-sm text-primary'>{errors[field]}</div>}
-                    <div className='mt-2'>
-                        <Button disabled={!isValid} type="submit" variant="primary" value="Edit"/>
+                    <label className='uppercase text-gray-700 text-xs font-bold mb-2'>Your {field === "password" && "new"} {field}</label>
+                    <div className='flex gap-2 items-center justify-center'>
+                        <Field type={fieldToType[field]} name={field} className="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:ring-primary focus:border-primary" />
+                        {field !== "password" && <Button disabled={values === initialValues} type="button" onClick={() => resetForm()} variant="secondary" value="Cancel" />}
+                        <Button disabled={!isValid} type="submit" variant="primary" value="Save" />
                     </div>
+                    {field === "password" && <div className='flex items-center gap-2 text-xs my-2'>
+                        <input type="checkbox" name="showPassword" className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2" onChange={(e) => setIsPasswordVisible(e.target.checked)} />
+                        <p className={isPasswordVisible ? 'text-primary' : 'text-gray-300'}>Show password</p>
+                    </div>}
+                    {touched[field] && errors[field] && <div className='text-sm text-primary'>{errors[field]}</div>}
                 </Form>
             )}
         </Formik>

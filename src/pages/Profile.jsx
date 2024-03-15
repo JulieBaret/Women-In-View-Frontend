@@ -60,7 +60,7 @@ export default function Profile() {
 			<Toaster />
 			<div className='flex flex-col gap-10 self-center w-full'>
 				<Heading as="h1" variant="large">Profile</Heading>
-				<div className='flex flex-col gap-2'>
+				<div className='flex flex-col gap-4'>
 					<Heading as="h2" variant="medium">Edit Profile</Heading>
 					<EditForm field="name" id={id} token={token} setUser={setUser} user={user}/>
 					<EditForm field="email" id={id} token={token} setUser={setUser} user={user}/>
