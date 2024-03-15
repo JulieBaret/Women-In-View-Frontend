@@ -5,7 +5,7 @@ type Props= {
     value: string,
     variant: string,
     disabled?: any,
-    onClick: any,
+    onClick?: any,
 }
 
 const Button = ({type = "submit", value, variant, disabled, onClick}: Props) => {
