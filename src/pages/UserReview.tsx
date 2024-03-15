@@ -51,12 +51,30 @@ const UserReview = () => {
             })
     }, [reload]);
 
+    if(isPending) {
+        return (
+            <div className="p-10">
+                <Heading variant="medium">Reviews:</Heading>
+                <div className="flex p-20 h-full items-center justify-center text-grey">
+                    <Loading />Fetching data...
+                </div>
+            </div>
+        )
+    }
+
+    if(!isPending && !reviews.length) {
+        return (
+            <div className="p-10">
+                <Heading variant='medium'>You haven't any movie review yet!</Heading>
+                <p className='py-4 font-bold'>You can start testing some films.</p>
+            </div>
+        )
+    }
+
     return (
         <div className="p-10">
             <Heading variant="medium">Reviews:</Heading>
-            {isPending && <div className="flex p-20 h-full items-center justify-center text-grey">
-                <Loading />Fetching data...</div>}
-            {reviews.length ? <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
+            <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
                 {reviews.map((review) => (
                     <InfoCard key={review.id} itemId={review.id} itemsType="movies" doReload={() => doReload((prev) => !prev)}>
                         <div className='flex gap-4 items-center'>
@@ -69,7 +87,7 @@ const UserReview = () => {
                         </div>
                     </InfoCard>
                 ))}
-            </ul> : <p className='py-4 font-bold'>You haven't any movie review yet! You can start testing some films.</p>}
+            </ul>
         </div>
     );
 };
