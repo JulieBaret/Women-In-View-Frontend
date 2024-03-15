@@ -59,7 +59,7 @@ const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuesti
     )
 }
 
-const FirstStep = ({ movie }) => {
+const Overview = ({ movie }) => {
     return (
         <div className="flex flex-col gap-4">
             <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} className='rounded-md' alt={movie.original_title} />
@@ -70,7 +70,7 @@ const FirstStep = ({ movie }) => {
     )
 }
 
-const SecondStep = ({ rating, setRating }) => {
+const Form = ({ rating, setRating }) => {
     const [resp, setResp] = useState({
         0: false,
         1: false,
@@ -115,7 +115,7 @@ const SecondStep = ({ rating, setRating }) => {
     )
 }
 
-const LastStep = ({ movieTitle, moviePoster, rating }) => {
+const Validation = ({ movieTitle, moviePoster, rating }) => {
     const hasPassed = rating === 3;
 
     const defaultOptions = {
@@ -150,13 +150,13 @@ const ModalContent = ({ movie, onClose }: Props) => {
     const modalState = (movie) => {
         switch (step) {
             case 0:
-                return <FirstStep movie={movie} />;
+                return <Overview movie={movie} />;
             case 1:
-                return <SecondStep rating={rating} setRating={setRating} />;
+                return <Form rating={rating} setRating={setRating} />;
             case 2:
-                return <LastStep movieTitle={movie.original_title} moviePoster={movie.poster_path} rating={rating} />;
+                return <Validation movieTitle={movie.original_title} moviePoster={movie.poster_path} rating={rating} />;
             default:
-                return <FirstStep movie={movie} />;
+                return <Overview movie={movie} />;
         }
     }
 
@@ -167,7 +167,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
             console.log(rating);
             try {
                 const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
-                    method: 'POST',
+                    method: movie.rating ? 'PUT' : 'POST',
                     headers: {
                         "Content-Type": "application/json",
                         Accept: 'application/json',
@@ -199,7 +199,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
     }
 
     const stepToButton = {
-        0: "Start Bechdel Test",
+        0: movie.rating ? "Restart Bechdel Test" : "Start Bechdel Test",
         1: "Next",
         2: "Validate my answers"
     }
