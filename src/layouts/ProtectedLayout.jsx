@@ -7,7 +7,6 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import ActiveNavLink from '../components/ActiveNavLink';
 import FullScreenLoading from '../components/FullScreenLoading';
-import SearchBar from '../components/SearchBar';
 
 // Icons
 import { HiCog, HiLogout, HiFilm, HiTemplate } from 'react-icons/hi';
@@ -15,13 +14,12 @@ import { HiCog, HiLogout, HiFilm, HiTemplate } from 'react-icons/hi';
 // External components
 import { Dropdown } from 'flowbite-react';
 import toast, { Toaster } from 'react-hot-toast';
+import SearchInput from '../components/SearchInput';
 
 export default function ProtectedLayout() {
 	const { user, setUser, token } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [searchValue, setSearchValue] = useState("");
-	const navigate = useNavigate();
 	
 	// check if user is logged in or not from server
 	useEffect(() => {
@@ -81,16 +79,6 @@ export default function ProtectedLayout() {
 		}
 	};
 
-	const handleSearch = async (e) => {
-		e.preventDefault();
-		if (searchValue.length < 3 | searchValue.length > 20) {
-			toast('Search should be between 3 and 20 characters')
-			return;
-		}
-		navigate(`/search/${searchValue}`);
-		setSearchValue("");
-	}
-
 	const handleOpenMenu = () => {
 		setIsMenuOpen((prev) => !prev);
 	}
@@ -122,19 +110,9 @@ export default function ProtectedLayout() {
 								<li>
 									<ActiveNavLink label="Last reviews" location="/last-reviews" />
 								</li>
-								{/* <li>
-								<div className="flex w-[110px]">
-									<button
-										onClick={handleLogout}
-										className="block py-2 pl-3 pr-4 hover:underline underline-offset-8">
-										Logout
-									</button>
-									{isLoading && <Loading />}
-								</div>
-							</li> */}
 							</ul>
 						</div>
-						<SearchBar onSubmit={handleSearch} onChange={(e) => setSearchValue(e.target.value)} value={searchValue} label="Search" placeholder="Search for a movie..." />
+						<SearchInput />
 						<div className='flex gap-2 items-center'>
 							{/* Dropdown profile menu */}
 							<Dropdown
@@ -144,7 +122,6 @@ export default function ProtectedLayout() {
 									<div className='flex gap-2 items-center' onClick={() => setIsMenuOpen((false))}>
 										<span className='font-bold text-white hidden w-full lg:block lg:w-auto'>Hi, {user.name}!</span>
 										<img src="/profile.png" className='h-10 hover:opacity-80 transition ease-in-out' />
-										{/* <Avatar className='rounded-full' alt="User settings" img="/profile.png" rounded /> */}
 									</div>
 								}
 							>
@@ -170,19 +147,6 @@ export default function ProtectedLayout() {
 						<li>
 							<ActiveNavLink label="Last reviews" location="/last-reviews" />
 						</li>
-						{/* <li>
-							<ActiveNavLink label="The Bechdel Test" location="/about" />
-						</li> */}
-						{/* <li>
-								<div className="flex w-[110px]">
-									<button
-										onClick={handleLogout}
-										className="block py-2 pl-3 pr-4 hover:underline underline-offset-8">
-										Logout
-									</button>
-									{isLoading && <Loading />}
-								</div>
-							</li> */}
 					</ul>
 				</div>}
 			</nav>
