@@ -83,7 +83,7 @@ const SignUp = () => {
                                         <input type="checkbox" name="showPassword" className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2" onChange={(e) => setIsPasswordVisible(e.target.checked)} />
                                         <p className={isPasswordVisible ? 'text-primary' : 'text-gray-300'}>Show password</p>
                                     </div>
-                                    <Button disabled={!isValid}type="submit" variant="primary" value="Create an account"/>
+                                    <Button disabled={!isValid} type="submit" variant="primary" value="Create an account"/>
                                 </Form>
                             )}
                         </Formik>
