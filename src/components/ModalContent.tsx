@@ -167,7 +167,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
             console.log(rating);
             try {
                 const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
-                    method: movie.rating ? 'PUT' : 'POST',
+                    method: movie.user_id ? 'PUT' : 'POST',
                     headers: {
                         "Content-Type": "application/json",
                         Accept: 'application/json',
@@ -199,7 +199,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
     }
 
     const stepToButton = {
-        0: movie.rating ? "Restart Bechdel Test" : "Start Bechdel Test",
+        0: movie.user_id ? "Restart Bechdel Test" : "Start Bechdel Test",
         1: "Next",
         2: "Validate my answers"
     }
