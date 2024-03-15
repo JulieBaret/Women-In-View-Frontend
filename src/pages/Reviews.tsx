@@ -41,13 +41,30 @@ const Reviews = () => {
             })
     }, [reload]);
 
+    if(isPending) {
+        return (
+            <div className="p-10">
+                <Heading variant="medium">Reviews:</Heading>
+                <div className="flex p-20 h-full items-center justify-center text-grey">
+                <Loading />Fetching data...</div>
+            </div>
+        )
+    }
+
+    if(!reviews.length) {
+        return (
+            <div className="p-10">
+                <Heading variant="medium">Reviews:</Heading>
+                <p className="mt-2">There is no users...</p>
+            </div>
+        )
+    }
+
     return (
         <div className="p-10">
             <Heading variant="medium">Reviews:</Heading>
-            {isPending && <div className="flex p-20 h-full items-center justify-center text-grey">
-                <Loading />Fetching data...</div>}
                 <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
-                {reviews.map((review) => (
+                {reviews.length && reviews.map((review) => (
                     <InfoCard key={review.id} itemId={review.id} itemsType="movies" doReload={() => doReload((prev) => !prev)}>
                         <>
                             <h3 className="text-lg font-medium text-gray-800">{review.original_title}</h3>

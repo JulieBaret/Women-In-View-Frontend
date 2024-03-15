@@ -45,13 +45,30 @@ const Users = () => {
             })
     }, [reload]);
 
+    if(isPending) {
+        return (
+            <div className="p-10">
+                <Heading variant="medium">Users:</Heading>
+                <div className="flex p-20 h-full items-center justify-center text-grey">
+                <Loading />Fetching data...</div>
+            </div>
+        )
+    }
+
+    if(!users.length) {
+        return (
+            <div className="p-10">
+                <Heading variant="medium">Users:</Heading>
+                <p className="mt-2">There is no users...</p>
+            </div>
+        )
+    }
+
     return (
         <div className="p-10">
             <Heading variant="medium">Users:</Heading>
-            {isPending && <div className="flex p-20 h-full items-center justify-center text-grey">
-                <Loading />Fetching data...</div>}
             <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
-                {users.map((user) => (
+                {users.length && users.map((user) => (
                     <InfoCard key={user.id} itemId={user.id} itemsType="users" doReload={() => doReload((prev) => !prev)}>
                         <>
                             <h3 className="text-lg font-medium text-gray-800">{user.name}</h3>
