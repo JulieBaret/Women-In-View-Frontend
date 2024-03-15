@@ -6,7 +6,7 @@ import SuccessLottie from '../lottie/success.json';
 import FailLottie from '../lottie/fail.json';
 
 // Type
-import { Movie } from './SearchResults';
+import { Movie } from './Movies';
 
 // Component
 import Button from './Button';
