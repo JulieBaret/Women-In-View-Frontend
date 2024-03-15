@@ -147,6 +147,8 @@ const ModalContent = ({ movie, onClose }: Props) => {
         return null
     }
 
+    
+
     const modalState = (movie) => {
         switch (step) {
             case 0:
@@ -166,6 +168,19 @@ const ModalContent = ({ movie, onClose }: Props) => {
         } else {
             console.log(rating);
             try {
+                const body =  movie.user_id ? JSON.stringify({
+                    "id": movie.id,
+                    "rating": rating
+                }) : JSON.stringify({
+                    "tmdb_id": movie.tmdb_id,
+                    "original_title": movie.original_title,
+                    "poster_path": movie.poster_path,
+                    "backdrop_path": movie.backdrop_path,
+                    "overview": movie.overview,
+                    "release_date": movie.release_date,
+                    "user_id": user['id'],
+                    "rating": rating
+                });
                 const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
                     method: movie.user_id ? 'PUT' : 'POST',
                     headers: {
@@ -173,26 +188,17 @@ const ModalContent = ({ movie, onClose }: Props) => {
                         Accept: 'application/json',
                         Authorization: 'Bearer ' + token
                     },
-                    body: JSON.stringify({
-                        "tmdb_id": movie.tmdb_id,
-                        "original_title": movie.original_title,
-                        "poster_path": movie.poster_path,
-                        "backdrop_path": movie.backdrop_path,
-                        "overview": movie.overview,
-                        "release_date": movie.release_date,
-                        "user_id": user['id'],
-                        "rating": rating
-                    })
+                    body: body
                 });
-
                 if (!response.ok) {
                     throw new Error(`Error! status: ${response.status}`);
+                } else {
+                    toast("Your movie review has been correctly added!")
                 }
             } catch (error) {
                 toast("Something went wrong...")
                 console.log(error);
             } finally {
-                toast("Your movie review has been correctly added!")
                 onClose()
             }
         }
