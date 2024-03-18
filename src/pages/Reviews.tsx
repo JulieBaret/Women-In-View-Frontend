@@ -44,7 +44,7 @@ const Reviews = () => {
     if(isPending) {
         return (
             <div className="p-10">
-                <Heading variant="medium">Reviews:</Heading>
+                <Heading variant="medium">Tested movies:</Heading>
                 <div className="flex p-20 h-full items-center justify-center text-grey">
                 <Loading />Fetching data...</div>
             </div>
@@ -62,7 +62,7 @@ const Reviews = () => {
 
     return (
         <div className="p-10">
-            <Heading variant="medium">Reviews:</Heading>
+            <Heading variant="medium">Tested movies:</Heading>
                 <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
                 {reviews.length && reviews.map((review) => (
                     <InfoCard key={review.id} itemId={review.id} itemsType="movies" doReload={() => doReload((prev) => !prev)}>
@@ -70,7 +70,7 @@ const Reviews = () => {
                             <h3 className="text-lg font-medium text-gray-800">{review.original_title}</h3>
                             <p className="text-gray-600 text-base">tmdb_id: {review.tmdb_id}</p>
                             <p className="text-gray-600 text-base">rating: {review.rating}</p>
-                            <p className="text-gray-600 text-base">reviewed by user: {review.user_id}</p>
+                            <p className="text-gray-600 text-base">tested by user: {review.user_id}</p>
                         </>
                     </InfoCard>
                 ))}

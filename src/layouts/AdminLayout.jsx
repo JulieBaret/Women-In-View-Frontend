@@ -13,7 +13,7 @@ const AdminLayout = () => {
     }
 
     return (
-        <div className='flex flex-col sm:flex-row'>
+        <main className='flex flex-col px-0 sm:flex-row'>
             <div className="flex flex-col overflow-none w-fit text-grey border-none z-10">
                 <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
                     <ul className="flex sm:flex-col flex-row py-4 gap-1">
@@ -37,7 +37,7 @@ const AdminLayout = () => {
             <div className='w-full'>
                 <Outlet />
             </div>
-        </div>
+        </main>
     );
 };
 

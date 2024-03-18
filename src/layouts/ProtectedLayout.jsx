@@ -86,12 +86,12 @@ export default function ProtectedLayout() {
 	return (
 		<>
 			{isLoading && <FullScreenLoading label="We hope to see you soon!" />}
-			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4 z-30">
+			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4 z-30 sticky top-0 z-40 w-full shadow-sm font-semibold min-w-[370px]">
 				<Toaster />
 				<div className="flex flex-wrap items-center justify-between">
 					<NavLink className='flex gap-2' to="/home">
-						<img src="/icon.png" className="h-9" alt="Women in view logo" />
-						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block'>Women in View</span>
+						<img src="/clap_logo.png" className="h-12 pb-1" alt="Women in view logo" />
+						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block font-fraunces pb-2'>women in view.</span>
 					</NavLink>
 					<div className="flex lg:gap-10">
 						<button type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg lg:hidden hover:text-light focus:outline-none order-last" onClick={handleOpenMenu}>
@@ -105,14 +105,16 @@ export default function ProtectedLayout() {
 						<div className="hidden w-full lg:block lg:w-auto">
 							<ul className="flex flex-col lg:flex-row text-center text-gray-300 lg:mb-0 mb-4">
 								<li>
-									<ActiveNavLink label="Home" location="/home" />
+									<ActiveNavLink label="home" location="/home" />
 								</li>
 								<li>
-									<ActiveNavLink label="Last reviews" location="/last-reviews" />
+									<ActiveNavLink label="tested movies" location="/last-reviews" />
 								</li>
 							</ul>
 						</div>
-						<SearchInput />
+						<div className='px-2'>
+							<SearchInput />
+						</div>
 						<div className='flex gap-2 items-center'>
 							{/* Dropdown profile menu */}
 							<Dropdown
@@ -120,7 +122,7 @@ export default function ProtectedLayout() {
 								inline
 								label={
 									<div className='flex gap-2 items-center' onClick={() => setIsMenuOpen((false))}>
-										<span className='font-bold text-white hidden w-full lg:block lg:w-auto'>Hi, {user.name}!</span>
+										<span className='text-white hidden w-full lg:block lg:w-auto font-fraunces font-regular'>Hi, {user.name}!</span>
 										<img src="/profile.png" className='h-10 hover:opacity-80 transition ease-in-out' />
 									</div>
 								}
@@ -129,7 +131,7 @@ export default function ProtectedLayout() {
 									<span className="block text-sm">{user.name}</span>
 									<span className="block truncate text-sm font-medium">{user.email}</span>
 								</Dropdown.Header>
-								<Dropdown.Item icon={HiFilm}><NavLink to={`/reviews/${user.id}`}>My reviews</NavLink></Dropdown.Item>
+								<Dropdown.Item icon={HiFilm}><NavLink to={`/reviews/${user.id}`}>My contributions</NavLink></Dropdown.Item>
 								<Dropdown.Item icon={HiCog}><NavLink to={`/profile/${user.id}`}>Profile settings</NavLink></Dropdown.Item>
 								{user.role_id === 1 && <Dropdown.Item icon={HiTemplate}><NavLink to={`/admin/users`}>Admin page</NavLink></Dropdown.Item>}
 								<Dropdown.Divider />
@@ -141,11 +143,11 @@ export default function ProtectedLayout() {
 				{isMenuOpen && <div className="h-auto lg:hidden flex flex-col text-center text-gray-300 mt-2">
 					<ul onClick={handleOpenMenu}>
 						<li>
-							<ActiveNavLink label="Home" location="/home" />
+							<ActiveNavLink label="home" location="/home" />
 						</li>
 
 						<li>
-							<ActiveNavLink label="Last reviews" location="/last-reviews" />
+							<ActiveNavLink label="tested movies" location="/last-reviews" />
 						</li>
 					</ul>
 				</div>}

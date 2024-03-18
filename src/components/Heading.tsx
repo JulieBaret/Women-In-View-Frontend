@@ -8,8 +8,8 @@ type Props = {
 const Heading = ({children, variant}: Props) => {
 
     const variantToClass = {
-        large: 'text-4xl font-extrabold',
-        medium: 'text-3xl font-bold text-gray-500'
+        large: 'text-4xl font-black font-fraunces',
+        medium: 'text-3xl font-extrabold text-gray-500 font-fraunces'
     }
 
     return (

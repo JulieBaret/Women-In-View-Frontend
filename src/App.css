@@ -10,13 +10,22 @@ html {
 body {
   height: 100%;
   overflow: auto;
+  @apply font-figtree;
+  scroll-behavior: smooth;
 }
 
 section {
-  background-image: url('/public/bg.png');
+  background-image: url('/public/bg_clap_logo.png');
+  display: grid;
+  grid-template-columns: 1fr;
+  background-size: cover;
   min-height: 100vh;
 }
 
+section.img {
+  opacity: 0.6;
+}
+
 main {
-  @apply flex p-10 md:p-20
+  @apply flex p-10 md:p-20;
 }

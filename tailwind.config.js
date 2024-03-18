@@ -20,6 +20,8 @@ module.exports = {
       }
     },
     fontFamily: {
+      figtree: ["Figtree", "sans-serif"],
+      fraunces: ["Fraunces", "serif"],
       'body': [
         'Inter',
         'ui-sans-serif',

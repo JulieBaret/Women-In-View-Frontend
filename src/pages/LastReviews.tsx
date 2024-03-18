@@ -68,14 +68,10 @@ const LastReviews = () => {
         return <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />;
     }
 
-    if (movieList) {
-        console.log(movieList);
-    }
-
     if (isPending) {
         return (
             <main className="flex justify-center flex-col">
-                <Heading variant='large'>Last reviews:</Heading>
+                <Heading variant='large'>Tested movies:</Heading>
                 <div className="flex flex-col items-center mt-8">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {Array.from({ length: 12 }).map((skeleton, index) =>
@@ -90,15 +86,15 @@ const LastReviews = () => {
     if (!movieList.length) {
         return (
             <main className="flex justify-center flex-col">
-                <Heading variant='large'>Last reviews:</Heading>
-                <Heading variant="medium">There is no reviews</Heading>
+                <Heading variant='large'>Tested movies:</Heading>
+                <Heading variant="medium">No movie has been tested yet.</Heading>
             </main>
         )
     }
 
     return (
         <main className="flex justify-center flex-col">
-            <Heading variant='large'>Last reviews:</Heading>
+            <Heading variant='large'>Tested movies:</Heading>
             <div className="flex flex-col items-center mt-8">
                 {!isPending && movieList.length && <Movies movieList={movieList} />}
             </div>
