@@ -65,12 +65,16 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                         };
                         fetch(import.meta.env.VITE_API_URL + `${itemsType}/${itemId}`, options)
                             .then(response => response.json())
+                            .then(response => {
+                                if(response.status === 200){
+                                    toast(`Your ${itemsType === "users" ? "user" : "movie review"} has been correctly added`)
+                                }
+                            })
                             .catch((err) => {
                                 console.error(err);
                                 toast("Something went wrong...")
                             })
                             .finally(() => {
-                                toast(`${itemsType === "users" ? "User" : "Movie review"} deleted with success!`)
                                 doReload()
                             })
                     }} />
