@@ -19,10 +19,11 @@ const customTheme: CustomFlowbiteTheme['modal'] = {
 };
 
 type Props = {
-    movie: Movie
+    movie: Movie,
+    doReload: (boolean) => void;
 }
 
-const MovieCard = ({ movie }: Props) => {
+const MovieCard = ({ movie, doReload }: Props) => {
     const [openModal, setOpenModal] = useState(false);
     return (
         <>
@@ -48,7 +49,7 @@ const MovieCard = ({ movie }: Props) => {
 
             {/* Modal */}
             <Modal show={openModal} onClose={() => setOpenModal(false)} theme={customTheme}>
-                <ModalContent movie={movie} onClose={() => setOpenModal(false)}/>
+                <ModalContent movie={movie} onClose={() => setOpenModal(false)} doReload={doReload}/>
             </Modal>
         </>
     );

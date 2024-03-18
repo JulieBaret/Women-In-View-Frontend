@@ -2,7 +2,8 @@ import React from 'react';
 import MovieCard from './MovieCard';
 
 type Props = {
-    movieList: Array<Movie>
+    movieList: Array<Movie>;
+    doReload: (boolean) => void;
 }
 
 export type Movie = {
@@ -17,12 +18,12 @@ export type Movie = {
     user_id?: number
 }
 
-const Movies = ({ movieList }: Props) => {
+const Movies = ({ movieList, doReload }: Props) => {
     return (
         <ul className="gridCard">
             {movieList.map((movie, index) =>
                 <li key={index}>
-                    <MovieCard movie={movie} />
+                    <MovieCard movie={movie} doReload={doReload} />
                 </li>
             )}
         </ul>

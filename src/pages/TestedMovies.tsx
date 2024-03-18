@@ -33,6 +33,8 @@ const TestedMovies = () => {
     const { page } = params;
     const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
+    const [reload, doReload] = useState(false);
+
     const onPageChange = (selectedPage: number) => {
         setIsPending(true);
         navigate('/tested-movies/' + selectedPage)
@@ -64,7 +66,7 @@ const TestedMovies = () => {
             })
 
 
-    }, [page])
+    }, [page, reload])
 
     if (error) {
         return <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />;
@@ -98,7 +100,7 @@ const TestedMovies = () => {
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Tested movies:</Heading>
             <div className="flex flex-col items-center mt-8">
-                {!isPending && movieList.length && <Movies movieList={movieList} />}
+                {!isPending && movieList.length && <Movies movieList={movieList} doReload={doReload}/>}
             </div>
             <div className="flex overflow-x-auto sm:justify-center py-10">
                 <Pagination theme={customTheme} currentPage={Number(page)} totalPages={totalPages} onPageChange={onPageChange} showIcons />

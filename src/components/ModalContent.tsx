@@ -25,6 +25,7 @@ import BrokenHeartIcon from './icons/BrokenHeartIcon';
 type Props = {
     movie: Movie;
     onClose: () => void;
+    doReload: (boolean) => void;
 }
 
 type FormQuestion = {
@@ -153,7 +154,7 @@ const Validation = ({ movieTitle, moviePoster, rating }) => {
     )
 }
 
-const ModalContent = ({ movie, onClose }: Props) => {
+const ModalContent = ({ movie, onClose, doReload }: Props) => {
     const [step, setStep] = useState(0);
     const [rating, setRating] = useState(null);
     const { token, user } = useAuth();
@@ -184,7 +185,6 @@ const ModalContent = ({ movie, onClose }: Props) => {
             console.log(rating);
             try {
                 const body =  hasBeenTested ? JSON.stringify({
-                    "id": movie.id,
                     "rating": rating
                 }) : JSON.stringify({
                     "tmdb_id": movie.tmdb_id,
@@ -196,7 +196,8 @@ const ModalContent = ({ movie, onClose }: Props) => {
                     "user_id": user['id'],
                     "rating": rating
                 });
-                const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
+                const slug = hasBeenTested ? '/' + movie.id : ''
+                const response = await fetch(import.meta.env.VITE_API_URL + 'movies' + slug, {
                     method: hasBeenTested ? 'PUT' : 'POST',
                     headers: {
                         "Content-Type": "application/json",
@@ -208,7 +209,8 @@ const ModalContent = ({ movie, onClose }: Props) => {
                 if (!response.ok) {
                     throw new Error(`Error! status: ${response.status}`);
                 } else {
-                    toast("Your movie review has been correctly added!")
+                    toast("Your movie review has been correctly added!");
+                    doReload((prev) => !prev);
                 }
             } catch (error) {
                 toast("Something went wrong...")
