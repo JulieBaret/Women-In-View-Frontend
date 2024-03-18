@@ -9,17 +9,17 @@ const Home = () => {
         <div className='flex flex-col items-center'>
             <div className="flex flex-col md:flex-row md:h-[93vh] md:justify-evenly items-evenly md:items-center mt-10 md:mt-0">
                 <div className='flex flex-col gap-6 w-[90vw] md:w-1/3'>
-                    <p className='text-4xl lg:text-5xl xl:text-6xl font-black font-fraunces'>The collaborative initiative
+                    <p className='text-4xl lg:text-5xl 2xl:text-6xl font-black font-fraunces'>The collaborative initiative
                         that puts female characters
                         in perspective</p>
-                    <p className='text-lg lg:text-xl xl:text-2xl font-medium leading-tight'>Find out which films pass or fail
+                    <p className='text-lg lg:text-xl 2xl:text-2xl font-medium leading-tight'>Find out which films pass or fail
                         the <a className="underline decoration-dotted underline-offset-4 decoration-primary" href="#bechdelTest">Bechdel Test</a> and test movies
                         yourself!</p>
                     <div className='block w-fit bg-primary rounded-full'>
                         <SearchInput />
                     </div>
                 </div>
-                <img className='w-[90vw] md:w-[50vw] py-10' alt="Alison Bechdel cartoon" src="hero.png" />
+                <img className='w-[90vw] md:w-[50vw] xl:w-[40vw] py-10' alt="Alison Bechdel cartoon" src="hero.png" />
             </div>
             <div className='bg-secondary sticky opacity-50 h-16 flex items-center pb-1 w-full'><p className='text-3xl text-light font-black font-fraunces overflow-hidden whitespace-nowrap'>men in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view.</p></div>
             <main id="bechdelTest" className='flex flex-col gap-4'>
