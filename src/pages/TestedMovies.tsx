@@ -6,7 +6,7 @@ import { Movie } from '../components/SearchResults';
 import SkeletonMovieCard from '../components/SkeletonMovieCard';
 import { useAuth } from '../contexts/AuthContext';
 import { CustomFlowbiteTheme, Pagination } from 'flowbite-react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const customTheme: CustomFlowbiteTheme['pagination'] = {
     pages: {
@@ -24,16 +24,18 @@ const customTheme: CustomFlowbiteTheme['pagination'] = {
 
 };
 
-const LastReviews = () => {
+const TestedMovies = () => {
     const { token } = useAuth();
     const [movieList, setMovieList] = useState<Movie[]>([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
+    const params = useParams();
+    const { page } = params;
+    const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
-    const onPageChange = (page: number) => {
+    const onPageChange = (selectedPage: number) => {
         setIsPending(true);
-        setCurrentPage(page);
+        navigate('/tested-movies/' + selectedPage)
     }
 
     useEffect(() => {
@@ -47,7 +49,7 @@ const LastReviews = () => {
         };
 
         // Fetch from Tmdb
-        fetch(import.meta.env.VITE_API_URL + 'movies?page=' + currentPage, options)
+        fetch(import.meta.env.VITE_API_URL + 'movies?page=' + page, options)
             .then(response => response.json())
             .then((data) => {
                 setTotalPages(data.meta.last_page);
@@ -62,7 +64,7 @@ const LastReviews = () => {
             })
 
 
-    }, [currentPage])
+    }, [page])
 
     if (error) {
         return <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />;
@@ -98,11 +100,11 @@ const LastReviews = () => {
             <div className="flex flex-col items-center mt-8">
                 {!isPending && movieList.length && <Movies movieList={movieList} />}
             </div>
-            <div className="flex overflow-x-auto sm:justify-center mt-6">
-                <Pagination theme={customTheme} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+            <div className="flex overflow-x-auto sm:justify-center py-10">
+                <Pagination theme={customTheme} currentPage={Number(page)} totalPages={totalPages} onPageChange={onPageChange} showIcons />
             </div>
         </main>
     );
 };
 
-export default LastReviews;
+export default TestedMovies;

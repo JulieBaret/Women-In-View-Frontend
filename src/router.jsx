@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import ForgotPassword from './pages/ForgotPassword';
 import UserReview from './pages/UserReview';
 import Results from './pages/Results';
-import LastReviews from './pages/LastReviews';
+import TestedMovies from './pages/TestedMovies';
 import AdminLayout from './layouts/AdminLayout';
 import Users from './pages/Users';
 import Reviews from './pages/Reviews';
@@ -24,7 +24,9 @@ const router = createBrowserRouter(
 			</Route>
 			<Route path="/" element={<ProtectedLayout />}>
 				<Route path="home" element={<Home />} />
-				<Route path="last-reviews" element={<LastReviews />} />
+				<Route path="tested-movies">
+					<Route path=":page" element={<TestedMovies />} />
+				</Route>
 				<Route path="about" element={<About />} />
 				<Route path="profile">
 					<Route path=":id" element={<Profile />} />

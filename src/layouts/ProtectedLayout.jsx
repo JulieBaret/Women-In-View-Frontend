@@ -108,7 +108,7 @@ export default function ProtectedLayout() {
 									<ActiveNavLink label="home" location="/home" />
 								</li>
 								<li>
-									<ActiveNavLink label="tested movies" location="/last-reviews" />
+									<ActiveNavLink label="tested movies" location="/tested-movies/1" />
 								</li>
 							</ul>
 						</div>
@@ -147,7 +147,7 @@ export default function ProtectedLayout() {
 						</li>
 
 						<li>
-							<ActiveNavLink label="tested movies" location="/last-reviews" />
+							<ActiveNavLink label="tested movies" location="/tested-movies/1" />
 						</li>
 					</ul>
 				</div>}
