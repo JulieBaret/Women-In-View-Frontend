@@ -18,6 +18,8 @@ import { useAuth } from '../contexts/AuthContext';
 
 // External components
 import toast, { Toaster } from 'react-hot-toast';
+import PelliculeIcon from './icons/PelliculeIcon';
+import BrokenHeartIcon from './icons/BrokenHeartIcon';
 
 
 type Props = {
@@ -59,13 +61,28 @@ const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuesti
     )
 }
 
-const Overview = ({ movie }) => {
+const Overview = ({ movie, hasBeenTested }) => {
     return (
         <div className="flex flex-col gap-4">
             <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} className='rounded-md' alt={movie.original_title} />
             <p className="text-base leading-relaxed text-gray-500">
                 {movie.overview}
             </p>
+            {hasBeenTested &&
+            <div>
+            <div className={`flex items-center gap-2 font-bold ${movie.rating === 3 ? "text-primary" : "text-secondary"}`}>
+                {movie.rating === 3 ? 
+                    <div className='w-4'>
+                        <PelliculeIcon />
+                    </div> : 
+                    <div className='w-4'>
+                        <BrokenHeartIcon />
+                        </div>
+                    }
+                    <p className="text-s text-lg">{movie.rating === 3 ? "Pass" : "Fail"} the Bechdel test</p>
+            </div>
+            <p className="text-sm text-grey font-thin">If you disagree, you can restart the Bechdel Test</p>
+            </div>}
         </div>
     )
 }
@@ -78,9 +95,7 @@ const Form = ({ rating, setRating }) => {
     });
 
     useEffect(() => {
-        console.log(resp);
         updateRating();
-        console.log(rating);
     }, [resp]);
 
     // Update rating with resp
@@ -146,19 +161,19 @@ const ModalContent = ({ movie, onClose }: Props) => {
     if (!user || !token) {
         return null
     }
-
     
+    const hasBeenTested = Boolean(movie.user_id)
 
     const modalState = (movie) => {
         switch (step) {
             case 0:
-                return <Overview movie={movie} />;
+                return <Overview movie={movie} hasBeenTested={hasBeenTested} />;
             case 1:
                 return <Form rating={rating} setRating={setRating} />;
             case 2:
                 return <Validation movieTitle={movie.original_title} moviePoster={movie.poster_path} rating={rating} />;
             default:
-                return <Overview movie={movie} />;
+                return <Overview movie={movie} hasBeenTested={hasBeenTested} />;
         }
     }
 
@@ -168,7 +183,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
         } else {
             console.log(rating);
             try {
-                const body =  movie.user_id ? JSON.stringify({
+                const body =  hasBeenTested ? JSON.stringify({
                     "id": movie.id,
                     "rating": rating
                 }) : JSON.stringify({
@@ -182,7 +197,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
                     "rating": rating
                 });
                 const response = await fetch(import.meta.env.VITE_API_URL + 'movies', {
-                    method: movie.user_id ? 'PUT' : 'POST',
+                    method: hasBeenTested ? 'PUT' : 'POST',
                     headers: {
                         "Content-Type": "application/json",
                         Accept: 'application/json',
@@ -205,7 +220,7 @@ const ModalContent = ({ movie, onClose }: Props) => {
     }
 
     const stepToButton = {
-        0: movie.user_id ? "Restart Bechdel Test" : "Start Bechdel Test",
+        0: hasBeenTested ? "Restart Bechdel Test" : "Start Bechdel Test",
         1: "Next",
         2: "Validate my answers"
     }
