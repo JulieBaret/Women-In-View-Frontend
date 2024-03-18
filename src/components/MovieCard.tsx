@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { truncate } from '../utils';
 import RatingBadge from './RatingBadge';
-import { Movie } from './SearchResults';
-import Button from './Button';
+import ModalContent from './ModalContent';
 
 
 // Flowbite
 import { Modal } from 'flowbite-react';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
-import ModalContent from './ModalContent';
+
+// Type
+import { Movie } from './Movies';
 
 const customTheme: CustomFlowbiteTheme['modal'] = {
     "content": {

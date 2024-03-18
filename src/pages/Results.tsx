@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ErrorBanner from '../components/ErrorBanner';
 import Heading from '../components/Heading';
-import SearchResults from '../components/SearchResults';
+import { useAuth } from '../contexts/AuthContext';
+import Movies from '../components/Movies';
+import SkeletonMovieCard from '../components/SkeletonMovieCard';
 
 const Results = () => {
     const params = useParams();
     const { query } = params;
-    const [dataFromTmdb, setDataFromTmdb] = useState(null);
+    const { token } = useAuth();
+    const [data, setData] = useState([]);
     const [isPending, setIsPending] = useState(true);
-    const [errorFromTmdb, setErrorFromTmdb] = useState("");
+    const [error, setError] = useState("");
 
     useEffect(() => {
         // Fetch options
@@ -17,32 +20,67 @@ const Results = () => {
             method: 'GET',
             headers: {
                 accept: 'application/json',
-                Authorization: 'Bearer ' + import.meta.env.VITE_TMDB_TOKEN
+                Authorization: 'Bearer ' + token
             }
         };
-    
+
         // Fetch from Tmdb
-        fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`, options)
+        fetch(import.meta.env.VITE_API_URL + 'search-movies/' + query, options)
             .then(response => response.json())
             .then((data) => {
-                setDataFromTmdb(data);
+                setData(Object.values(data.data));
             })
             .catch((err) => {
                 console.error(err);
-                setErrorFromTmdb(err);
-            });
-        
-
+                setError(err);
+            })
+            .finally(() => {
+                setIsPending(false);
+            })
     }, [query])
 
-    if (errorFromTmdb) {
-        return <ErrorBanner isError={Boolean(errorFromTmdb)} error="It's been a problem while fetching data" />;
+    if (error) {
+        return (
+            <main className="flex justify-center flex-col">
+                <Heading variant='large'>Results for «{query}»:</Heading>
+                <div className="mt-8">
+                    <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />;
+                </div>
+            </main>
+        )
     }
+
+    if (isPending) {
+        return (
+            <main className="flex justify-center flex-col">
+                <Heading variant='large'>Results for «{query}»:</Heading>
+                <div className="mt-8">
+                    <ul className="gridCard">
+                        {Array.from({ length: 12 }).map((skeleton, index) =>
+                            <li key={index}><SkeletonMovieCard /></li>
+                        )}
+                    </ul>
+                </div>
+            </main>
+        )
+    }
+
+    if (!isPending && !data.length) {
+        return (
+            <main className="flex justify-center flex-col">
+                <Heading variant='large'>Results for «{query}»:</Heading>
+                <div className="mt-8">
+                    <Heading variant="medium">Oups, nothing was found...</Heading>
+                </div>
+            </main>
+        )
+    }
+
     return (
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Results for «{query}»:</Heading>
             <div className="mt-8">
-                {!errorFromTmdb && dataFromTmdb && <SearchResults dataFromTmdb={dataFromTmdb} isPending={isPending} setIsPending={setIsPending} />}
+                {!error && data.length && <Movies movieList={data} />}
             </div>
         </main>
     );
