@@ -35,7 +35,7 @@ const Users = () => {
         fetch(import.meta.env.VITE_API_URL + 'users', options)
             .then(response => response.json())
             .then((data) => {
-                setUsers(data)
+                setUsers(data.data);
             })
             .catch((err) => {
                 console.error(err);
