@@ -44,7 +44,7 @@ const Results = () => {
             <main className="flex justify-center flex-col">
                 <Heading variant='large'>Results for «{query}»:</Heading>
                 <div className="mt-8">
-                    <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />;
+                    <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />
                 </div>
             </main>
         )
