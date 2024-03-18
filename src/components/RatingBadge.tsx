@@ -4,12 +4,12 @@ import EditIcon from './icons/EditIcon';
 import PelliculeIcon from './icons/PelliculeIcon';
 
 type Props = {
-    rating: number | null;
+    rating?: number;
 }
 
 const RatingBadge = ({ rating }: Props) => {
 
-    const style = `absolute left-0 top-0 ${rating === 3 && 'bg-primary'} ${(rating === 0 || rating === 1 || rating === 2) && 'bg-secondary'} ${rating === -1 && 'bg-grey'} text-light font-arial font-semibold px-4 py-2 rounded-r-lg shadow-lg flex flex-row justify-center items-center gap-2`
+    const style = `absolute left-0 top-0 ${rating === 3 && 'bg-primary'} ${(rating === 0 || rating === 1 || rating === 2) && 'bg-secondary'} ${rating === undefined && 'bg-grey'} text-light font-arial font-semibold px-4 py-2 rounded-r-lg shadow-lg flex flex-row justify-center items-center gap-2`
 
     return (
         <div className={style}>
@@ -27,7 +27,7 @@ const RatingBadge = ({ rating }: Props) => {
                 <BrokenHeartIcon />
                 </div>    
             </>}
-            {rating === -1 &&
+            {rating === undefined &&
             <>
                 <span className='text-xs'>Wait for your review</span>
                 <div className="w-5">

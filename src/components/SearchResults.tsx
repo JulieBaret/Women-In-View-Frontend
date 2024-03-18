@@ -6,12 +6,12 @@ import SkeletonMovieCard from './SkeletonMovieCard';
 import Movies from './Movies';
 
 type Props = {
-    dataFromTmdb: dataFromTmdb,
+    data: Data,
     isPending: boolean,
     setIsPending: (value: boolean) => void;
 }
 
-type dataFromTmdb = {
+type Data = {
     results: Array<MovieFromTmdb> | [],
     page: number,
     total_pages: number,
@@ -49,15 +49,15 @@ export type Movie = {
     user_id: number
 }
 
-const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
+const SearchResults = ({ data, isPending, setIsPending }: Props) => {
     const [movieList, setMovieList] = useState<MovieList>([]);
     const [hasNoResults, setHasNoResults] = useState(false);
 
     // Formatting data
     useEffect(() => {
-        if (dataFromTmdb && dataFromTmdb.results) {
-            if (dataFromTmdb.results.length) {
-                const tempMovieList: MovieList = dataFromTmdb.results.filter((movie) => movie.title && movie.poster_path && movie.backdrop_path && movie.release_date && movie.overview).map((movie) => {
+        if (data && data.results) {
+            if (data.results.length) {
+                const tempMovieList: MovieList = data.results.filter((movie) => movie.title && movie.poster_path && movie.backdrop_path && movie.release_date && movie.overview).map((movie) => {
                     return {
                         id: -1,
                         tmdb_id: movie.id,
@@ -78,7 +78,7 @@ const SearchResults = ({ dataFromTmdb, isPending, setIsPending }: Props) => {
 
             }
         }
-    }, [dataFromTmdb]);
+    }, [data]);
 
     if (hasNoResults) {
         return <Heading variant="medium">Oups, nothing was found...</Heading>;
