@@ -28,3 +28,7 @@ section.img {
 main {
   @apply flex p-10 md:p-20;
 }
+
+.gridCard {
+  @apply grid grid-cols-1 min-[600px]:grid-cols-2 min-[950px]:grid-cols-3 min-[1200px]:grid-cols-4 min-[1500px]:grid-cols-5 min-[1800px]:grid-cols-6 gap-4;
+}

@@ -75,7 +75,7 @@ const TestedMovies = () => {
             <main className="flex justify-center flex-col">
                 <Heading variant='large'>Tested movies:</Heading>
                 <div className="flex flex-col items-center mt-8">
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <ul className="gridCard">
                         {Array.from({ length: 12 }).map((skeleton, index) =>
                             <li key={index}><SkeletonMovieCard /></li>
                         )}

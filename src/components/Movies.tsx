@@ -8,7 +8,7 @@ type Props = {
 
 const Movies = ({ movieList }: Props) => {
     return (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <ul className="gridCard">
             {movieList.map((movie, index) =>
                 <li key={index}>
                     <MovieCard movie={movie} />
