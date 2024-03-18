@@ -13,6 +13,7 @@ const Results = () => {
     const [data, setData] = useState([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState("");
+    const [reload, doReload] = useState(false);
 
     useEffect(() => {
         // Fetch options
@@ -28,6 +29,7 @@ const Results = () => {
         fetch(import.meta.env.VITE_API_URL + 'search-movies/' + query, options)
             .then(response => response.json())
             .then((data) => {
+                console.log(data.data)
                 setData(Object.values(data.data));
             })
             .catch((err) => {
@@ -37,7 +39,7 @@ const Results = () => {
             .finally(() => {
                 setIsPending(false);
             })
-    }, [query])
+    }, [query, reload])
 
     if (error) {
         return (
@@ -80,7 +82,7 @@ const Results = () => {
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Results for «{query}»:</Heading>
             <div className="mt-8">
-                {!error && data.length && <Movies movieList={data} />}
+                {!error && data.length && <Movies movieList={data} doReload={doReload}/>}
             </div>
         </main>
     );
