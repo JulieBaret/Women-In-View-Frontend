@@ -155,7 +155,6 @@ export default function ProtectedLayout() {
 			<div>
 				<Outlet />
 			</div>
-			<Footer />
 		</>
 	);
 }
