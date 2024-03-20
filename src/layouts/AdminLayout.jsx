@@ -28,7 +28,7 @@ const AdminLayout = () => {
                         <NavLink to="reviews" className={({ isActive }) =>
                                 `${isActive && "bg-secondary text-light"} flex items-center px-4 gap-4 h-11 focus:outline-none hover:bg-secondary text-gray-600 hover:text-light rounded-r-lg border-l-4 border-transparent`}>
                                 <HiViewBoards />
-                                <span className="truncate">Reviews</span>
+                                <span className="truncate">Movies</span>
                             </NavLink>
                         </li>
                     </ul>

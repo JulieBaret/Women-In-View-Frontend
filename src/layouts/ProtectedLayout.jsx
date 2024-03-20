@@ -131,8 +131,8 @@ export default function ProtectedLayout() {
 									<span className="block text-sm">{user.name}</span>
 									<span className="block truncate text-sm font-medium">{user.email}</span>
 								</Dropdown.Header>
-								<Dropdown.Item icon={HiFilm}><NavLink to={`/reviews/${user.id}`}>My contributions</NavLink></Dropdown.Item>
-								<Dropdown.Item icon={HiCog}><NavLink to={`/profile/${user.id}`}>Profile settings</NavLink></Dropdown.Item>
+								<Dropdown.Item icon={HiFilm}><NavLink to={`/user/reviews/${user.id}`}>My contributions</NavLink></Dropdown.Item>
+								<Dropdown.Item icon={HiCog}><NavLink to={`/user/profile/${user.id}`}>Profile settings</NavLink></Dropdown.Item>
 								{user.role_id === 1 && <Dropdown.Item icon={HiTemplate}><NavLink to={`/admin/users`}>Admin page</NavLink></Dropdown.Item>}
 								<Dropdown.Divider />
 								<Dropdown.Item icon={HiLogout} onClick={handleLogout}>Sign out</Dropdown.Item>

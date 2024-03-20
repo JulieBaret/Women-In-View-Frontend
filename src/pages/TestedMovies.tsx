@@ -58,7 +58,6 @@ const TestedMovies = () => {
                 setMovieList(data.data);
             })
             .catch((err) => {
-                console.error(err);
                 setError(err);
             })
             .finally(() => {

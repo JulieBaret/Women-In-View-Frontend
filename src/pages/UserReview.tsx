@@ -14,6 +14,7 @@ import InfoCard from '../components/InfoCard';
 import { useParams } from 'react-router-dom';
 import PelliculeIcon from '../components/icons/PelliculeIcon';
 import BrokenHeartIcon from '../components/icons/BrokenHeartIcon';
+import ErrorBanner from '../components/ErrorBanner';
 
 const UserReview = () => {
     const { token } = useAuth();
@@ -21,6 +22,7 @@ const UserReview = () => {
     const { userId } = params;
     const [reviews, setReviews] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState("");
     const [reload, doReload] = useState(false);
 
     if (!token || !userId) {
@@ -43,12 +45,20 @@ const UserReview = () => {
                 setReviews(data);
             })
             .catch((err) => {
-                console.error(err);
+                setError(err);
             })
             .finally(() => {
                 setIsPending(false);
             })
     }, [reload]);
+
+    if (error) {
+        return (
+            <main className="flex flex-col">
+                <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />
+            </main>
+        )
+    }
 
     if(isPending) {
         return (
@@ -61,7 +71,7 @@ const UserReview = () => {
         )
     }
 
-    if(!isPending && !reviews.length) {
+    if(!isPending && !error && !reviews.length) {
         return (
             <main className="flex flex-col">
                 <Heading variant='medium'>You haven't any movie review yet!</Heading>
