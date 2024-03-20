@@ -7,6 +7,7 @@ import Button from '../components/Button';
 import fetchApi from '../fetchApi';
 import { useAuth } from '../contexts/AuthContext';
 import ErrorBanner from '../components/ErrorBanner';
+import FullScreenLoading from '../components/FullScreenLoading';
 
 const SignInSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
@@ -19,11 +20,11 @@ const SignIn = () => {
     const { setUser, setToken } = useAuth();
 	const [error, setError] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-
+    const [isPending, setIsPending] = useState(false);
 
     return (
         <section>
+            {isPending && <FullScreenLoading label='Login'/>}
             <div className="flex flex-col items-center justify-center px-6 py-8 lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -38,6 +39,7 @@ const SignIn = () => {
                             }}
                             validationSchema={SignInSchema}
                             onSubmit={async (values) => {
+                                setIsPending(true);
                                 try {
                                     const resp = await fetchApi.post('/login', values);
                                     if (resp.status === 200) {
@@ -47,6 +49,8 @@ const SignIn = () => {
                                     }
                                 } catch (error) {
                                     setError("Error while sign in");
+                                } finally {
+                                    setIsPending(false);
                                 }
                             }}
                         >
