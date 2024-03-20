@@ -4,20 +4,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 // Hooks
 import { useAuth } from '../contexts/AuthContext';
 
-// Icons
-import { MovieList } from '../components/SearchResults';
-import Loading from '../components/Loading';
-
 // Components
 import Heading from '../components/Heading';
 import InfoCard from '../components/InfoCard';
 import ErrorBanner from '../components/ErrorBanner';
+import Loading from '../components/Loading';
 
 // External components
 import { Pagination } from 'flowbite-react';
 
 // Utils
 import { paginationCustomTheme } from '../utils';
+
+// Types
+import { MovieList } from '../components/Movies';
 
 const Reviews = () => {
     const { token } = useAuth();

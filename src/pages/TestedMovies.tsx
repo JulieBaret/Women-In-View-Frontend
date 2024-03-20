@@ -7,8 +7,6 @@ import { useAuth } from '../contexts/AuthContext';
 // Components
 import ErrorBanner from '../components/ErrorBanner';
 import Heading from '../components/Heading';
-import Movies from '../components/Movies';
-import { Movie } from '../components/SearchResults';
 import SkeletonMovieCard from '../components/SkeletonMovieCard';
 
 // External components
@@ -17,9 +15,12 @@ import { Pagination } from 'flowbite-react';
 // Utils
 import { paginationCustomTheme } from '../utils';
 
+// Types
+import Movies, { MovieList } from '../components/Movies';
+
 const TestedMovies = () => {
     const { token } = useAuth();
-    const [movieList, setMovieList] = useState<Movie[]>([]);
+    const [movieList, setMovieList] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState("");
     const params = useParams();

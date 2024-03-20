@@ -32,7 +32,6 @@ const Results = () => {
                 setData(Object.values(data.data));
             })
             .catch((err) => {
-                console.error(err);
                 setError(err);
             })
             .finally(() => {

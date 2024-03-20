@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 // Hooks
 import { useAuth } from '../contexts/AuthContext';
 
 // Icons
-import { MovieList } from '../components/SearchResults';
-import Loading from '../components/Loading';
+
+import PelliculeIcon from '../components/icons/PelliculeIcon';
+import BrokenHeartIcon from '../components/icons/BrokenHeartIcon';
+
 
 // Components
 import Heading from '../components/Heading';
 import InfoCard from '../components/InfoCard';
-import { useParams } from 'react-router-dom';
-import PelliculeIcon from '../components/icons/PelliculeIcon';
-import BrokenHeartIcon from '../components/icons/BrokenHeartIcon';
 import ErrorBanner from '../components/ErrorBanner';
+import Loading from '../components/Loading';
+
+// Types
+import { MovieList } from '../components/Movies';
 
 const UserReview = () => {
     const { token } = useAuth();
