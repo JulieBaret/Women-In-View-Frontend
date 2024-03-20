@@ -41,7 +41,6 @@ export default function Profile() {
 		fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
 			.then(response => response.json())
 			.then((data) => {
-				console.log(data.data);
 				setUser(data.data);
 			})
 			.catch((err) => {

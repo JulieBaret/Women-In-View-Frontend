@@ -15,7 +15,6 @@ const ChangePassword = () => {
 		const body = {
 			email: email.value,
 		};
-		console.log(body);
 		try {
 			const resp = await fetchApi.post('/users/forgot-password', body);
 			if (resp.status === 200) {
@@ -25,7 +24,6 @@ const ChangePassword = () => {
 			if (error.status === 403) {
 				setError("Invalid email");
 			}
-			console.log(error);
 		}
 	};
 	return (

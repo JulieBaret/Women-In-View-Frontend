@@ -182,7 +182,6 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
         if (step < 2) {
             setStep(step + 1)
         } else {
-            console.log(rating);
             try {
                 const body =  hasBeenTested ? JSON.stringify({
                     "rating": rating
@@ -214,7 +213,6 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
                 }
             } catch (error) {
                 toast("Something went wrong...")
-                console.log(error);
             } finally {
                 onClose()
             }

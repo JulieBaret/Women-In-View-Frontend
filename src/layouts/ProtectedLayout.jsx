@@ -37,7 +37,6 @@ export default function ProtectedLayout() {
 				setUser(data.data);
 			})
 			.catch((error) => {
-				console.log(error);
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
 				window.location.href = '/';
@@ -73,7 +72,6 @@ export default function ProtectedLayout() {
 			}
 		} catch (err) {
 			toast('Error while signing out: ' + error);
-			console.log(error)
 		} finally {
 			setIsLoading(false);
 		}

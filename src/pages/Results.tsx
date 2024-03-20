@@ -29,7 +29,6 @@ const Results = () => {
         fetch(import.meta.env.VITE_API_URL + 'search-movies/' + query, options)
             .then(response => response.json())
             .then((data) => {
-                console.log(data.data)
                 setData(Object.values(data.data));
             })
             .catch((err) => {

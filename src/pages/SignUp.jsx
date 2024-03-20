@@ -43,7 +43,6 @@ const SignUp = () => {
                             }}
                             validationSchema={SignupSchema}
                             onSubmit={async (values) => {
-                                console.log(values);
                                 try {
                                     const resp = await fetchApi.post('/register', values);
                                     if (resp.status === 200) {
