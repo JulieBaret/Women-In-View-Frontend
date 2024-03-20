@@ -30,7 +30,7 @@ const MovieCard = ({ movie, doReload }: Props) => {
             <div onClick={() => setOpenModal(true)} className="rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] w-64 h-112 cursor-pointer hover:scale-[1.03] transition duration-300 ease-in-out">
                 <div
                     className="relative overflow-hidden bg-cover bg-no-repeat">
-                    <RatingBadge rating={Number(movie.rating)} />
+                    <RatingBadge rating={Number(movie.rating || -1)} />
                     <img
                         loading="lazy"
                         className="rounded-t-lg object-cover h-[384px]"
