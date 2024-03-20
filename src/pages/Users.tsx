@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import Heading from '../components/Heading';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+// Hooks
 import { useAuth } from '../contexts/AuthContext';
 
-// icons
+// Icons
 import Loading from '../components/Loading';
 
 // Components
+import Heading from '../components/Heading';
 import InfoCard from '../components/InfoCard';
 
+// External components
+import { Pagination } from 'flowbite-react';
+
+// Utils
+import { paginationCustomTheme } from '../utils';
+import ErrorBanner from '../components/ErrorBanner';
 
 type User = {
     id: number,
@@ -20,7 +28,17 @@ const Users = () => {
     const { token } = useAuth();
     const [users, setUsers] = useState<User[]>([]);
     const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState("");
+    const params = useParams();
+    const { page } = params;
+    const navigate = useNavigate();
+    const [totalPages, setTotalPages] = useState(0);
     const [reload, doReload] = useState(false);
+
+    const onPageChange = (selectedPage: number) => {
+        setIsPending(true);
+        navigate('/admin/users/' + selectedPage)
+    }
 
     // Fetching user data from DB
     useEffect(() => {
@@ -32,18 +50,27 @@ const Users = () => {
                 Authorization: 'Bearer ' + token
             }
         };
-        fetch(import.meta.env.VITE_API_URL + 'users', options)
+        fetch(import.meta.env.VITE_API_URL + 'users?page=' + page, options)
             .then(response => response.json())
             .then((data) => {
+                setTotalPages(data.meta.last_page);
                 setUsers(data.data);
             })
             .catch((err) => {
-                console.error(err);
+                setError(err);
             })
             .finally(() => {
                 setIsPending(false);
             })
-    }, [reload]);
+    }, [page, reload]);
+
+    if (error) {
+        return (
+            <div className="px-10">
+                <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />
+            </div>
+        )
+    }
 
     if(isPending) {
         return (
@@ -78,6 +105,9 @@ const Users = () => {
                     </InfoCard>
                 ))}
             </ul>
+            <div className="flex overflow-x-auto sm:justify-center py-10">
+                <Pagination theme={paginationCustomTheme} currentPage={Number(page)} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+            </div>
         </div>
     );
 };

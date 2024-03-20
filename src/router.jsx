@@ -40,8 +40,12 @@ const router = createBrowserRouter(
 					<Route path=":query" element={<Results />} />
 				</Route>
 				<Route path="admin" element={<AdminLayout />}>
-					<Route path="users" element={<Users />} />
-					<Route path="reviews" element={<Reviews />} />
+					<Route path="users">
+						<Route path=":page" element={<Users />} />
+					</Route>
+					<Route path="reviews">
+						<Route path=":page" element={<Reviews />} />
+					</Route>
 				</Route>
 			</Route>
 		</Route>

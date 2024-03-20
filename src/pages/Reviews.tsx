@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Hooks
 import { useAuth } from '../contexts/AuthContext';
@@ -11,12 +11,29 @@ import Loading from '../components/Loading';
 // Components
 import Heading from '../components/Heading';
 import InfoCard from '../components/InfoCard';
+import ErrorBanner from '../components/ErrorBanner';
+
+// External components
+import { Pagination } from 'flowbite-react';
+
+// Utils
+import { paginationCustomTheme } from '../utils';
 
 const Reviews = () => {
     const { token } = useAuth();
-    const [reviews, setReviews] = useState<MovieList>([]);
+    const [movieList, setMovieList] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState("");
+    const params = useParams();
+    const { page } = params;
+    const navigate = useNavigate();
+    const [totalPages, setTotalPages] = useState(0);
     const [reload, doReload] = useState(false);
+
+    const onPageChange = (selectedPage: number) => {
+        setIsPending(true);
+        navigate('/admin/reviews/' + selectedPage)
+    }
 
     // Fetching user data from DB
     useEffect(() => {
@@ -28,18 +45,27 @@ const Reviews = () => {
                 Authorization: 'Bearer ' + token
             }
         };
-        fetch(import.meta.env.VITE_API_URL + 'movies', options)
+        fetch(import.meta.env.VITE_API_URL + 'movies?page=' + page, options)
             .then(response => response.json())
             .then((data) => {
-                setReviews(data.data)
+                setTotalPages(data.meta.last_page);
+                setMovieList(data.data);
             })
             .catch((err) => {
-                console.error(err);
+                setError(err)
             })
             .finally(() => {
                 setIsPending(false);
             })
-    }, [reload]);
+    }, [page, reload]);
+
+    if (error) {
+        return (
+            <div className="px-10">
+                <ErrorBanner isError={Boolean(error)} error="It's been a problem while fetching data" />
+            </div>
+        )
+    }
 
     if(isPending) {
         return (
@@ -51,7 +77,7 @@ const Reviews = () => {
         )
     }
 
-    if(!reviews.length) {
+    if(!movieList.length) {
         return (
             <div className="p-10">
                 <Heading variant="medium">Reviews:</Heading>
@@ -64,7 +90,7 @@ const Reviews = () => {
         <div className="p-10">
             <Heading variant="medium">Tested movies:</Heading>
                 <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
-                {reviews.length && reviews.map((review) => (
+                {movieList.length && movieList.map((review) => (
                     <InfoCard key={review.id} itemId={review.id} itemsType="movies" doReload={() => doReload((prev) => !prev)}>
                         <>
                             <h3 className="text-lg font-medium text-gray-800">{review.original_title}</h3>
@@ -75,6 +101,9 @@ const Reviews = () => {
                     </InfoCard>
                 ))}
             </ul>
+            <div className="flex overflow-x-auto sm:justify-center py-10">
+                <Pagination theme={paginationCustomTheme} currentPage={Number(page)} totalPages={totalPages} onPageChange={onPageChange} showIcons />
+            </div>
         </div>
     );
 };
