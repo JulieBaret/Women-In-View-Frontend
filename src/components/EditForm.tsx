@@ -60,7 +60,6 @@ const EditForm = ({ field, id, token, setUser, user }: Props) => {
                         toast("Your " + field + " as been correctly updated");
                     })
                     .catch((err) => {
-                        console.error(err);
                         toast('Error while updating user: ' + err)
                     })
             }}

@@ -44,7 +44,6 @@ export default function Profile() {
 				setUser(data.data);
 			})
 			.catch((err) => {
-				console.error(err);
 				toast('Error while updating user: ' + err)
 			})
 	}, []);
@@ -89,7 +88,6 @@ export default function Profile() {
 								fetch(import.meta.env.VITE_API_URL + "users/" + user.id, options)
 									.then(response => response.json())
 									.catch((err) => {
-										console.error(err);
 										toast("Something went wrong...")
 									})
 									.finally(() => {

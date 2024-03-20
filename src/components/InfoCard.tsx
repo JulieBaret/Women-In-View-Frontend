@@ -71,7 +71,6 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                                 }
                             })
                             .catch((err) => {
-                                console.error(err);
                                 toast("Something went wrong...")
                             })
                             .finally(() => {
