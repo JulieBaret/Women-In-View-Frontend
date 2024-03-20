@@ -16,7 +16,7 @@ const Button = ({type = "submit", value, variant, disabled, onClick}: Props) => 
         danger: "bg-red-700 hover:bg-red-800"
     }
     return (
-        <input type={type} className={`disabled:bg-gray-200 disabled:cursor-default focus:outline-none focus:ring-none cursor-pointer text-white transition ease-in-out ${variantToClasses[variant]} focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 font-fraunces`}
+        <input type={type} className={`disabled:bg-gray-200 disabled:cursor-default focus:outline-none focus:ring-none cursor-pointer text-white transition ease-in-out ${variantToClasses[variant]} focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5`}
         value={value} disabled={disabled} onClick={onClick}/>
     );
 };
