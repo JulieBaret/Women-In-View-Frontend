@@ -20,7 +20,7 @@ const SearchInput = () => {
                     toast('Max. 20 characters')
                     return;
                 }
-                navigate(`/search/${values.query}`);
+                navigate(`/search/${values.query.trim().toLowerCase()}`);
             }}
         >
             {({ errors }) => (
