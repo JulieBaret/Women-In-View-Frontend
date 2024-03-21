@@ -65,7 +65,7 @@ const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuesti
 const Overview = ({ movie, hasBeenTested }) => {
     return (
         <div className="flex flex-col gap-4">
-            <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} className='rounded-md' alt={movie.original_title} />
+            <img src={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`} className='rounded-md' alt={movie.original_title} />
             <p className="text-base leading-relaxed text-gray-500">
                 {movie.overview}
             </p>

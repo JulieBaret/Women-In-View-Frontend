@@ -90,7 +90,7 @@ const UserReview = () => {
                 {reviews.map((review) => (
                     <InfoCard key={review.id} itemId={review.id} itemsType="movies" doReload={() => doReload((prev) => !prev)}>
                         <div className='flex gap-4 items-center'>
-                            <img className='h-24 rounded' src={`https://image.tmdb.org/t/p/original/${review.poster_path}`} />
+                            <img className='h-24 rounded' src={`https://image.tmdb.org/t/p/w92${review.poster_path}`} />
                             <div className='flex flex-col'>
                                 <h3 className="text-lg font-medium text-gray-800">{review.original_title}</h3>
                                 <p className="text-gray-600 text-base">According to your review, this movie</p>
