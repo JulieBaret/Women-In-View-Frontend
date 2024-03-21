@@ -86,7 +86,7 @@ export default function ProtectedLayout() {
 	return (
 		<>
 			{isLoading && <FullScreenLoading label="We hope to see you soon!" />}
-			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4 z-30 sticky top-0 w-full shadow-sm font-semibold min-w-[370px]">
+			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4 z-20 sticky top-0 w-full shadow-sm font-semibold min-w-[370px]">
 				<Toaster />
 				<div className="flex flex-wrap items-center justify-between">
 					<NavLink className='flex gap-2' to="/home">

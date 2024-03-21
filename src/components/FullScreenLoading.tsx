@@ -7,7 +7,7 @@ type Props={
 
 const FullScreenLoading = ({label}: Props) => {
     return (
-        <div className="fixed h-screen w-screen bg-black bg-opacity-80 z-20 flex justify-center items-center">
+        <div className="fixed h-screen w-screen bg-black bg-opacity-80 z-30 flex justify-center items-center">
             <div className="flex text-gray-400">
 
                 <svg fill='none' className="w-10 h-10 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
