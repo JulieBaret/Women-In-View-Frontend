@@ -73,7 +73,11 @@ export default function Profile() {
 					</form>
 					{/* Modal */}
 					<Modal show={openModal} onClose={() => setOpenModal(false)} theme={customTheme}>
-						<Modal.Body><p className='text-dark font-bold'>Are you sure you want to delete your account?</p></Modal.Body>
+						<Modal.Body>
+							<p className='text-dark font-bold mb-6'>Are you sure you want to delete your account?
+							</p>
+							<p>Delete your account will remove all your contributions from <span>Women in View</span>.</p>
+							</Modal.Body>
 						<Modal.Footer>
 							<Button type="button" value="Cancel" variant="secondary" onClick={() => setOpenModal(false)} />
 							<Button type="button" value="Delete" variant="primary" onClick={() => {

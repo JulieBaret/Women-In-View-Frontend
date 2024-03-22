@@ -47,6 +47,7 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                 <Modal.Header><p className='text-dark font-bold'>{`Are you sure you to delete the following ${itemsType === "users" ? "user" : "movie review"}?`}</p></Modal.Header>
                 <Modal.Body>
                     <Toaster />
+                    {itemsType === "users" && <p>Delete this account will remove all its contributions from <span>Women in View</span>.</p>}
                     <div className="text-light">
                         {children}
                     </div>
