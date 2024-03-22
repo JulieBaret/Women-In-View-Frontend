@@ -1,10 +1,12 @@
 import { createContext, useContext, useState } from 'react';
+import fetchApi from '../fetchApi';
 
 const AuthContent = createContext({
 	user: null,
 	setUser: () => {},
 	token: null,
 	setToken: () => {},
+	csrfToken: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -36,8 +38,14 @@ export const AuthProvider = ({ children }) => {
 		_setToken(token);
 		};
 
+	// csrf token generation for guest methods
+	const csrfToken = async () => {
+		await fetchApi.get('http://localhost:80/sanctum/csrf-cookie');
+		return true;
+	};
+
 	return (
-		<AuthContent.Provider value={{ user, token, setToken, setUser }}>
+		<AuthContent.Provider value={{ user, token, setToken, setUser, csrfToken }}>
 			{children}
 		</AuthContent.Provider>
 	);
