@@ -33,6 +33,7 @@ type FormQuestion = {
     setIsChecked: (boolean) => void;
     label: string;
     isEligible: boolean;
+    index: number;
 }
 
 type User = {
@@ -43,12 +44,27 @@ type User = {
 
 const BECHDEL_QUESTIONS = ["Does this movie have at least two women in it?", "Do those women talk to each other?", "Does those talks refer to something else than a man?"];
 
-const FormQuestion = ({ isChecked, setIsChecked, label, isEligible }: FormQuestion) => {
+const FormQuestion = ({ isChecked, setIsChecked, label, isEligible, index }: FormQuestion) => {
+    const handleKeyPress = (event) => {
+        if (event.key === ' ' || event.key === 'Enter') {
+            setIsChecked(!isChecked);
+        }
+    };
     return (
         <span className="flex items-center justify-between">
-            <p className={`${!isEligible && 'text-gray-300'}`}>{label}</p>
-            <label className='themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md bg-white p-1'>
+            <label
+                id={`question-${index + 1}`}
+                onKeyPress={handleKeyPress}
+                tabIndex={0}
+                className={`${!isEligible ? 'text-gray-300' : ''}`}>
+                {label}
+            </label>
+            <label
+                className='relative inline-flex cursor-pointer  items-center justify-center rounded-md bg-white p-1'>
                 <input
+                    aria-labelledby={`question-${index + 1}`}
+                    aria-checked={isChecked}
+                    tabIndex={-1}
                     type='checkbox'
                     className='sr-only'
                     checked={isChecked}
@@ -70,20 +86,20 @@ const Overview = ({ movie, hasBeenTested }) => {
                 {movie.overview}
             </p>
             {hasBeenTested &&
-            <div>
-            <div className={`flex items-center gap-2 font-bold ${movie.rating === 3 ? "text-primary" : "text-secondary"}`}>
-                {movie.rating === 3 ? 
-                    <div className='w-4'>
-                        <PelliculeIcon />
-                    </div> : 
-                    <div className='w-4'>
-                        <BrokenHeartIcon />
-                        </div>
-                    }
-                    <p className="text-s text-lg">{movie.rating === 3 ? "Pass" : "Fail"} the Bechdel test</p>
-            </div>
-            <p className="text-sm text-grey font-thin">If you disagree, you can restart the Bechdel Test</p>
-            </div>}
+                <div>
+                    <div className={`flex items-center gap-2 font-bold ${movie.rating === 3 ? "text-primary" : "text-secondary"}`}>
+                        {movie.rating === 3 ?
+                            <div className='w-4'>
+                                <PelliculeIcon />
+                            </div> :
+                            <div className='w-4'>
+                                <BrokenHeartIcon />
+                            </div>
+                        }
+                        <p className="text-s text-lg">{movie.rating === 3 ? "Pass" : "Fail"} the Bechdel test</p>
+                    </div>
+                    <p className="text-sm text-grey font-thin">If you disagree, you can restart the Bechdel Test</p>
+                </div>}
         </div>
     )
 }
@@ -117,7 +133,7 @@ const Form = ({ rating, setRating }) => {
             <Heading variant="medium">Let's start the Bechdel Test!</Heading>
             <div className="py-6">
                 {BECHDEL_QUESTIONS.map((question, index) =>
-                    <FormQuestion key={index} isChecked={resp[index]} setIsChecked={() => {
+                    <FormQuestion key={index} index={index} isChecked={resp[index]} setIsChecked={() => {
                         setResp({
                             ...resp,
                             [index]: !resp[index]
@@ -162,7 +178,7 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
     if (!user || !token) {
         return null
     }
-    
+
     const hasBeenTested = Boolean(movie.user_id)
 
     const modalState = (movie) => {
@@ -183,7 +199,7 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
             setStep(step + 1)
         } else {
             try {
-                const body =  hasBeenTested ? JSON.stringify({
+                const body = hasBeenTested ? JSON.stringify({
                     "rating": rating
                 }) : JSON.stringify({
                     "tmdb_id": movie.tmdb_id,
