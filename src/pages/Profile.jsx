@@ -57,17 +57,17 @@ export default function Profile() {
 		<main className="flex justify-center flex-col items-center">
 			<Toaster />
 			<div className='flex flex-col gap-10 self-center w-full'>
-				<Heading as="h1" variant="large">Profile</Heading>
+				<Heading variant="large">Profile</Heading>
 				<div className='flex flex-col gap-4'>
-					<Heading as="h2" variant="medium">Edit Profile</Heading>
-					<EditForm field="name" id={id} token={token} setUser={setUser} user={user}/>
-					<EditForm field="email" id={id} token={token} setUser={setUser} user={user}/>
-					<Heading as="h2" variant="medium">Change password</Heading>
-					<EditForm field="password" id={id} token={token} setUser={setUser} user={user}/>
+					<Heading variant="medium">Edit Profile</Heading>
+					<EditForm field="name" id={id} token={token} setUser={setUser} user={user} />
+					<EditForm field="email" id={id} token={token} setUser={setUser} user={user} />
+					<Heading variant="medium">Change password</Heading>
+					<EditForm field="password" id={id} token={token} setUser={setUser} user={user} />
 				</div>
 				<hr className="bg-gray-50 h-1 w-full my-4" />
 				<div className='flex flex-col gap-6'>
-					<Heading as="h2" variant="medium">Danger Zone</Heading>
+					<Heading variant="medium">Danger Zone</Heading>
 					<form onSubmit={deleteUser}>
 						<Button variant="danger" value="Delete account" />
 					</form>
@@ -77,7 +77,7 @@ export default function Profile() {
 							<p className='text-dark font-bold mb-6'>Are you sure you want to delete your account?
 							</p>
 							<p>Delete your account will remove all your contributions from <span>Women in View</span>.</p>
-							</Modal.Body>
+						</Modal.Body>
 						<Modal.Footer>
 							<Button type="button" value="Cancel" variant="secondary" onClick={() => setOpenModal(false)} />
 							<Button type="button" value="Delete" variant="primary" onClick={() => {

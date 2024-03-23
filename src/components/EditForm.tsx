@@ -67,15 +67,15 @@ const EditForm = ({ field, id, token, setUser, user }: Props) => {
             {({ errors, touched, isValid, resetForm, values, initialValues }) => (
                 <Form>
                     <Toaster />
-                    <label className='uppercase text-gray-700 text-xs font-bold mb-2'>Your {field === "password" && "new"} {field}</label>
+                    <label id={field} className='uppercase text-gray-700 text-xs font-bold mb-2'>Your {field === "password" && "new"} {field}</label>
                     <div className='flex gap-2 items-center justify-center'>
-                        <Field type={fieldToType[field]} name={field} className="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:ring-primary focus:border-primary" />
+                        <Field aria-labelledby={field} type={fieldToType[field]} name={field} className="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:ring-primary focus:border-primary" />
                         {field !== "password" && <Button disabled={values === initialValues} type="button" onClick={() => resetForm()} variant="secondary" value="Cancel" />}
                         <Button disabled={!isValid} type="submit" variant="primary" value="Save" />
                     </div>
                     {field === "password" && <div className='flex items-center gap-2 text-xs my-2'>
-                        <input type="checkbox" name="showPassword" className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2" onChange={(e) => setIsPasswordVisible(e.target.checked)} />
-                        <p className={isPasswordVisible ? 'text-primary' : 'text-gray-300'}>Show password</p>
+                        <input aria-labelledby="showPassword" type="checkbox" name="showPassword" className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2" onChange={(e) => setIsPasswordVisible(e.target.checked)} />
+                        <label id="showPassword" className={isPasswordVisible ? 'text-primary' : 'text-gray-300'}>Show password</label>
                     </div>}
                     {touched[field] && errors[field] && <div className='text-sm text-primary'>{errors[field]}</div>}
                 </Form>

@@ -34,7 +34,7 @@ const ChangePassword = () => {
 						<div className='flex justify-center items-center'>
 							<img className='h-16' src='/icon.png' />
 						</div>
-						<Heading as='h1' variant='medium'>Change your password</Heading>
+						<Heading variant='medium'>Change your password</Heading>
 						<form
 							className="space-y-4 md:space-y-6 gap-2 flex flex-col"
 							onSubmit={handleSubmit}>

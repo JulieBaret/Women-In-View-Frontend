@@ -94,7 +94,10 @@ export default function ProtectedLayout() {
 						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block font-fraunces pb-2'>women in view.</span>
 					</NavLink>
 					<div className="flex lg:gap-10">
-						<button type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg lg:hidden hover:text-light focus:outline-none order-last" onClick={handleOpenMenu}>
+						<button 
+							aria-label={isMenuOpen ? "closeMenu" : "openMenu"}
+							className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg lg:hidden hover:text-light order-last"
+							onClick={handleOpenMenu}>
 							{isMenuOpen ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
 								<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
 							</svg>
@@ -152,9 +155,9 @@ export default function ProtectedLayout() {
 					</ul>
 				</div>}
 			</nav>
-			<div>
+			<>
 				<Outlet />
-			</div>
+			</>
 		</>
 	);
 }
