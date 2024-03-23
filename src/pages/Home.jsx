@@ -16,11 +16,11 @@ const Home = () => {
                     <h2 className='text-lg lg:text-xl 2xl:text-2xl font-medium leading-tight'>Find out which films pass or fail
                         the <a className="underline decoration-dotted underline-offset-4 decoration-primary" href="#bechdelTest">Bechdel Test</a> and test movies
                         yourself!</h2>
-                    <div className='block w-fit bg-primary rounded-full'>
+                    <div className='block w-fit bg-primary-hovered rounded-full'>
                         <SearchInput />
                     </div>
                 </div>
-                <img className='w-[90vw] md:w-[50vw] xl:w-[40vw] py-10' alt="Sketches of female characters from Thelma and Louise, Portrait of a Lady on Fire, Woman King and The Purple Color" src="hero.png" />
+                <img className='w-[90vw] md:w-[50vw] xl:w-[40vw] py-10' alt="Sketches of female characters from Thelma and Louise, Portrait of a Lady on Fire, Woman King and The Purple Color" src="hero.webp" />
             </div>
             <div className='bg-secondary sticky opacity-50 h-16 flex items-center pb-1 w-full'><p className='text-3xl text-light font-black font-fraunces overflow-hidden whitespace-nowrap'>men in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view.</p></div>
             <main id="bechdelTest" className='flex flex-col gap-4'>
@@ -46,7 +46,7 @@ const Home = () => {
                     <p>Originally conceived as a humorous observation on the portrayal of women in films, the test was then emphasized by Liz Wallace in an essay about women and cinema and has since evolved into a powerful tool for dissecting gender bias in media. Despite its straightforwardness, passing the test remains a significant challenge for many films and TV shows, revealing the persistent tendency to sideline female characters and prioritize male-centric narratives.</p>
                     <div className='flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-0'>
                         <p className='text-left text-2xl md:text-4xl md:font-extrabold font-bold font-fraunces text-secondary'>50% of movies fail the Bechdel Test</p>
-                        <img className="w-[50vw]" alt="extract of The Rule comic strip" src="comic.png" />
+                        <img className="w-[50vw]" alt="extract of The Rule comic strip" src="clap_logo.webp" />
                     </div>
                     <p>Despite its basic criteria, FiveThirtyEight.com found out in 2014 that <span className="font-black text-primary underline underline-offset-4">half of the films released between 1970 and 2013 did not pass the Bechdel test</span> (out of approximately 2,000 films analyzed).</p>
                     <p>By highlighting the absence of meaningful interactions between female characters and exposing the pervasive gender biases embedded in storytelling, the "Bechdel-Wallace Test" has sparked vital conversations about representation, diversity, and gender equality in the media landscape. Even though it does determines a film's quality or feminist credentials, it serves as a starting point for deeper analysis and discussion about the complexities of gender representation and intersectionality in media.</p>

@@ -90,7 +90,7 @@ export default function ProtectedLayout() {
 				<Toaster />
 				<div className="flex flex-wrap items-center justify-between">
 					<NavLink className='flex gap-2' to="/home">
-						<img src="/clap_logo.png" className="h-12 pb-1" alt="Women in view logo" />
+						<img src="/clap_logo.webp" className="h-12 pb-1" alt="Women in view logo" />
 						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block font-fraunces pb-2'>women in view.</span>
 					</NavLink>
 					<div className="flex lg:gap-10">
@@ -121,12 +121,13 @@ export default function ProtectedLayout() {
 						<div className='flex gap-2 items-center'>
 							{/* Dropdown profile menu */}
 							<Dropdown
+								aria-label="dropdown menu to access profile related features"
 								arrowIcon={false}
 								inline
 								label={
 									<div className='flex gap-2 items-center' onClick={() => setIsMenuOpen((false))}>
 										<span className='text-white hidden w-full lg:block lg:w-auto font-fraunces font-regular'>Hi, {user.name}!</span>
-										<img src="/profile.png" className='h-10 hover:opacity-80 transition ease-in-out' />
+										<img alt="avatar" src="/avatar.webp" className='h-10 hover:opacity-80 transition ease-in-out' />
 									</div>
 								}
 							>

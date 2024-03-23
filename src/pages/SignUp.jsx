@@ -33,7 +33,7 @@ const SignUp = () => {
                 <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <div className='flex justify-center items-center'>
-                            <img className='h-28' src='/clap_logo.png' />
+                            <img className='h-28' src='/clap_logo.webp' />
                         </div>
                         <Heading variant='medium'>Create an account</Heading>
                         <Formik

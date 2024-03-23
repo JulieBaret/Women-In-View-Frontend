@@ -14,7 +14,7 @@ body {
 }
 
 section {
-  background-image: url('/public/bg_clap_logo.png');
+  background-image: url('/public/background.webp');
   display: grid;
   grid-template-columns: 1fr;
   background-size: cover;
