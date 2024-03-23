@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import fetchApi from '../fetchApi';
+import fetchApi from '../utils/fetchApi';
 
 const AuthContent = createContext({
 	user: null,

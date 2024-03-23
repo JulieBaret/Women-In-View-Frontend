@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import Heading from '../components/Heading';
 import { Link, Navigate } from 'react-router-dom';
 import Button from '../components/Button';
-import fetchApi from '../fetchApi';
+import fetchApi from '../utils/fetchApi';
 import { useAuth } from '../contexts/AuthContext';
 import ErrorBanner from '../components/ErrorBanner';
 import FullScreenLoading from '../components/FullScreenLoading';

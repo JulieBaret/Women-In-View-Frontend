@@ -1,5 +1,5 @@
 import React from 'react';
-import fetchApi from '../fetchApi';
+import fetchApi from '../utils/fetchApi';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
