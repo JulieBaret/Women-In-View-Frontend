@@ -17,6 +17,10 @@ const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string()
         .min(8, 'Min. 8 characters or digits')
+        .matches(/[0-9]/, 'Requires a number')
+        .matches(/[a-z]/, 'Requires a lowercase letter')
+        .matches(/[A-Z]/, 'Requires an uppercase letter')
+        .matches(/[^\w]/, 'Requires a special character')
         .required('Required'),
 });
 

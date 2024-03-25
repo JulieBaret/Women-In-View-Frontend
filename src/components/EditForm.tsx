@@ -15,7 +15,10 @@ type Props = {
 const formSchema = {
     email: Yup.string().email('Invalid email').required('Required'),
     name: Yup.string().min(2, 'Min. 2 characters').max(20, 'Max. 20 characters').required('Required'),
-    password: Yup.string().min(8, 'Min. 8 characters').required('Required')
+    password: Yup.string().min(8, 'Min. 8 characters').matches(/[0-9]/, 'Requires a number')
+        .matches(/[a-z]/, 'Requires a lowercase letter')
+        .matches(/[A-Z]/, 'Requires an uppercase letter')
+        .matches(/[^\w]/, 'Requires a special character').required('Required')
 }
 
 const EditForm = ({ field, id, token, setUser, user }: Props) => {
