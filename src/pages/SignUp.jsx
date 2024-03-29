@@ -57,7 +57,7 @@ const SignUp = () => {
                                         return <Navigate to="/profile" />;
                                     }
                                 } catch (error) {
-                                    setError("Error while sign up");
+                                    setError(error.response.data.message);
                                 } finally {
                                     setIsPending(false);
                                 }

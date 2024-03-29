@@ -48,7 +48,7 @@ const SignIn = () => {
                                         return <Navigate to="/profile" />;
                                     }
                                 } catch (error) {
-                                    setError("Error while sign in");
+                                    setError(error.response.data.message);
                                 } finally {
                                     setIsPending(false);
                                 }
