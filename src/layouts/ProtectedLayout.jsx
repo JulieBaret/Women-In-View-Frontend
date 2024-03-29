@@ -111,7 +111,7 @@ export default function ProtectedLayout() {
 									<ActiveNavLink label="home" location="/home" />
 								</li>
 								<li>
-									<ActiveNavLink label="tested movies" location="/tested-movies/1" />
+									<ActiveNavLink label="tested movies" location="/tested-movies" />
 								</li>
 							</ul>
 						</div>
@@ -137,7 +137,7 @@ export default function ProtectedLayout() {
 								</Dropdown.Header>
 								<Dropdown.Item icon={HiFilm}><NavLink to={`/user/reviews/${user.id}`}>My contributions</NavLink></Dropdown.Item>
 								<Dropdown.Item icon={HiCog}><NavLink to={`/user/profile/${user.id}`}>Profile settings</NavLink></Dropdown.Item>
-								{user.role_id === 1 && <Dropdown.Item icon={HiTemplate}><NavLink to={`/admin/users/1`}>Admin page</NavLink></Dropdown.Item>}
+								{user.role_id === 1 && <Dropdown.Item icon={HiTemplate}><NavLink to={`/admin/users`}>Admin page</NavLink></Dropdown.Item>}
 								<Dropdown.Divider />
 								<Dropdown.Item icon={HiLogout} onClick={handleLogout}>Sign out</Dropdown.Item>
 							</Dropdown>
@@ -151,7 +151,7 @@ export default function ProtectedLayout() {
 						</li>
 
 						<li>
-							<ActiveNavLink label="tested movies" location="/tested-movies/1" />
+							<ActiveNavLink label="tested movies" location="/tested-movies?page=1" />
 						</li>
 					</ul>
 				</div>}

@@ -24,9 +24,7 @@ const router = createBrowserRouter(
 			</Route>
 			<Route path="/" element={<ProtectedLayout />}>
 				<Route path="home" element={<Home />} />
-				<Route path="tested-movies">
-					<Route path=":page" element={<TestedMovies />} />
-				</Route>
+				<Route path="tested-movies" element={<TestedMovies />} />
 				<Route path="about" element={<About />} />
 				<Route path="user">
 					<Route path="profile">
@@ -40,12 +38,8 @@ const router = createBrowserRouter(
 					<Route path=":query" element={<Results />} />
 				</Route>
 				<Route path="admin" element={<AdminLayout />}>
-					<Route path="users">
-						<Route path=":page" element={<Users />} />
-					</Route>
-					<Route path="reviews">
-						<Route path=":page" element={<Reviews />} />
-					</Route>
+					<Route path="users" element={<Users />} />
+					<Route path="reviews" element={<Reviews />} />
 				</Route>
 			</Route>
 		</Route>

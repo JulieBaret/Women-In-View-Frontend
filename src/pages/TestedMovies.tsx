@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // Hooks
 import { useAuth } from '../contexts/AuthContext';
@@ -23,15 +23,16 @@ const TestedMovies = () => {
     const [movieList, setMovieList] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState("");
-    const params = useParams();
-    const { page } = params;
+    const [searchParams, ] = useSearchParams();
+    const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
     const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
     const [reload, doReload] = useState(false);
 
     const onPageChange = (selectedPage: number) => {
         setIsPending(true);
-        navigate('/tested-movies/' + selectedPage)
+        setPage(selectedPage);
+        navigate(`/tested-movies?page=${encodeURIComponent(selectedPage)}`);
     }
 
     useEffect(() => {

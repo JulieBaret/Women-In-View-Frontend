@@ -54,7 +54,7 @@ const Results = () => {
         return (
             <main className="flex justify-center flex-col">
                 <Heading variant='large'>Results for «{query}»:</Heading>
-                <div className="mt-8">
+                <div className="flex flex-col items-center mt-8">
                     <ul className="gridCard">
                         {Array.from({ length: 12 }).map((skeleton, index) =>
                             <li key={index}><SkeletonMovieCard /></li>
@@ -69,7 +69,7 @@ const Results = () => {
         return (
             <main className="flex justify-center flex-col">
                 <Heading variant='large'>Results for «{query}»:</Heading>
-                <div className="mt-8">
+                <div className="flex flex-col items-center mt-8">
                     <Heading variant="medium">Oups, nothing was found...</Heading>
                 </div>
             </main>
@@ -79,7 +79,7 @@ const Results = () => {
     return (
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Results for «{query}»:</Heading>
-            <div className="mt-8">
+            <div className="flex flex-col items-center mt-8">
                 {!error && data.length && <Movies movieList={data} doReload={doReload}/>}
             </div>
         </main>

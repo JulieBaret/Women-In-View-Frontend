@@ -18,14 +18,14 @@ const AdminLayout = () => {
                 <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
                     <ul className="flex sm:flex-col flex-row py-4 gap-1">
                         <li>
-                            <NavLink tabIndex={0} to="users/1" className={({ isActive }) =>
+                            <NavLink tabIndex={0} to="users" className={({ isActive }) =>
                                 `${isActive && "bg-secondary text-light"} flex items-center px-4 gap-4 h-11 hover:bg-secondary text-gray-600 hover:text-light rounded-r-lg border-l-4 border-transparent`}>
                                 <HiUser />
                                 <span className="truncate">Users</span>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink tabIndex={0} to="reviews/1" className={({ isActive }) =>
+                            <NavLink tabIndex={0} to="reviews" className={({ isActive }) =>
                                 `${isActive && "bg-secondary text-light"} flex items-center px-4 gap-4 h-11 hover:bg-secondary text-gray-600 hover:text-light rounded-r-lg border-l-4 border-transparent`}>
                                 <HiViewBoards />
                                 <span className="truncate">Movies</span>
