@@ -10,8 +10,10 @@ export default function GuestLayout() {
 		return <Navigate to="/home" />;
 	}
 	return (
-		<>
-			<Outlet />
-		</>
+		<div className='guest-container'>
+            <div className="flex flex-col items-center justify-center px-6 py-8 lg:py-0">
+				<Outlet />
+			</div>
+		</div>
 	);
 }

@@ -13,15 +13,15 @@ body {
   scroll-behavior: smooth;
 }
 
-section {
-  background-image: url('/public/background.webp');
+.guest-container {
+  background-image: url('/public/collage_background.webp');
   display: grid;
   grid-template-columns: 1fr;
   background-size: cover;
   min-height: 100vh;
 }
 
-section.img {
+.guest-container.img {
   opacity: 0.6;
 }
 
