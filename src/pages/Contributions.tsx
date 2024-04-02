@@ -14,10 +14,9 @@ import BrokenHeartIcon from '../components/icons/BrokenHeartIcon';
 import Heading from '../components/Heading';
 import InfoCard from '../components/InfoCard';
 import ErrorBanner from '../components/ErrorBanner';
-import Loading from '../components/Loading';
 
 // Types
-import { MovieList } from '../components/Movies';
+import { MovieList } from '../components/MovieGrid';
 import SkeletonInfoCard from '../components/SkeletonInfoCard';
 import SearchInput from '../components/SearchInput';
 

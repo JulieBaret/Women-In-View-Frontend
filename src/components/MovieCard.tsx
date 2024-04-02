@@ -9,7 +9,7 @@ import { Modal } from 'flowbite-react';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 
 // Type
-import { Movie } from './Movies';
+import { Movie } from './MovieGrid';
 
 const customTheme: CustomFlowbiteTheme['modal'] = {
     "content": {
