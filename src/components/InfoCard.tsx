@@ -41,7 +41,7 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
     return (
         <div>
             <Toaster />
-            <li tabIndex={0} className="fadeInUp-animation flex items-center py-4 rounded-lg hover:bg-gray-100 px-6 cursor-pointer">
+            <li tabIndex={0} className="flex items-center h-36 py-4 rounded-lg hover:bg-gray-100 px-6 cursor-pointer">
                 <div className="flex-1">
                     {children}
                 </div>

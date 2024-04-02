@@ -18,6 +18,8 @@ import Loading from '../components/Loading';
 
 // Types
 import { MovieList } from '../components/Movies';
+import SkeletonInfoCard from '../components/SkeletonInfoCard';
+import SearchInput from '../components/SearchInput';
 
 const UserReview = () => {
     const { token } = useAuth();
@@ -67,9 +69,11 @@ const UserReview = () => {
         return (
             <main className="flex flex-col">
                 <Heading variant="large">My contributions:</Heading>
-                <div className="flex p-20 h-full items-center justify-center text-grey">
-                    <Loading />Fetching data...
-                </div>
+                <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
+                    {Array.from({ length: 12 }).map((skeleton, index) =>
+                        <li key={index}><SkeletonInfoCard /></li>
+                    )}
+                </ul>
             </main>
         )
     }
@@ -77,8 +81,14 @@ const UserReview = () => {
     if(!isPending && !error && !reviews.length) {
         return (
             <main className="flex flex-col">
-                <Heading variant='medium'>You haven't any movie review yet!</Heading>
-                <p className='py-4 font-bold'>You can start testing some films.</p>
+                <Heading variant="large">My contributions:</Heading>
+                <div className='mt-10 flex flex-col gap-4'>
+                    <Heading variant='medium'>You haven't test any movie yet!</Heading>
+                    <h2 className='text-lg lg:text-xl 2xl:text-2xl font-medium leading-tight'>You can start searching for a movie and submit it to the Bechdel Test:</h2>
+                    <div className='block w-fit bg-primary rounded-full'>
+                        <SearchInput />
+                    </div>
+                </div>
             </main>
         )
     }

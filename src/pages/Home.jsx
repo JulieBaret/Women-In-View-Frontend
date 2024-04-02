@@ -1,27 +1,14 @@
 import React from 'react';
 import Footer from '../components/Footer';
 import Heading from '../components/Heading';
-import SearchInput from '../components/SearchInput';
+import Hero from '../components/Hero';
 
 
 const Home = () => {
 
     return (
         <div className='flex flex-col items-center'>
-            <div className="flex flex-col md:flex-row md:h-[93vh] md:justify-evenly items-evenly md:items-center mt-10 md:mt-0">
-                <div className='flex flex-col gap-6 w-[90vw] md:w-1/3'>
-                    <h1 className='fadeInUp-animation text-4xl lg:text-5xl 2xl:text-6xl font-black font-fraunces'>The collaborative initiative
-                        that puts female characters
-                        in perspective</h1>
-                    <h2 className='fadeInUp-animation text-lg lg:text-xl 2xl:text-2xl font-medium leading-tight'>Find out which films pass or fail
-                        the <a className="underline decoration-dotted underline-offset-4 decoration-primary" href="#bechdelTest">Bechdel Test</a> and test movies
-                        yourself!</h2>
-                    <div className='fadeInUp-animation block w-fit bg-primary rounded-full'>
-                        <SearchInput />
-                    </div>
-                </div>
-                <img className='fadeInUp-animation w-[90vw] md:w-[50vw] xl:w-[40vw] py-10' alt="Sketches of female characters from Thelma and Louise, Portrait of a Lady on Fire, Woman King and The Purple Color" src="hero.webp" />
-            </div>
+            <Hero />
             <div className='bg-secondary sticky opacity-50 h-16 flex items-center pb-1 w-full'><p className='text-3xl text-light font-black font-fraunces overflow-hidden whitespace-nowrap'>men in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view.</p></div>
             <main id="bechdelTest" className='flex flex-col gap-4'>
                 <article className='flex flex-col self-center gap-10 text-lg text-justify lg:w-5/6'>
@@ -36,7 +23,7 @@ const Home = () => {
                             <p className='text-2xl md:text-4xl md:font-extrabold font-bold font-fraunces'><span className='italic'>I only go to a movie if it satisfies <span className='underline'>three basic requirements</span>. One, it has to have at least two women in it who, two, talk to each other about, three, something besides a man.</span></p>
                         </blockquote>
                         <figcaption className="flex items-center justify-center mt-6 space-x-3 rtl:space-x-reverse md:px-0">
-                            <img className="w-10 rounded-full" src="https://meme-pas-mal.fr/wp-content/uploads/2016/11/portraits-auteurs_alison.jpg" alt="profile picture" />
+                            <img className="fadeInUp-animation w-10 rounded-full" src="https://meme-pas-mal.fr/wp-content/uploads/2016/11/portraits-auteurs_alison.jpg" alt="profile picture" />
                             <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500">
                                 <cite className="pe-3 font-medium leading-tight text-dark">Alison Bechdel</cite>
                                 <cite className="px-3 text-sm text-grey">Dykes to Watch Out For, 1985</cite>

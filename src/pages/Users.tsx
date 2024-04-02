@@ -17,6 +17,7 @@ import { Pagination } from 'flowbite-react';
 // Utils
 import { paginationCustomTheme } from '../utils';
 import ErrorBanner from '../components/ErrorBanner';
+import SkeletonInfoCard from '../components/SkeletonInfoCard';
 
 type User = {
     id: number,
@@ -29,7 +30,7 @@ const Users = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState("");
-    const [searchParams, ] = useSearchParams();
+    const [searchParams,] = useSearchParams();
     const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
     const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
@@ -73,17 +74,20 @@ const Users = () => {
         )
     }
 
-    if(isPending) {
+    if (isPending) {
         return (
             <div className="p-10">
                 <Heading variant="medium">Users:</Heading>
-                <div className="flex p-20 h-full items-center justify-center text-grey">
-                <Loading />Fetching data...</div>
+                <ul className="mt-8 rounded-lg shadow flex flex-col divide-y divide-gray-200">
+                    {Array.from({ length: 12 }).map((skeleton, index) =>
+                        <li key={index}><SkeletonInfoCard /></li>
+                    )}
+                </ul>
             </div>
         )
     }
 
-    if(!users.length) {
+    if (!users.length) {
         return (
             <div className="p-10">
                 <Heading variant="medium">Users:</Heading>

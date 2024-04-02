@@ -15,7 +15,6 @@ import { HiCog, HiLogout, HiFilm, HiTemplate } from 'react-icons/hi';
 import { Dropdown } from 'flowbite-react';
 import toast, { Toaster } from 'react-hot-toast';
 import SearchInput from '../components/SearchInput';
-import Footer from '../components/Footer';
 
 export default function ProtectedLayout() {
 	const { user, setUser, token } = useAuth();
@@ -74,7 +73,6 @@ export default function ProtectedLayout() {
 			}
 		} catch (err) {
 			toast('Error while signing out: ' + error);
-		} finally {
 			setIsLoading(false);
 		}
 	};
