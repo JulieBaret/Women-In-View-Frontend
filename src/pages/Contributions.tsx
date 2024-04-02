@@ -21,7 +21,7 @@ import { MovieList } from '../components/Movies';
 import SkeletonInfoCard from '../components/SkeletonInfoCard';
 import SearchInput from '../components/SearchInput';
 
-const UserReview = () => {
+const Contributions = () => {
     const { token } = useAuth();
     const params = useParams();
     const { userId } = params;
@@ -114,4 +114,4 @@ const UserReview = () => {
     );
 };
 
-export default UserReview;
+export default Contributions;

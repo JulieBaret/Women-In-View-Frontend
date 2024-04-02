@@ -2,7 +2,7 @@ import React from 'react';
 import MovieCard from './MovieCard';
 
 type Props = {
-    movieList: MovieList;
+    items: MovieList;
     doReload: (boolean) => void;
 }
 
@@ -20,10 +20,10 @@ export type Movie = {
     user_id?: number
 };
 
-const Movies = ({ movieList, doReload }: Props) => {
+const MovieGrid = ({ items, doReload }: Props) => {
     return (
         <ul className="gridCard">
-            {movieList.filter((movie) => movie.original_title && movie.poster_path && movie.backdrop_path && movie.release_date && movie.overview).map((movie, index) =>
+            {items.filter((movie) => movie.original_title && movie.poster_path && movie.backdrop_path && movie.release_date && movie.overview).map((movie, index) =>
                 <li key={index}>
                     <MovieCard movie={movie} doReload={doReload} />
                 </li>
@@ -32,4 +32,4 @@ const Movies = ({ movieList, doReload }: Props) => {
     );
 };
 
-export default Movies;
+export default MovieGrid;

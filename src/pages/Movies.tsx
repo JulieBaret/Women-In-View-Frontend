@@ -8,7 +8,6 @@ import { useAuth } from '../contexts/AuthContext';
 import Heading from '../components/Heading';
 import InfoCard from '../components/InfoCard';
 import ErrorBanner from '../components/ErrorBanner';
-import Loading from '../components/Loading';
 
 // External components
 import { Pagination } from 'flowbite-react';
@@ -17,10 +16,10 @@ import { Pagination } from 'flowbite-react';
 import { paginationCustomTheme } from '../utils';
 
 // Types
-import { MovieList } from '../components/Movies';
+import { MovieList } from '../components/MovieGrid';
 import SkeletonInfoCard from '../components/SkeletonInfoCard';
 
-const Reviews = () => {
+const Movies = () => {
     const { token } = useAuth();
     const [movieList, setMovieList] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
@@ -113,4 +112,4 @@ const Reviews = () => {
     );
 };
 
-export default Reviews;
+export default Movies;

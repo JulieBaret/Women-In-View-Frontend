@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import ErrorBanner from '../components/ErrorBanner';
 import Heading from '../components/Heading';
 import { useAuth } from '../contexts/AuthContext';
-import Movies from '../components/Movies';
+import MovieGrid from '../components/MovieGrid';
 import SkeletonMovieCard from '../components/SkeletonMovieCard';
 
 const Results = () => {
@@ -80,7 +80,7 @@ const Results = () => {
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Results for «{query}»:</Heading>
             <div className="flex flex-col items-center mt-8">
-                {!error && data.length && <Movies movieList={data} doReload={doReload}/>}
+                {!error && data.length && <MovieGrid items={data} doReload={doReload}/>}
             </div>
         </main>
     );

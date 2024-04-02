@@ -16,7 +16,7 @@ import { Pagination } from 'flowbite-react';
 import { paginationCustomTheme } from '../utils';
 
 // Types
-import Movies, { MovieList } from '../components/Movies';
+import MovieGrid, { MovieList } from '../components/MovieGrid';
 
 const TestedMovies = () => {
     const { token } = useAuth();
@@ -94,7 +94,7 @@ const TestedMovies = () => {
         <main className="flex justify-center flex-col">
             <Heading variant='large'>Tested movies:</Heading>
             <div className="flex flex-col items-center mt-8">
-                {!isPending && movieList.length && <Movies movieList={movieList} doReload={doReload} />}
+                {!isPending && movieList.length && <MovieGrid items={movieList} doReload={doReload} />}
             </div>
             <div className="flex overflow-x-auto sm:justify-center py-10">
                 <Pagination tabIndex={0} theme={paginationCustomTheme} currentPage={Number(page)} totalPages={totalPages} onPageChange={onPageChange} showIcons />
