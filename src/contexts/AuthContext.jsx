@@ -1,56 +1,64 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import fetchApi from '../utils/fetchApi';
 
-const AuthContent = createContext({
-	user: null,
-	setUser: () => {},
-	token: null,
-	setToken: () => {},
-	csrfToken: () => {},
-});
+const AuthContent = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [user, _setUser] = useState(
-		JSON.parse(localStorage.getItem('user')) || null
-	);
-
-	const [token, _setToken] = useState(
-		JSON.parse(localStorage.getItem('token')) || null
-	);
+	const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')) || null);
+	const [token, setToken] = useState(() => JSON.parse(localStorage.getItem('token')) || null);
 
 	// set user to local storage
-	const setUser = (user) => {
-		if (user) {
-			localStorage.setItem('user', JSON.stringify(user));
+	const memoizedSetUser = useCallback((newUser) => {
+		if (newUser) {
+			localStorage.setItem('user', JSON.stringify(newUser));
 		} else {
 			localStorage.removeItem('user');
 		}
-		_setUser(user);
-	};
+		setUser(newUser);
+	}, []);
 
 	// set token to local storage
-	const setToken = (token) => {
-		if (token) {
-			localStorage.setItem('token', JSON.stringify(token));
+	const memoizedSetToken = useCallback((newToken) => {
+		if (newToken) {
+			localStorage.setItem('token', JSON.stringify(newToken));
 		} else {
 			localStorage.removeItem('token');
 		}
-		_setToken(token);
-		};
+		setToken(newToken);
+	}, []);
 
-	// csrf token generation for guest methods
-	const csrfToken = async () => {
-		await fetchApi.get('http://localhost:80/sanctum/csrf-cookie');
-		return true;
-	};
+	// csrf token generation
+	const csrfToken = useCallback(async () => {
+		try {
+			await fetchApi.get('http://localhost:80/sanctum/csrf-cookie');
+			return true;
+		} catch (error) {
+			console.error('Error fetching CSRF token:', error);
+			return false;
+		}
+	}, []);
+
+	// Context values with useMemo to avoid unnecessary renders
+	const authValue = useMemo(() => ({
+		user,
+		token,
+		setUser: memoizedSetUser,
+		setToken: memoizedSetToken,
+		csrfToken
+	}), [user, token, memoizedSetUser, memoizedSetToken, csrfToken]);
 
 	return (
-		<AuthContent.Provider value={{ user, token, setToken, setUser, csrfToken }}>
+		<AuthContent.Provider value={authValue}>
 			{children}
 		</AuthContent.Provider>
 	);
 };
 
+// Custom hook to access authentication values
 export const useAuth = () => {
-	return useContext(AuthContent);
+	const context = useContext(AuthContent);
+	if (!context) {
+		throw new Error('useAuth must be used within an AuthProvider');
+	}
+	return context;
 };
