@@ -13,10 +13,12 @@ const SignupSchema = Yup.object().shape({
     name: Yup.string()
         .min(2, 'Min. 2 characters')
         .max(20, 'Max. 20 characters')
+        .matches(/^[a-zA-Z0-9]+$/, 'Letters or digits only')
         .required('Required'),
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string()
         .min(8, 'Min. 8 characters or digits')
+        .max(50, 'Max. 50 characters or digits')
         .matches(/[0-9]/, 'Requires a number')
         .matches(/[a-z]/, 'Requires a lowercase letter')
         .matches(/[A-Z]/, 'Requires an uppercase letter')
@@ -25,7 +27,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
-    const { setUser, setToken } = useAuth();
+    const { setUser, setToken, csrfToken } = useAuth();
     const [error, setError] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isPending, setIsPending] = useState(false);
@@ -48,6 +50,7 @@ const SignUp = () => {
                         validationSchema={SignupSchema}
                         onSubmit={async (values) => {
                             setIsPending(true);
+                            await csrfToken();
                             try {
                                 const resp = await fetchApi.post('/register', values);
                                 if (resp.status === 200) {
