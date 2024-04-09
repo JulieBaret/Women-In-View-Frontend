@@ -3,12 +3,11 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import toast, { Toaster } from 'react-hot-toast';
 import Button from './Button';
+import { useAuth } from '../contexts/AuthContext';
 
 type Props = {
     field: "email" | "name" | "password",
     id: number,
-    token: string,
-    setUser: (object) => void,
     user: object
 }
 
@@ -21,8 +20,9 @@ const formSchema = {
         .matches(/[^\w]/, 'Requires a special character').required('Required')
 }
 
-const EditForm = ({ field, id, token, setUser, user }: Props) => {
+const EditForm = ({ field, id, user }: Props) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const { token, setUser, csrfToken } = useAuth();
     const userInfo = {
         ...user,
         password: ''
@@ -56,6 +56,7 @@ const EditForm = ({ field, id, token, setUser, user }: Props) => {
                         ...values
                     })
                 };
+                await csrfToken();
                 fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
                     .then(response => response.json())
                     .then((data) => {

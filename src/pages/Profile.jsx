@@ -24,7 +24,7 @@ const customTheme = {
 export default function Profile() {
 	const params = useParams();
 	const { id } = params;
-	const { token, setUser, user } = useAuth();
+	const { token, setUser, user, csrfToken } = useAuth();
 	const [openModal, setOpenModal] = useState(false);
 
 
@@ -60,10 +60,10 @@ export default function Profile() {
 				<Heading variant="large">Profile</Heading>
 				<div className='flex flex-col gap-4'>
 					<Heading variant="medium">Edit Profile</Heading>
-					<EditForm field="name" id={id} token={token} setUser={setUser} user={user} />
-					<EditForm field="email" id={id} token={token} setUser={setUser} user={user} />
+					<EditForm field="name" id={id} user={user} />
+					<EditForm field="email" id={id} user={user} />
 					<Heading variant="medium">Change password</Heading>
-					<EditForm field="password" id={id} token={token} setUser={setUser} user={user} />
+					<EditForm field="password" id={id} user={user} />
 				</div>
 				<hr className="bg-gray-50 h-1 w-full my-4" />
 				<div className='flex flex-col gap-6'>
@@ -80,7 +80,7 @@ export default function Profile() {
 						</Modal.Body>
 						<Modal.Footer>
 							<Button type="button" value="Cancel" variant="secondary" onClick={() => setOpenModal(false)} />
-							<Button type="button" value="Delete" variant="primary" onClick={() => {
+							<Button type="button" value="Delete" variant="primary" onClick={async () => {
 								const options = {
 									method: 'DELETE',
 									headers: {
@@ -89,6 +89,7 @@ export default function Profile() {
 										Authorization: 'Bearer ' + token
 									}
 								};
+								await csrfToken();
 								fetch(import.meta.env.VITE_API_URL + "users/" + user.id, options)
 									.then(response => response.json())
 									.catch((err) => {

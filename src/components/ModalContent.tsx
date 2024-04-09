@@ -6,7 +6,7 @@ import SuccessLottie from '../lottie/success.json';
 import FailLottie from '../lottie/fail.json';
 
 // Type
-import { Movie } from './Movies';
+import { Movie } from './MovieGrid';
 
 // Component
 import Button from './Button';
@@ -173,7 +173,7 @@ const Validation = ({ movieTitle, moviePoster, rating }) => {
 const ModalContent = ({ movie, onClose, doReload }: Props) => {
     const [step, setStep] = useState(0);
     const [rating, setRating] = useState(null);
-    const { token, user } = useAuth();
+    const { token, user, csrfToken } = useAuth();
 
     if (!user || !token) {
         return null
@@ -198,6 +198,7 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
         if (step < 2) {
             setStep(step + 1)
         } else {
+            await csrfToken();
             try {
                 const body = hasBeenTested ? JSON.stringify({
                     "rating": rating
@@ -211,7 +212,7 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
                     "user_id": user['id'],
                     "rating": rating
                 });
-                const slug = hasBeenTested ? '/' + movie.id : ''
+                const slug = hasBeenTested ? '/' + movie.id : '';
                 const response = await fetch(import.meta.env.VITE_API_URL + 'movies' + slug, {
                     method: hasBeenTested ? 'PUT' : 'POST',
                     headers: {

@@ -30,7 +30,7 @@ type Props = {
 
 const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
     const [openModal, setOpenModal] = useState(false);
-    const { token } = useAuth();
+    const { token, csrfToken } = useAuth();
 
     const handleOpenModal = (event: React.KeyboardEvent<SVGElement>) => {
         if (event.key === 'Enter') {
@@ -60,8 +60,8 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button type="button" value="Cancel" variant="secondary" onClick={() => setOpenModal(false)} />
-                    <Button type="button" value="Delete" variant="primary" onClick={() => {
-                        setOpenModal(false)
+                    <Button type="button" value="Delete" variant="primary" onClick={async () => {
+                        setOpenModal(false);
                         const options = {
                             method: 'DELETE',
                             headers: {
@@ -70,11 +70,12 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                                 Authorization: 'Bearer ' + token
                             }
                         };
+                        await csrfToken();
                         fetch(import.meta.env.VITE_API_URL + `${itemsType}/${itemId}`, options)
                             .then(response => response.json())
                             .then(response => {
                                 if (response.success) {
-                                    toast(`Your ${itemsType === "users" ? "user" : "movie review"} has been correctly added`)
+                                    toast(`Your ${itemsType === "users" ? "user" : "movie review"} has been correctly deleted`)
                                 }
                             })
                             .catch((err) => {
