@@ -33,7 +33,7 @@ const Movies = () => {
     const onPageChange = (selectedPage: number) => {
         setIsPending(true);
         setPage(selectedPage);
-        navigate(`/admin/reviews?page=${encodeURIComponent(selectedPage)}`);
+        navigate(`/admin/movies?page=${encodeURIComponent(selectedPage)}`);
     }
 
     // Fetching user data from DB
