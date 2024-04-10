@@ -20,7 +20,12 @@ export default function ProtectedLayout() {
 	const { user, setUser, token } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	
+
+	// if user is not logged in, redirect to login page
+	if (!user | !token) {
+		window.location.href = '/';
+	}
+
 	// check if user is logged in or not from server
 	useEffect(() => {
 		const options = {
@@ -43,11 +48,6 @@ export default function ProtectedLayout() {
 				window.location.href = '/';
 			})
 	}, []);
-
-	// if user is not logged in, redirect to login page
-	if (!user) {
-		window.location.href = '/';
-	}
 
 	// logout user
 	const handleLogout = async () => {
@@ -92,7 +92,7 @@ export default function ProtectedLayout() {
 						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block font-fraunces pb-2'>women in view.</span>
 					</NavLink>
 					<div className="flex lg:gap-10">
-						<button 
+						<button
 							aria-label={isMenuOpen ? "closeMenu" : "openMenu"}
 							className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-300 rounded-lg lg:hidden hover:text-light order-last"
 							onClick={handleOpenMenu}>
