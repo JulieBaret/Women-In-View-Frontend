@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import Button from './Button';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -70,7 +70,6 @@ const EditForm = ({ field, id, user }: Props) => {
         >
             {({ errors, touched, isValid, resetForm, values, initialValues }) => (
                 <Form>
-                    <Toaster />
                     <label id={field} className='uppercase text-gray-700 text-xs font-bold mb-2'>Your {field === "password" && "new"} {field}</label>
                     <div className='flex gap-2 items-center justify-center'>
                         <Field aria-labelledby={field} type={fieldToType[field]} name={field} className="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:ring-primary focus:border-primary" />

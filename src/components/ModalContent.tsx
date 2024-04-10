@@ -17,7 +17,7 @@ import { Modal } from 'flowbite-react';
 import { useAuth } from '../contexts/AuthContext';
 
 // External components
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import PelliculeIcon from './icons/PelliculeIcon';
 import BrokenHeartIcon from './icons/BrokenHeartIcon';
 
@@ -244,7 +244,6 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
 
     return (
         <Modal.Body>
-            <Toaster />
             <div className="space-y-6 flex flex-col">
                 <div className="flex justify-between items-start h-16">
                     <Heading variant="large">{movie.original_title}</Heading>

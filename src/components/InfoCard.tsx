@@ -12,7 +12,7 @@ import Button from './Button';
 import { CustomFlowbiteTheme, Modal } from 'flowbite-react';
 
 // External components
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const customTheme: CustomFlowbiteTheme['modal'] = {
     "content": {
@@ -40,7 +40,6 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
 
     return (
         <div>
-            <Toaster />
             <li tabIndex={0} className="flex items-center h-36 py-4 rounded-lg hover:bg-gray-100 px-6 cursor-pointer">
                 <div className="flex-1">
                     {children}

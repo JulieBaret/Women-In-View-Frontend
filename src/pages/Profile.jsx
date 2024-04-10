@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext';
 // Components
 import Button from '../components/Button';
 import Heading from '../components/Heading';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 // Flowbite
 import { Modal } from 'flowbite-react';
@@ -55,7 +55,6 @@ export default function Profile() {
 
 	return (
 		<main className="flex justify-center flex-col items-center">
-			<Toaster />
 			<div className='flex flex-col gap-10 self-center w-full'>
 				<Heading variant="large">Profile</Heading>
 				<div className='flex flex-col gap-4'>
