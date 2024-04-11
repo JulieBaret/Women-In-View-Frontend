@@ -22,9 +22,10 @@ export default function ProtectedLayout() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	// if user is not logged in, redirect to login page
-	if (!user | !token) {
+	useEffect(() => {
+		if (!user || !token) {
 		window.location.href = '/';
-	}
+	}}, [user, token]);
 
 	// check if user is logged in or not from server
 	useEffect(() => {
@@ -81,6 +82,9 @@ export default function ProtectedLayout() {
 	const handleOpenMenu = () => {
 		setIsMenuOpen((prev) => !prev);
 	}
+
+	// do not render UI if unlogged
+	if (!user || !token) return null;
 
 	return (
 		<>
