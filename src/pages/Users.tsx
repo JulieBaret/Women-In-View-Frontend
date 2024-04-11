@@ -46,6 +46,7 @@ const Users = () => {
     useEffect(() => {
         const options = {
             method: 'GET',
+            withCredential: true,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',

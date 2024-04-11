@@ -32,6 +32,7 @@ export default function Profile() {
 	useEffect(() => {
 		const options = {
 			method: 'GET',
+			withCredential: true,
 			headers: {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
@@ -82,13 +83,13 @@ export default function Profile() {
 							<Button type="button" value="Delete" variant="primary" onClick={async () => {
 								const options = {
 									method: 'DELETE',
+									withCredential: true,
 									headers: {
 										'Content-Type': 'application/json',
 										Accept: 'application/json',
 										Authorization: 'Bearer ' + token
 									}
 								};
-								await csrfToken();
 								fetch(import.meta.env.VITE_API_URL + "users/" + user.id, options)
 									.then(response => response.json())
 									.catch((err) => {

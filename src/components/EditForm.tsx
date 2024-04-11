@@ -47,6 +47,7 @@ const EditForm = ({ field, id, user }: Props) => {
             onSubmit={async values => {
                 const options = {
                     method: 'PUT',
+                    withCredential: true,
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
@@ -56,7 +57,6 @@ const EditForm = ({ field, id, user }: Props) => {
                         ...values
                     })
                 };
-                await csrfToken();
                 fetch(import.meta.env.VITE_API_URL + 'users/' + id, options)
                     .then(response => response.json())
                     .then((data) => {

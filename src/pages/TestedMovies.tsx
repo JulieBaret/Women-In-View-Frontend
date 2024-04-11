@@ -39,6 +39,7 @@ const TestedMovies = () => {
         // Fetch options
         const options = {
             method: 'GET',
+            withCredential: true,
             headers: {
                 accept: 'application/json',
                 Authorization: 'Bearer ' + token

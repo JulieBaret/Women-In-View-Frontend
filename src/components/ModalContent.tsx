@@ -198,7 +198,6 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
         if (step < 2) {
             setStep(step + 1)
         } else {
-            await csrfToken();
             try {
                 const body = hasBeenTested ? JSON.stringify({
                     "rating": rating

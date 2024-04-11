@@ -19,13 +19,12 @@ const Results = () => {
         // Fetch options
         const options = {
             method: 'GET',
+            withCredential: true,
             headers: {
                 accept: 'application/json',
                 Authorization: 'Bearer ' + token
             }
         };
-
-        // Fetch from Tmdb
         fetch(import.meta.env.VITE_API_URL + 'search-movies/' + query, options)
             .then(response => response.json())
             .then((data) => {

@@ -63,13 +63,13 @@ const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
                         setOpenModal(false);
                         const options = {
                             method: 'DELETE',
+                            withCredential: true,
                             headers: {
                                 'Content-Type': 'application/json',
                                 Accept: 'application/json',
                                 Authorization: 'Bearer ' + token
                             }
                         };
-                        await csrfToken();
                         fetch(import.meta.env.VITE_API_URL + `${itemsType}/${itemId}`, options)
                             .then(response => response.json())
                             .then(response => {
