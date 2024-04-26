@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 	// csrf token generation
 	const csrfToken = useCallback(async () => {
 		try {
-			await fetchApi.get('http://localhost:80/sanctum/csrf-cookie');
+			await fetchApi.get(import.meta.env.VITE_API_ROOT + '/sanctum/csrf-cookie');
 			return true;
 		} catch (error) {
 			console.error('Error fetching CSRF token:', error);
