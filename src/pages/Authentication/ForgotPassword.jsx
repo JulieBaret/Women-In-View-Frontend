@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import fetchApi from '../utils/fetchApi';
-import Input from '../components/Input';
-import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import ErrorBanner from '../components/ErrorBanner';
-import SuccessBanner from '../components/SuccessBanner';
-import Heading from '../components/Heading';
+
+// Utils
+import fetchApi from '../../utils/fetchApi';
+
+// Components
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import ErrorBanner from '../../components/ErrorBanner';
+import SuccessBanner from '../../components/SuccessBanner';
+import Heading from '../../components/Heading';
 
 const ForgotPassword = () => {
 	const [error, setError] = useState("");
