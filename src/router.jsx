@@ -21,6 +21,8 @@ const Search = React.lazy(() => import('./pages/Search/index'));
 const TestedMovies = React.lazy(() => import('./pages/TestedMovie/index'));
 const Users = React.lazy(() => import('./pages/Admin/Users'));
 const Movies = React.lazy(() => import('./pages/Admin/Movies'));
+const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfUse = React.lazy(() => import('./pages/TermsOfUse'));
 
 const SuspenseFallback = () => <FullScreenLoading />;
 
@@ -45,6 +47,8 @@ const router = createBrowserRouter(
 				<Route path="/home" element={<React.Suspense fallback={<SuspenseFallback />}><Home /></React.Suspense>} />
 				<Route path="tested-movies" element={<React.Suspense fallback={<SuspenseFallback />}><TestedMovies /></React.Suspense>} />
 				<Route path="about" element={<React.Suspense fallback={<SuspenseFallback />}><About /></React.Suspense>} />
+				<Route path="legal" element={<React.Suspense fallback={<SuspenseFallback />}><PrivacyPolicy /></React.Suspense>} />
+				<Route path="terms" element={<React.Suspense fallback={<SuspenseFallback />}><TermsOfUse /></React.Suspense>} />
 				<Route path="user">
 					<Route path="profile">
 						<Route path=":id" element={<React.Suspense fallback={<SuspenseFallback />}><Profile /></React.Suspense>} />

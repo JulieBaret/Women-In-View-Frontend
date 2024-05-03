@@ -30,7 +30,7 @@ const Home = () => {
                             </div>
                         </figcaption>
                     </figure>
-                    <p>Originally conceived as a humorous observation on the portrayal of women in films, the test was then emphasized by Liz Wallace in an essay about women and cinema and has since evolved into a powerful tool for dissecting gender bias in media. Despite its straightforwardness, passing the test remains a significant challenge for many films and TV shows, revealing the persistent tendency to sideline female characters and prioritize male-centric narratives.</p>
+                    <p>Originally conceived as a humorous observation on the portrayal of women in films inspired by Alison Bechdel's friend Liz Wallace, the test has evolved into a powerful tool for dissecting gender bias in media. Despite its straightforwardness, passing the test remains a significant challenge for many films and TV shows, revealing the persistent tendency to sideline female characters and prioritize male-centric narratives.</p>
                     <div className='flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-0'>
                         <p className='text-left text-2xl md:text-4xl md:font-extrabold font-bold font-fraunces text-secondary'>50% of movies fail the Bechdel Test</p>
                         <img className="w-[50vw]" alt="extract of The Rule comic strip" src="comic.webp" />
@@ -48,7 +48,6 @@ const Home = () => {
                     </div>
                 </article>
             </main>
-            <Footer />
         </div>
     );
 };
