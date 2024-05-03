@@ -16,7 +16,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const About = React.lazy(() => import('./pages/About'));
 const Profile = React.lazy(() => import('./pages/Profile'));
 const ForgotPassword = React.lazy(() => import('./pages/ForgotPassword'));
-const Contributions = React.lazy(() => import('./pages/Contributions'));
+const UserContribution = React.lazy(() => import('./pages/UserContribution/index'));
 const Search = React.lazy(() => import('./pages/Search/index'));
 const TestedMovies = React.lazy(() => import('./pages/TestedMovies'));
 const Users = React.lazy(() => import('./pages/Users'));
@@ -77,7 +77,7 @@ const router = createBrowserRouter(
 					<Route path="contributions">
 						<Route path=":userId" element={
 					<React.Suspense fallback={<FullScreenLoading />}>
-						<Contributions />
+						<UserContribution />
 					</React.Suspense>
 				} />
 					</Route>
