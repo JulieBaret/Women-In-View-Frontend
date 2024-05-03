@@ -17,7 +17,7 @@ const About = React.lazy(() => import('./pages/About'));
 const Profile = React.lazy(() => import('./pages/Profile'));
 const ForgotPassword = React.lazy(() => import('./pages/ForgotPassword'));
 const Contributions = React.lazy(() => import('./pages/Contributions'));
-const Results = React.lazy(() => import('./pages/Results'));
+const Search = React.lazy(() => import('./pages/Search/index'));
 const TestedMovies = React.lazy(() => import('./pages/TestedMovies'));
 const Users = React.lazy(() => import('./pages/Users'));
 const Movies = React.lazy(() => import('./pages/Movies'));
@@ -85,7 +85,7 @@ const router = createBrowserRouter(
 				<Route path="search">
 					<Route path=":query" element={
 					<React.Suspense fallback={<FullScreenLoading />}>
-						<Results />
+						<Search />
 					</React.Suspense>
 				} />
 				</Route>

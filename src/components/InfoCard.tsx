@@ -30,7 +30,7 @@ type Props = {
 
 const InfoCard = ({ children, itemId, itemsType, doReload }: Props) => {
     const [openModal, setOpenModal] = useState(false);
-    const { token, csrfToken } = useAuth();
+    const { token } = useAuth();
 
     const handleOpenModal = (event: React.KeyboardEvent<SVGElement>) => {
         if (event.key === 'Enter') {
