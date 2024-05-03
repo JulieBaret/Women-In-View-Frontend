@@ -10,17 +10,17 @@ const GuestLayout = React.lazy(() => import('./layouts/GuestLayout'));
 const AdminLayout = React.lazy(() => import('./layouts/AdminLayout'));
 
 // Pages
-const SignIn = React.lazy(() => import('./pages/SignIn'));
-const SignUp = React.lazy(() => import('./pages/SignUp'));
+const SignIn = React.lazy(() => import('./pages/Authentication/SignIn'));
+const SignUp = React.lazy(() => import('./pages/Authentication/SignUp'));
 const Home = React.lazy(() => import('./pages/Home'));
 const About = React.lazy(() => import('./pages/About'));
 const Profile = React.lazy(() => import('./pages/Profile'));
-const ForgotPassword = React.lazy(() => import('./pages/ForgotPassword'));
+const ForgotPassword = React.lazy(() => import('./pages/Authentication/ForgotPassword'));
 const UserContribution = React.lazy(() => import('./pages/UserContribution/index'));
 const Search = React.lazy(() => import('./pages/Search/index'));
 const TestedMovies = React.lazy(() => import('./pages/TestedMovies'));
-const Users = React.lazy(() => import('./pages/Users'));
-const Movies = React.lazy(() => import('./pages/Movies'));
+const Users = React.lazy(() => import('./pages/Admin/Users'));
+const Movies = React.lazy(() => import('./pages/Admin/Movies'));
 
 const router = createBrowserRouter(
 	createRoutesFromElements(

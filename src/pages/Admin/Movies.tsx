@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // Hooks
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 // Components
-import Heading from '../components/Heading';
-import InfoCard from '../components/InfoCard';
-import ErrorBanner from '../components/ErrorBanner';
+import Heading from '../../components/Heading';
+import InfoCard from '../../components/InfoCard';
+import ErrorBanner from '../../components/ErrorBanner';
 
 // External components
 import { Pagination } from 'flowbite-react';
 
 // Utils
-import { paginationCustomTheme } from '../utils';
+import { paginationCustomTheme } from '../../utils';
 
 // Types
-import { MovieList } from '../components/MovieGrid';
-import SkeletonInfoCard from '../components/SkeletonInfoCard';
+import { MovieList } from '../../components/MovieGrid';
+import SkeletonInfoCard from '../../components/SkeletonInfoCard';
 
 const Movies = () => {
     const { token } = useAuth();

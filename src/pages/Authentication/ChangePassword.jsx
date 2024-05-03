@@ -1,10 +1,10 @@
 import React from 'react';
-import fetchApi from '../utils/fetchApi';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import fetchApi from '../../utils/fetchApi';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 import { Link } from 'react-router-dom';
-import ErrorBanner from '../components/ErrorBanner';
-import SuccessBanner from '../components/SuccessBanner';
+import ErrorBanner from '../../components/ErrorBanner';
+import SuccessBanner from '../../components/SuccessBanner';
 
 const ChangePassword = () => {
 	const [error, setError] = useState("");

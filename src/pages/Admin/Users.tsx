@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // Hooks
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 // Icons
-import Loading from '../components/Loading';
+import Loading from '../../components/Loading';
 
 // Components
-import Heading from '../components/Heading';
-import InfoCard from '../components/InfoCard';
+import Heading from '../../components/Heading';
+import InfoCard from '../../components/InfoCard';
 
 // External components
 import { Pagination } from 'flowbite-react';
 
 // Utils
-import { paginationCustomTheme } from '../utils';
-import ErrorBanner from '../components/ErrorBanner';
-import SkeletonInfoCard from '../components/SkeletonInfoCard';
+import { paginationCustomTheme } from '../../utils';
+import ErrorBanner from '../../components/ErrorBanner';
+import SkeletonInfoCard from '../../components/SkeletonInfoCard';
 
 type User = {
     id: number,
