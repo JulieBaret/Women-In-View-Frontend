@@ -18,7 +18,7 @@ const Profile = React.lazy(() => import('./pages/Profile'));
 const ForgotPassword = React.lazy(() => import('./pages/Authentication/ForgotPassword'));
 const UserContribution = React.lazy(() => import('./pages/UserContribution/index'));
 const Search = React.lazy(() => import('./pages/Search/index'));
-const TestedMovies = React.lazy(() => import('./pages/TestedMovies'));
+const TestedMovies = React.lazy(() => import('./pages/TestedMovie/index'));
 const Users = React.lazy(() => import('./pages/Admin/Users'));
 const Movies = React.lazy(() => import('./pages/Admin/Movies'));
 

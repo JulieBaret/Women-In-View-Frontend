@@ -2,28 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // Hooks
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 // Components
-import ErrorBanner from '../components/ErrorBanner';
-import Heading from '../components/Heading';
-import SkeletonMovieCard from '../components/SkeletonMovieCard';
+import ErrorBanner from '../../components/ErrorBanner';
+import Heading from '../../components/Heading';
+import SkeletonMovieCard from '../../components/SkeletonMovieCard';
 
 // External components
 import { Pagination } from 'flowbite-react';
 
 // Utils
-import { paginationCustomTheme } from '../utils';
+import { paginationCustomTheme } from '../../utils';
 
 // Types
-import MovieGrid, { MovieList } from '../components/MovieGrid';
+import MovieGrid, { MovieList } from '../../components/MovieGrid';
 
-const TestedMovies = () => {
+const TestedMovieResults = () => {
     const { token } = useAuth();
     const [movieList, setMovieList] = useState<MovieList>([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState("");
-    const [searchParams, ] = useSearchParams();
+    const [searchParams,] = useSearchParams();
     const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
     const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
@@ -69,39 +69,32 @@ const TestedMovies = () => {
 
     if (isPending) {
         return (
-            <main className="flex justify-center flex-col">
-                <Heading variant='large'>Tested movies:</Heading>
-                <div className="flex flex-col items-center mt-8">
-                    <ul className="gridCard">
-                        {Array.from({ length: 12 }).map((skeleton, index) =>
-                            <li key={index}><SkeletonMovieCard /></li>
-                        )}
-                    </ul>
-                </div>
-            </main>
+            <div className="flex flex-col items-center mt-8">
+                <ul className="gridCard">
+                    {Array.from({ length: 12 }).map((skeleton, index) =>
+                        <li key={index}><SkeletonMovieCard /></li>
+                    )}
+                </ul>
+            </div>
         )
     }
 
     if (!movieList.length) {
         return (
-            <main className="flex justify-center flex-col">
-                <Heading variant='large'>Tested movies:</Heading>
-                <Heading variant="medium">No movie has been tested yet.</Heading>
-            </main>
+            <Heading variant="medium">No movie has been tested yet.</Heading>
         )
     }
 
     return (
-        <main className="flex justify-center flex-col">
-            <Heading variant='large'>Tested movies:</Heading>
+        <>
             <div className="flex flex-col items-center mt-8">
                 {!isPending && movieList.length && <MovieGrid items={movieList} doReload={doReload} />}
             </div>
             <div className="flex overflow-x-auto sm:justify-center py-10">
                 <Pagination tabIndex={0} theme={paginationCustomTheme} currentPage={Number(page)} totalPages={totalPages} onPageChange={onPageChange} showIcons />
             </div>
-        </main>
+        </>
     );
 };
 
-export default TestedMovies;
+export default TestedMovieResults;
