@@ -157,8 +157,8 @@ const Validation = ({ movieTitle, moviePoster, rating }) => {
     }
 
     return (
-        <div className="flex gap-8 relative">
-            <img alt={movieTitle} src={`https://image.tmdb.org/t/p/original/${moviePoster}`} className="h-80 w-auto rounded-md" />
+        <div className="flex md:flex-row flex-col gap-8 relative">
+            <img alt={movieTitle} src={`https://image.tmdb.org/t/p/original/${moviePoster}`} className="h-80 w-fit rounded-md" />
             <div className="flex flex-col justify-center">
                 <p>According to your answers...</p>
                 <Heading variant="medium">this movie {hasPassed ? 'pass' : 'fail'} the Bechdel Test{hasPassed && '!'}</Heading>

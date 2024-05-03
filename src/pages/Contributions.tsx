@@ -102,9 +102,9 @@ const Contributions = () => {
                         <div className='flex gap-4 items-center'>
                             <img className='h-24 rounded' src={`https://image.tmdb.org/t/p/w92${review.poster_path}`} />
                             <div className='flex flex-col'>
-                                <h3 className="text-lg font-medium text-gray-800">{review.original_title}</h3>
-                                <p className="text-gray-600 text-base">According to your review, this movie</p>
-                                <div className={`flex items-center gap-2 font-bold ${review.rating === 3 ? "text-primary" : "text-secondary"}`}>{review.rating === 3 ? <div className='w-4'><PelliculeIcon /></div> : <div className='w-4'><BrokenHeartIcon /></div>}<p>{review.rating === 3 ? "pass" : "fail"} the Bechdel test</p></div>
+                                <h3 className="text-lg font-medium text-gray-800 leading-tight md:leading-normal">{review.original_title}</h3>
+                                <p className="text-gray-600 text-sm md:text-base">According to your review, this movie</p>
+                                <div className={`flex items-center gap-2 text-sm md:text-base font-bold ${review.rating === 3 ? "text-primary" : "text-secondary"}`}>{review.rating === 3 ? <div className='w-4'><PelliculeIcon /></div> : <div className='w-4'><BrokenHeartIcon /></div>}<p>{review.rating === 3 ? "pass" : "fail"} the Bechdel test</p></div>
                             </div>
                         </div>
                     </InfoCard>
