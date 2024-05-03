@@ -22,88 +22,43 @@ const TestedMovies = React.lazy(() => import('./pages/TestedMovie/index'));
 const Users = React.lazy(() => import('./pages/Admin/Users'));
 const Movies = React.lazy(() => import('./pages/Admin/Movies'));
 
+const SuspenseFallback = () => <FullScreenLoading />;
+
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route>
 			<Route path="/" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<GuestLayout />
-					</React.Suspense>
-				}>
-				<Route path="/" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<SignIn />
-					</React.Suspense>
-				} />
-				<Route path="register" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<SignUp />
-					</React.Suspense>
-				} />
-				<Route path="forgot-password" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<ForgotPassword />
-					</React.Suspense>
-				} />
+				<React.Suspense fallback={<SuspenseFallback />}>
+					<GuestLayout />
+				</React.Suspense>
+			}>
+				<Route path="/" element={<React.Suspense fallback={<SuspenseFallback />}><SignIn /></React.Suspense>} />
+				<Route path="register" element={<React.Suspense fallback={<SuspenseFallback />}><SignUp /></React.Suspense>} />
+				<Route path="forgot-password" element={<React.Suspense fallback={<SuspenseFallback />}><ForgotPassword /></React.Suspense>} />
 			</Route>
+
 			<Route path="/" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<ProtectedLayout />
-					</React.Suspense>
-				}>
-				<Route path="/home" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<Home />
-					</React.Suspense>
-				} />
-				<Route path="tested-movies" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<TestedMovies />
-					</React.Suspense>
-				} />
-				<Route path="about" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<About />
-					</React.Suspense>
-				} />
+				<React.Suspense fallback={<SuspenseFallback />}>
+					<ProtectedLayout />
+				</React.Suspense>
+			}>
+				<Route path="/home" element={<React.Suspense fallback={<SuspenseFallback />}><Home /></React.Suspense>} />
+				<Route path="tested-movies" element={<React.Suspense fallback={<SuspenseFallback />}><TestedMovies /></React.Suspense>} />
+				<Route path="about" element={<React.Suspense fallback={<SuspenseFallback />}><About /></React.Suspense>} />
 				<Route path="user">
 					<Route path="profile">
-						<Route path=":id" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<Profile />
-					</React.Suspense>
-				} />
+						<Route path=":id" element={<React.Suspense fallback={<SuspenseFallback />}><Profile /></React.Suspense>} />
 					</Route>
 					<Route path="contributions">
-						<Route path=":userId" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<UserContribution />
-					</React.Suspense>
-				} />
+						<Route path=":userId" element={<React.Suspense fallback={<SuspenseFallback />}><UserContribution /></React.Suspense>} />
 					</Route>
 				</Route>
 				<Route path="search">
-					<Route path=":query" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<Search />
-					</React.Suspense>
-				} />
+					<Route path=":query" element={<React.Suspense fallback={<SuspenseFallback />}><Search /></React.Suspense>} />
 				</Route>
-				<Route path="admin" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<AdminLayout />
-					</React.Suspense>
-				}>
-					<Route path="users" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<Users />
-					</React.Suspense>
-				} />
-					<Route path="movies" element={
-					<React.Suspense fallback={<FullScreenLoading />}>
-						<Movies />
-					</React.Suspense>
-				} />
+				<Route path="admin" element={<React.Suspense fallback={<SuspenseFallback />}><AdminLayout /></React.Suspense>}>
+					<Route path="users" element={<React.Suspense fallback={<SuspenseFallback />}><Users /></React.Suspense>} />
+					<Route path="movies" element={<React.Suspense fallback={<SuspenseFallback />}><Movies /></React.Suspense>} />
 				</Route>
 			</Route>
 		</Route>
