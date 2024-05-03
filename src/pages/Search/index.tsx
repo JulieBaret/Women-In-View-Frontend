@@ -9,11 +9,9 @@ const Search = () => {
     const params = useParams();
     const { query } = params;
     return (
-        <main className="flex justify-center flex-col">
+        <main className="flex flex-col justify-center gap-10">
             <Heading variant='large'>Results for «{query}»:</Heading>
-            <div className="flex flex-col items-center mt-8">
-                <SearchResults query={query} />
-            </div>
+            <SearchResults query={query} />
         </main>
     );
 };

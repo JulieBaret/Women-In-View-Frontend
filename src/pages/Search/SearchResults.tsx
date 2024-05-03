@@ -13,7 +13,7 @@ type Props = {
     query?: string
 }
 
-const SearchResults = ({query} : Props) => {
+const SearchResults = ({ query }: Props) => {
     const { token } = useAuth();
     const [data, setData] = useState([]);
     const [isPending, setIsPending] = useState(true);
@@ -21,8 +21,6 @@ const SearchResults = ({query} : Props) => {
     const [reload, doReload] = useState(false);
 
     useEffect(() => {
-        setIsPending(true);
-        
         // Fetch options
         const options = {
             method: 'GET',
@@ -50,11 +48,11 @@ const SearchResults = ({query} : Props) => {
     };
 
     if (isPending) {
-        return (<ul className="gridCard">
-        {Array.from({ length: 12 }).map((skeleton, index) =>
-            <li key={index}><SkeletonMovieCard /></li>
-        )}
-    </ul>)
+        return (<div className="flex flex-col items-center"><ul className="gridCard">
+            {Array.from({ length: 12 }).map((skeleton, index) =>
+                <li key={index}><SkeletonMovieCard /></li>
+            )}
+        </ul></div>)
     };
 
     if (!data.length) {
@@ -62,7 +60,7 @@ const SearchResults = ({query} : Props) => {
     }
 
     return (
-        <MovieGrid items={data} doReload={doReload}/>
+        <div className="flex flex-col items-center"><MovieGrid items={data} doReload={doReload} /></div>
     );
 };
 

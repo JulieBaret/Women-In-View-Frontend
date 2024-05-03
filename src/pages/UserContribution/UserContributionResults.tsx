@@ -36,8 +36,6 @@ const UserContributionResults = ({ userId }: Props) => {
 
     // Fetching user data from DB
     useEffect(() => {
-        setIsPending(true);
-
         const options = {
             method: 'GET',
             withCredential: true,
