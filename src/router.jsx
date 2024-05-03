@@ -23,6 +23,7 @@ const Users = React.lazy(() => import('./pages/Admin/Users'));
 const Movies = React.lazy(() => import('./pages/Admin/Movies'));
 const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfUse = React.lazy(() => import('./pages/TermsOfUse'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 const SuspenseFallback = () => <FullScreenLoading />;
 
@@ -65,6 +66,7 @@ const router = createBrowserRouter(
 					<Route path="movies" element={<React.Suspense fallback={<SuspenseFallback />}><Movies /></React.Suspense>} />
 				</Route>
 			</Route>
+			<Route path="*" element={<React.Suspense fallback={<SuspenseFallback />}><NotFound /></React.Suspense>}/>
 		</Route>
 	)
 );
