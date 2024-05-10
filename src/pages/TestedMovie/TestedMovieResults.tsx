@@ -69,13 +69,11 @@ const TestedMovieResults = () => {
 
     if (isPending) {
         return (
-            <div className="flex flex-col items-center">
-                <ul className="gridCard">
+                <ul className="gridCard mb-10">
                     {Array.from({ length: 12 }).map((skeleton, index) =>
                         <li key={index}><SkeletonMovieCard /></li>
                     )}
                 </ul>
-            </div>
         )
     }
 
@@ -87,10 +85,8 @@ const TestedMovieResults = () => {
 
     return (
         <>
-            <div className="flex flex-col items-center">
-                {!isPending && movieList.length && <MovieGrid items={movieList} doReload={doReload} />}
-            </div>
-            <div className="flex overflow-x-auto sm:justify-center py-10">
+            <MovieGrid items={movieList} doReload={doReload} />
+            <div className="flex overflow-x-auto justify-center mb-10 sm:mb-0 sm:py-10">
                 <Pagination tabIndex={0} theme={paginationCustomTheme} currentPage={Number(page)} totalPages={totalPages} onPageChange={onPageChange} showIcons />
             </div>
         </>

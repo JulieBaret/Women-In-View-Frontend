@@ -48,11 +48,11 @@ const SearchResults = ({ query }: Props) => {
     };
 
     if (isPending) {
-        return (<div className="flex flex-col items-center"><ul className="gridCard">
-            {Array.from({ length: 12 }).map((skeleton, index) =>
+        return (<ul className="gridCard mb-10">
+            {Array.from({ length: 6 }).map((skeleton, index) =>
                 <li key={index}><SkeletonMovieCard /></li>
             )}
-        </ul></div>)
+        </ul>)
     };
 
     if (!data.length) {
@@ -60,7 +60,7 @@ const SearchResults = ({ query }: Props) => {
     }
 
     return (
-        <div className="flex flex-col items-center"><MovieGrid items={data} doReload={doReload} /></div>
+        <MovieGrid items={data} doReload={doReload} />
     );
 };
 
