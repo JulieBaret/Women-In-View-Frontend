@@ -96,7 +96,7 @@ const Overview = ({ movie, hasBeenTested }) => {
                                 <BrokenHeartIcon />
                             </div>
                         }
-                        <p className="text-s text-lg">{movie.rating === 3 ? "Pass" : "Fail"} the Bechdel test</p>
+                        <p className="text-s text-lg">{movie.rating === 3 ? "Passes" : "Fails"} the Bechdel test</p>
                     </div>
                     <p className="text-sm text-grey font-thin">If you disagree, you can restart the Bechdel Test</p>
                 </div>}
@@ -161,7 +161,7 @@ const Validation = ({ movieTitle, moviePoster, rating }) => {
             <img alt={movieTitle} src={`https://image.tmdb.org/t/p/original/${moviePoster}`} className="h-80 w-fit rounded-md" />
             <div className="flex flex-col justify-center">
                 <p>According to your answers...</p>
-                <Heading variant="medium">this movie {hasPassed ? 'pass' : 'fail'} the Bechdel Test{hasPassed && '!'}</Heading>
+                <Heading variant="medium">this movie {hasPassed ? 'passes' : 'fails'} the Bechdel Test{hasPassed && '!'}</Heading>
             </div>
             <div className="absolute top-64 left-40">
                 <Lottie options={defaultOptions} height={100} width={100} />
@@ -244,7 +244,7 @@ const ModalContent = ({ movie, onClose, doReload }: Props) => {
     return (
         <Modal.Body>
             <div className="space-y-6 flex flex-col">
-                <div className="flex justify-between items-start h-16">
+                <div className="flex justify-between items-start">
                     <Heading variant="large">{movie.original_title}</Heading>
                     <button onClick={onClose}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-10 h-10">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
