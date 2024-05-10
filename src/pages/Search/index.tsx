@@ -9,7 +9,7 @@ const Search = () => {
     const params = useParams();
     const { query } = params;
     return (
-        <main className="flex flex-col justify-center gap-10">
+        <main className="flex flex-col justify-start gap-10">
             <Heading variant='large'>Results for «{query}»:</Heading>
             <SearchResults query={query} />
         </main>
