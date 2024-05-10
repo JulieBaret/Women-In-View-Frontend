@@ -69,7 +69,7 @@ const TestedMovieResults = () => {
 
     if (isPending) {
         return (
-            <div className="flex flex-col items-center mt-8">
+            <div className="flex flex-col items-center">
                 <ul className="gridCard">
                     {Array.from({ length: 12 }).map((skeleton, index) =>
                         <li key={index}><SkeletonMovieCard /></li>
@@ -87,7 +87,7 @@ const TestedMovieResults = () => {
 
     return (
         <>
-            <div className="flex flex-col items-center mt-8">
+            <div className="flex flex-col items-center">
                 {!isPending && movieList.length && <MovieGrid items={movieList} doReload={doReload} />}
             </div>
             <div className="flex overflow-x-auto sm:justify-center py-10">
