@@ -19,6 +19,7 @@
     "react-hot-toast": "^2.4.1",
     "react-lottie": "^1.2.4",
     "react-router-dom": "^6.17.0",
+    "react-router-hash-link": "^2.4.3",
     "yup": "^1.4.0"
   },
   "devDependencies": {
