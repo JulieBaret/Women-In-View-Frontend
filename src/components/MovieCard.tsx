@@ -10,6 +10,7 @@ import type { CustomFlowbiteTheme } from 'flowbite-react';
 
 // Type
 import { Movie } from './MovieGrid';
+import LazyImage from './LazyImage';
 
 const customTheme: CustomFlowbiteTheme['modal'] = {
     "content": {
@@ -38,9 +39,7 @@ const MovieCard = ({ movie, doReload }: Props) => {
                 <div
                     className="relative overflow-hidden bg-cover bg-no-repeat">
                     <RatingBadge rating={Number(movie.rating || -1)} />
-                    <img
-                        loading="lazy"
-                        className="rounded-t-lg object-cover"
+                    <LazyImage placeholderSrc="/placeholder.webp"
                         src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
                         alt={movie.original_title} />
                     <div
@@ -48,9 +47,9 @@ const MovieCard = ({ movie, doReload }: Props) => {
                         <span className='text-light self-end p-4 bg-black bg-opacity-70'>{truncate(movie.overview, 160)}</span>
                     </div>
                 </div>
-                <div className="px-4 py-4 flex flex-col gap-2 h-28 justify-between">
-                    <span className="font-bold text-l">{truncate(movie.original_title, 28)}</span>
-                    <span className="self-end bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{String(movie.release_date).split("-")[0]}</span>
+                <div className="px-4 py-4 flex flex-col gap-2 justify-between">
+                    <span className="font-bold sm:text-lg h-12">{truncate(movie.original_title, 28)}</span>
+                    <span className="self-end bg-gray-200 rounded-full px-3 py-1 text-xs sm:text-sm font-semibold text-gray-700">{String(movie.release_date).split("-")[0]}</span>
                 </div>
             </div>
 
