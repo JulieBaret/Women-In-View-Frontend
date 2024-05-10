@@ -1,5 +1,7 @@
 import React from 'react';
-import Footer from '../components/Footer';
+
+// Components
+import Banner from '../components/Banner';
 import Heading from '../components/Heading';
 import Hero from '../components/Hero';
 
@@ -9,7 +11,7 @@ const Home = () => {
     return (
         <div className='flex flex-col items-center'>
             <Hero />
-            <div className='bg-secondary sticky opacity-50 h-16 flex items-center pb-1 w-full'><p className='text-3xl text-light font-black font-fraunces overflow-hidden whitespace-nowrap'>men in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view. women in view.</p></div>
+            <Banner />
             <main id="bechdelTest" className='flex flex-col gap-4'>
                 <article className='flex flex-col self-center gap-10 text-lg text-justify lg:w-5/6'>
                     <Heading variant="large">What is the Bechdel Test?</Heading>
