@@ -14,26 +14,26 @@ const RatingBadge = ({ rating }: Props) => {
     return (
         <div className={style}>
             {rating === 3 &&
-            <>
-                <span>Pass the Bechdel Test</span>
-                <div className="w-5">
-                <PelliculeIcon />
-                </div>    
-            </>}
+                <>
+                    <span>Pass</span><span className="hidden sm:block"> the Bechdel Test</span>
+                    <div className="w-4 sm:w-5">
+                        <PelliculeIcon />
+                    </div>
+                </>}
             {(rating === 0 || rating === 1 || rating === 2) &&
-            <>
-                <span>Fail the Bechdel Test</span>
-                <div className="w-5">
-                <BrokenHeartIcon />
-                </div>    
-            </>}
+                <>
+                    <span>Fail</span><span className="hidden sm:block"> the Bechdel Test</span>
+                    <div className="w-4 sm:w-5">
+                        <BrokenHeartIcon />
+                    </div>
+                </>}
             {rating === -1 &&
-            <>
-                <span>Ready to be tested</span>
-                <div className="w-5">
-                <EditIcon />
-                </div>    
-            </>
+                <>
+                    <span>Let's test it</span>
+                    <div className="w-5">
+                        <EditIcon />
+                    </div>
+                </>
             }
         </div>
     );
