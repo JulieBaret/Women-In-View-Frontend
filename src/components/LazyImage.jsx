@@ -37,7 +37,7 @@ const LazyImage = ({
       )}
       <img
         src={view}
-        className={isLoading && "hidden"}
+        className={isLoading ? "hidden" : undefined}
         alt={alt}
         onLoad={() => setIsLoading(false)}
       />
