@@ -11,7 +11,7 @@ const Hero = () => {
                 <h2 className='text-lg lg:text-xl 2xl:text-2xl font-medium leading-tight'>Find out which films pass or fail
                     the <a className="underline decoration-dotted underline-offset-4 decoration-primary" href="#bechdelTest">Bechdel Test</a> and test movies
                     yourself!</h2>
-                <div className='block w-fit bg-primary rounded-full'>
+                <div className='block w-full sm:w-fit bg-primary rounded-full'>
                     <SearchInput />
                 </div>
             </div>
