@@ -3,7 +3,7 @@ import SearchInput from './SearchInput';
 
 const Hero = () => {
     return (
-        <div className="flex flex-col md:flex-row md:h-[calc(100dvh-68px)] md:justify-evenly items-evenly md:items-center mt-10 md:mt-0">
+        <div className="flex flex-col sm:text-left text-center md:flex-row md:h-[calc(100dvh-68px)] md:justify-evenly items-evenly md:items-center mt-10 md:mt-0">
             <div className='flex flex-col gap-6 w-[90vw] md:w-1/3'>
                 <h1 className='text-4xl lg:text-5xl 2xl:text-6xl font-black font-fraunces'>The collaborative initiative
                     that puts female characters
@@ -11,7 +11,7 @@ const Hero = () => {
                 <h2 className='text-lg lg:text-xl 2xl:text-2xl font-medium leading-tight'>Find out which films pass or fail
                     the <a className="underline decoration-dotted underline-offset-4 decoration-primary" href="#bechdelTest">Bechdel Test</a> and test movies
                     yourself!</h2>
-                <div className='block w-full sm:w-fit bg-primary rounded-full'>
+                <div className='block sm:self-start self-center w-5/6 sm:w-fit bg-primary rounded-full'>
                     <SearchInput />
                 </div>
             </div>
