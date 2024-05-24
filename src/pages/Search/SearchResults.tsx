@@ -21,6 +21,7 @@ const SearchResults = ({ query }: Props) => {
     const [reload, doReload] = useState(false);
 
     useEffect(() => {
+        setIsPending(true);
         // Fetch options
         const options = {
             method: 'GET',
