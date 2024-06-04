@@ -24,7 +24,7 @@ const customTheme = {
 export default function Profile() {
 	const params = useParams();
 	const { id } = params;
-	const { token, setUser, user, csrfToken } = useAuth();
+	const { token, setUser, user } = useAuth();
 	const [openModal, setOpenModal] = useState(false);
 
 
@@ -99,7 +99,7 @@ export default function Profile() {
 										toast("User deleted with success!")
 										localStorage.removeItem('user');
 										localStorage.removeItem('token');
-										window.location.href = '/';
+										window.location.href = '/auth';
 									})
 							}} />
 						</Modal.Footer>

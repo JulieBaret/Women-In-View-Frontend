@@ -30,12 +30,12 @@ const SuspenseFallback = () => <FullScreenLoading />;
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route>
-			<Route path="/" element={
+			<Route path="/auth" element={
 				<React.Suspense fallback={<SuspenseFallback />}>
 					<GuestLayout />
 				</React.Suspense>
 			}>
-				<Route path="/" element={<React.Suspense fallback={<SuspenseFallback />}><SignIn /></React.Suspense>} />
+				<Route path="login" element={<React.Suspense fallback={<SuspenseFallback />}><SignIn /></React.Suspense>} />
 				<Route path="register" element={<React.Suspense fallback={<SuspenseFallback />}><SignUp /></React.Suspense>} />
 				<Route path="forgot-password" element={<React.Suspense fallback={<SuspenseFallback />}><ForgotPassword /></React.Suspense>} />
 			</Route>
@@ -45,7 +45,7 @@ const router = createBrowserRouter(
 					<ProtectedLayout />
 				</React.Suspense>
 			}>
-				<Route path="/home" element={<React.Suspense fallback={<SuspenseFallback />}><Home /></React.Suspense>} />
+				<Route path="/" element={<React.Suspense fallback={<SuspenseFallback />}><Home /></React.Suspense>} />
 				<Route path="tested-movies" element={<React.Suspense fallback={<SuspenseFallback />}><TestedMovies /></React.Suspense>} />
 				<Route path="about" element={<React.Suspense fallback={<SuspenseFallback />}><About /></React.Suspense>} />
 				<Route path="legal" element={<React.Suspense fallback={<SuspenseFallback />}><PrivacyPolicy /></React.Suspense>} />

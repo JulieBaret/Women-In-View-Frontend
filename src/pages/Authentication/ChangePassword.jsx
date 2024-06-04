@@ -45,7 +45,7 @@ const ChangePassword = () => {
 							<p className="text-sm font-light text-gray-500">
 								Just remember it?{' '}
 								<Link
-									to="/"
+									to="/auth/login"
 									className="font-medium text-primary hover:underline">
 									← Go back to sign in
 								</Link>

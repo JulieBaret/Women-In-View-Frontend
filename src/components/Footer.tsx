@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -8,7 +8,7 @@ const Footer = () => {
         <footer className="bg-secondary w-full shadow px-6 md:px-20 flex flex-col items-center">
             <div className="w-full lg:w-5/6 py-12">
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <NavLink to="/home" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                    <NavLink to="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                         <img src="/clap_logo.webp" className="h-8" alt="Women in view logo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap font-fraunces text-light">Women in view</span>
                     </NavLink>

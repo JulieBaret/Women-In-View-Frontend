@@ -1,6 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 // Components
@@ -25,32 +25,38 @@ export default function ProtectedLayout() {
 	// if user is not logged in, redirect to login page
 	useEffect(() => {
 		if (!user || !token) {
-		window.location.href = '/';
-	}}, [user, token]);
+			window.location.href = '/auth/login';
+		}
+	}, [user, token]);
 
 	// check if user is logged in or not from server
 	useEffect(() => {
-		const options = {
-			method: 'GET',
-			withCredential: true,
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: 'Bearer ' + token
-			}
-		};
-		fetch(import.meta.env.VITE_API_URL + 'users/' + user.id, options)
-			.then(response => response.json())
-			.then((data) => {
-				setUser(data.data);
-			})
-			.catch((error) => {
-				console.error(error);
-				localStorage.removeItem('user');
-				localStorage.removeItem('token');
-				window.location.href = '/';
-			})
+		if (user && token) {
+			const options = {
+				method: 'GET',
+				withCredential: true,
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+					Authorization: 'Bearer ' + token
+				}
+			};
+			fetch(import.meta.env.VITE_API_URL + 'users/' + user.id, options)
+				.then(response => response.json())
+				.then((data) => {
+					setUser(data.data);
+				})
+				.catch((error) => {
+					console.error(error);
+					localStorage.removeItem('user');
+					localStorage.removeItem('token');
+					window.location.href = '/auth/login';
+				})
+		}
 	}, []);
+
+	// do not render UI if unlogged
+	if (!user || !token) return null;
 
 	// logout user
 	const handleLogout = async () => {
@@ -72,7 +78,7 @@ export default function ProtectedLayout() {
 			if (response.status === 200) {
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
-				window.location.href = '/';
+				window.location.href = '/auth/login';
 			}
 		} catch (err) {
 			toast('Error while signing out: ' + error);
@@ -84,16 +90,13 @@ export default function ProtectedLayout() {
 		setIsMenuOpen((prev) => !prev);
 	}
 
-	// do not render UI if unlogged
-	if (!user || !token) return null;
-
 	return (
 		<>
 			{isLoading && <FullScreenLoading label="We hope to see you soon!" />}
 			<nav className="bg-gradient-to-r from-primary to-secondary py-2.5 px-4 z-20 sticky top-0 w-full shadow-sm font-semibold min-w-[370px]">
 				<Toaster />
 				<div className="flex flex-wrap items-center justify-between">
-					<NavLink className='flex gap-2' to="/home">
+					<NavLink className='flex gap-2' to="/">
 						<img src="/clap_logo.webp" className="h-12 pb-1" alt="Women in view logo" />
 						<span className='self-center text-3xl font-bold text-light whitespace-nowrap hidden sm:block font-fraunces pb-2'>women in view.</span>
 					</NavLink>
@@ -112,7 +115,7 @@ export default function ProtectedLayout() {
 						<div className="hidden w-full lg:block lg:w-auto">
 							<ul className="flex flex-col lg:flex-row text-center text-gray-300 lg:mb-0 mb-4">
 								<li>
-									<ActiveNavLink label="home" location="/home" />
+									<ActiveNavLink label="home" location="/" />
 								</li>
 								<li>
 									<ActiveNavLink label="tested movies" location="/tested-movies" />
@@ -151,7 +154,7 @@ export default function ProtectedLayout() {
 				{isMenuOpen && <div className="h-auto lg:hidden flex flex-col text-center text-gray-300 mt-2">
 					<ul onClick={handleOpenMenu}>
 						<li>
-							<ActiveNavLink label="home" location="/home" />
+							<ActiveNavLink label="home" location="/" />
 						</li>
 
 						<li>

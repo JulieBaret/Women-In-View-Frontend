@@ -173,7 +173,7 @@ const Validation = ({ movieTitle, moviePoster, rating }) => {
 const ModalContent = ({ movie, onClose, doReload }: Props) => {
     const [step, setStep] = useState(0);
     const [rating, setRating] = useState(null);
-    const { token, user, csrfToken } = useAuth();
+    const { token, user } = useAuth();
 
     if (!user || !token) {
         return null
