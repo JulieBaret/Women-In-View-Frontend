@@ -22,7 +22,7 @@ const formSchema = {
 
 const EditForm = ({ field, id, user }: Props) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const { token, setUser, csrfToken } = useAuth();
+    const { token, setUser } = useAuth();
     const userInfo = {
         ...user,
         password: ''

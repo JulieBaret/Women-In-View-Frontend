@@ -27,7 +27,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
-    const { setUser, setToken, csrfToken } = useAuth();
+    const { setUser, setToken } = useAuth();
     const [error, setError] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isPending, setIsPending] = useState(false);
@@ -51,7 +51,6 @@ const SignUp = () => {
                             validationSchema={SignupSchema}
                             onSubmit={async (values) => {
                                 setIsPending(true);
-                                await csrfToken();
                                 try {
                                     const resp = await fetchApi.post('/register', values);
                                     if (resp.status === 200) {

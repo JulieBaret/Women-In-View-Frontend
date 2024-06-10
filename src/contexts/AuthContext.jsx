@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
-import fetchApi from '../utils/fetchApi';
 
 const AuthContent = createContext();
 
@@ -27,25 +26,13 @@ export const AuthProvider = ({ children }) => {
 		_setToken(newToken);
 	}, []);
 
-	// csrf token generation
-	const csrfToken = useCallback(async () => {
-		try {
-			await fetchApi.get(import.meta.env.VITE_API_ROOT + 'sanctum/csrf-cookie');
-			return true;
-		} catch (error) {
-			console.error('Error fetching CSRF token:', error);
-			return false;
-		}
-	}, []);
-
 	// Context values with useMemo to avoid unnecessary renders
 	const authValue = useMemo(() => ({
 		user,
 		token,
 		setUser,
 		setToken,
-		csrfToken
-	}), [user, token, setUser, setToken, csrfToken]);
+	}), [user, token, setUser, setToken]);
 
 	return (
 		// Uses AuthContent context to provide authentication values to all children
