@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -19,7 +20,9 @@ const SearchInput = () => {
                     toast('Max. 20 characters')
                     return;
                 }
-                navigate(`/search/${values.query.trim().toLowerCase()}`);
+                const escapedValue = values.query.trim().toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
+                navigate(`/search/${escapedValue}`);
+                values.query = '';
             }}
         >
             {({ errors }) => (
