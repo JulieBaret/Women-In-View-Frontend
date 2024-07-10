@@ -4,6 +4,12 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+export const SPECIAL_CHARS_REGEXP = /[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
+
+const encodeInput = (str) => {
+    return encodeURIComponent(str.trim().toLowerCase().replace(SPECIAL_CHARS_REGEXP, ''));
+};
+
 const SearchInput = () => {
     const navigate = useNavigate();
     return (
@@ -16,12 +22,12 @@ const SearchInput = () => {
                     toast('Min. 3 characters')
                     return;
                 }
-                if (values.query.length > 20) {
-                    toast('Max. 20 characters')
+                if (values.query.length > 30) {
+                    toast('Max. 30 characters')
                     return;
                 }
-                const escapedValue = values.query.trim().toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '');
-                navigate(`/search/${escapedValue}`);
+                const encodedQuery = encodeInput(values.query);
+                navigate(`/search/${encodedQuery}`);
                 values.query = '';
             }}
         >
