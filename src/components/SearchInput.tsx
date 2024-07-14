@@ -1,8 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { sanitizeInput } from '../utils/sanitize';
 
 export const SPECIAL_CHARS_REGEXP = /[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi;
 
@@ -26,8 +26,8 @@ const SearchInput = () => {
                     toast('Max. 30 characters')
                     return;
                 }
-                const encodedQuery = encodeInput(values.query);
-                navigate(`/search/${encodedQuery}`);
+                const query = encodeInput(sanitizeInput(values.query));
+                navigate(`/search/${query}`);
                 values.query = '';
             }}
         >

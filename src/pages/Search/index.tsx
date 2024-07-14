@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 
 // Components
 import Heading from '../../components/Heading';
+import { sanitizeInput } from '../../utils/sanitize';
 import SearchResults from './SearchResults';
 
 const Search = () => {
     const params = useParams();
     const { query } = params;
-    const decodedQuery = decodeURI(query || '');
+    const decodedQuery = decodeURI(sanitizeInput(query) || '');
     return (
         <main className="flex flex-col justify-start gap-10">
             <Heading variant='large'>Results for «{decodedQuery}»:</Heading>
